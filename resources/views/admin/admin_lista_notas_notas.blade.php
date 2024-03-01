@@ -13,14 +13,14 @@
                         {{ session('success') }}
                     </div>
                 @endif
-            <h4 class="card-title">Categorias</h4>
-            <p class="text-muted mb-3">Lista contendo as categorias usadas para separação de documentos.</p>
+            <h4 class="card-title">notas</h4>
+            <p class="text-muted mb-3">Lista contendo as notas usadas para separação de documentos.</p>
 
             <div class="row">
                 <div class="col-4">
                     
 
-                    <form method="POST" action="{{ route('admin.categorias.store') }}" class="forms-sample" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.notas.store') }}" class="forms-sample" enctype="multipart/form-data">
                         @csrf
                         {{-- Linha com coluna 1 --}}
                         <div class="row">
@@ -28,11 +28,11 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3">
-                                            <label for="nome_categoria" class="form-label">Nome da Categoria:</label>
+                                            <label for="nome_nota" class="form-label">Nome da nota:</label>
     
-                                            <input class="form-control @error('nome_categoria') is-invalid @enderror" name="nome_categoria" id="nome_categoria" value="{{ old('nome_categoria') }}">
+                                            <input class="form-control @error('nome_nota') is-invalid @enderror" name="nome_nota" id="nome_nota" value="{{ old('nome_nota') }}">
     
-                                            @error('nome_categoria')
+                                            @error('nome_nota')
                                                 <span class="text-danger pt-2">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="row">
                             <div class="col py-3">
-                                <p>Adicione ou edite suas categorias, para que você possa organizar seus arquivos e documentos.</p>
+                                <p>Adicione ou edite suas notas, para que você possa organizar seus arquivos e documentos.</p>
                             </div>
                         </div>
                         
@@ -68,24 +68,24 @@
                           <thead>
                               <tr>
                                   <th class="text-center">ID</th>
-                                  <th>Categoria</th>
+                                  <th>notas</th>
                                   <th class="text-center"> Ação </th>
                               </tr>
                           </thead>
                           <tbody>
-                              @foreach ($categorias as $categoria)
+                              @foreach ($notas as $nota)
                               <tr>
-                                  <td class="text-center align-middle">{{ $categoria->id }}</td>
-                                  <td class="align-middle">{{ $categoria->nome_categoria }}</td>
+                                  <td class="text-center align-middle">{{ $nota->id }}</td>
+                                  <td class="align-middle">{{ $nota->nome_nota }}</td>
                                   <td class="text-center align-middle">
                                       <button type="button" class="btn btn-primary btn-icon mx-2">
-                                          <a href="{{ route('admin.categorias.edit', ['categoria' => $categoria->id]) }}">
+                                          <a href="{{ route('admin.notas.edit', ['nota' => $nota->id]) }}">
                                               <i data-feather="edit" style="color: #ffffff;"></i>
                                           </a>
                                       </button>
                       
                                       <button type="button" class="btn btn-danger btn-icon" data-toggle="modal"
-                                          data-target="#confirmDelete{{ $categoria->id }}" @if ($categoria->id == 1) disabled @endif>
+                                          data-target="#confirmDelete{{ $nota->id }}" @if ($nota->id == 1) disabled @endif>
                                           <i data-feather="trash-2"></i>
                                       </button>
                                   </td>
@@ -107,8 +107,8 @@
 </div>
 
 <!-- Modal de Confirmação de Exclusão -->
-@foreach ($categorias as $categoria)
-<div class="modal fade" id="confirmDelete{{ $categoria->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($notas as $nota)
+<div class="modal fade" id="confirmDelete{{ $nota->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -118,11 +118,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Tem certeza que deseja excluir esta categoria? {{ $categoria->nome_categoria }} <br><br> ATENÇÃO! Se a categoria estiver vinculada com algum arquivo, esse arquivo assumira a categoria padrão do sistema.
+                Tem certeza que deseja excluir esta nota? {{ $nota->nome_nota }} <br><br> ATENÇÃO! Se a nota estiver vinculada com algum arquivo, esse arquivo assumira a nota padrão do sistema.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <form method="POST" action="{{ route('admin.categorias.destroy', $categoria) }}">
+                <form method="POST" action="{{ route('admin.notas.destroy', $nota) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Excluir</button>

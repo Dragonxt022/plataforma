@@ -2,14 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\AdminControlller;
-use App\Http\Controllers\AgentControlller;
-
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\TreinamentoController;
-
 use App\Http\Controllers\CategoriaNotaController;
+use App\Http\Controllers\NotasController;
 
 
 Route::get('/', function () {
@@ -36,26 +33,18 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     // Autentificação
     Route::get('/admin/dashboard', [AdminControlller::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/sair', [AdminControlller::class, 'AdminLogout'])->name('admin.logout');
-    // Editar ou atualziar Perfil
     Route::get('/admin/perfil', [AdminControlller::class, 'AdminProfile'])->name('admin.profile');
     Route::post('/admin/perfil/store', [AdminControlller::class, 'AdminProfileStore'])->name('admin.profile.store');
-    // Formulario de atualização de senha
     Route::get('/admin/mudar/senha', [AdminControlller::class, 'AdminChangePassword'])->name('admin.change.password');
-    // Tora a senha de usuario Da sessão
     Route::post('/admin/atualizar/senha', [AdminControlller::class, 'AdminUpdatePassword'])->name('admin.update.password');
 
 
     // Mosta Lista de Usuarios
     Route::get('/admin/lista/usuarios', [AdminControlller::class, 'ListaDeUsuarios'])->name('admin.lista.profile');
-    // Editar usuarios
     Route::get('/admin/usurio/editar/{usuarios}', [AdminControlller::class, 'edit'])->name('admin.editar.perfil');
-    // Formulario de cadastro de usuarios
     Route::get('/admin/usuarios/cadastrar', [AdminControlller::class, 'cadastrar'])->name('admin.usuarios.cadastrar');
-    // Salva o novo usuario
     Route::post('/admin/usuarios/cadastrar', [AdminControlller::class, 'salvar'])->name('admin.usuarios.salvar');
-    // Atualzia Peril de usuarios
     Route::post('admin/atualizar/perfil/{id}', [AdminControlller::class, 'atualizaPerfil'])->name('admin.atualizar.perfil');
-    // Deleta usuarios
     Route::delete('/admin/usuarios/{id}', [AdminControlller::class, 'destroy'])->name('admin.usuarios.destroy');
 
 
@@ -72,30 +61,35 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     // // Rotas para Treinamentos
     Route::get('/admin/treinamentos', [TreinamentoController::class, 'index'])->name('admin.treinamentos.index');
-    // Cadastra novos cursos
     Route::get('/admin/treinamentos/cadastrar', [TreinamentoController::class, 'create'])->name('admin.treinamentos.create');
-    // Lista todos os curos
     Route::post('/admin/treinamentos/store', [TreinamentoController::class, 'store'])->name('admin.treinamentos.store');
-    // Formulario de edição de cursos 
     Route::get('/admin/treinamentos/{treinamento}/editar', [TreinamentoController::class, 'edit'])->name('admin.treinamentos.edit');
-    //  Rota que atualiza os cursos ja cadastrados
     Route::put('/admin/treinamentos/{treinamento}', [TreinamentoController::class, 'update'])->name('admin.treinamentos.update');
-    // Apaga cursos cadastrados a té as imagens 
     Route::delete('/admin/treinamentos/{treinamento}', [TreinamentoController::class, 'destroy'])->name('admin.treinamentos.destroy');
 
 
 
     // Rotas para Lista de Categoria
     Route::get('/admin/categorias', [CategoriaNotaController::class, 'index'])->name('admin.categorias.index');
-
-    // Adiciona uma nova categoria de notas create
     Route::post('/admin/categorias', [CategoriaNotaController::class, 'store'])->name('admin.categorias.store');
-
     Route::get('/admin/categorias/{categoria}/editar', [CategoriaNotaController::class, 'edit'])->name('admin.categorias.edit');
-
     Route::put('/admin/categorias/{categoria}', [CategoriaNotaController::class, 'update'])->name('admin.categorias.update');
-
     Route::delete('/admin/categorias/{categoria}', [CategoriaNotaController::class, 'destroy'])->name('admin.categorias.destroy');
+
+    // Rotas para Notas
+    Route::get('/admin/notas', [NotasController::class, 'index'])->name('admin.notas.index');
+
+    Route::get('/admin/notas/create', [NotasController::class, 'create'])->name('admin.notas.create');
+
+    Route::post('/admin/notas', [NotasController::class, 'store'])->name('admin.notas.store');
+
+    Route::get('/admin/notas/{nota}', [NotasController::class, 'show'])->name('admin.notas.show');
+
+    Route::get('/admin/notas/{nota}/edit', [NotasController::class, 'edit'])->name('admin.notas.edit');
+
+    Route::put('/admin/notas/{nota}', [NotasController::class, 'update'])->name('admin.notas.update');
+
+    Route::delete('/admin/notas/{nota}', [NotasController::class, 'destroy'])->name('admin.notas.destroy');
 
 }); // Fim do Grupo Adim pelo Middleware
 

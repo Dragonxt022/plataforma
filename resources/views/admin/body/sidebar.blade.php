@@ -55,9 +55,9 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.categorias.index') }}" class="nav-link">Categorias </a>
                         </li>
-
+                        
                         <li class="nav-item">
-                            <a href="#" class="nav-link"> 2 </a>
+                            <a href=" {{ route('admin.notas.index') }} " class="nav-link"> Cadastrar Nota </a>
                         </li>
                     </ul>
                 </div>
