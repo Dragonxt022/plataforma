@@ -25,10 +25,11 @@
                         {{-- Linha com coluna 1 --}}
                         <div class="row">
                             <div class="col">
+                                {{-- coluna --}}
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3">
-                                            <label for="nome_nota" class="form-label">Nome da nota:</label>
+                                            <label for="nome_nota" class="form-label">Nome do arquivo:</label>
     
                                             <input class="form-control @error('nome_nota') is-invalid @enderror" name="nome_nota" id="nome_nota" value="{{ old('nome_nota') }}">
     
@@ -38,6 +39,55 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- Coluna --}}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label for="data_vencimento" class="form-label">Data de válida (em branco se não ouver):</label>
+    
+                                            <input type="date" class="form-control @error('data_vencimento') is-invalid @enderror" name="data_vencimento" id="data_vencimento" value="{{ old('data_vencimento') }}">
+    
+                                            @error('data_vencimento')
+                                                <span class="text-danger pt-2">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Coluna --}}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label for="link_arquivo" class="form-label">Arquivo (ex. PDF, Word):</label>
+    
+                                            <input type="file" class="form-control @error('link_arquivo') is-invalid @enderror" name="link_arquivo" id="link_arquivo" value="{{ old('link_arquivo') }}">
+    
+                                            @error('link_arquivo')
+                                                <span class="text-danger pt-2">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Coluna --}}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label for="id_notas_categoria" class="form-label">Empresa:</label>
+                                            <select class="form-select @error('id_notas_categoria') is-invalid @enderror" name="id_notas_categoria" id="id_notas_categoria">
+                                                <option value="">Selecione uma categoria</option>
+                                                @foreach($categorias as $categoria)
+                                                    <option value="{{ $categoria->id }}" {{ old('id_notas_categoria') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome_categoria }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('id_notas_categoria')
+                                                <span class="text-danger pt-2">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                                                       
+                                    
+                                </div>
         
                             </div>
                         </div>
@@ -46,14 +96,14 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col d-grid gap-2">
-                                        <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
                                     </div>
                                 </div>
                             </div>   
                         </div>
                         <div class="row">
                             <div class="col py-3">
-                                <p>Adicione ou edite suas notas, para que você possa organizar seus arquivos e documentos.</p>
+                                <p>Notas, certidões, foders entre outros documentos.</p>
                             </div>
                         </div>
                         
@@ -68,7 +118,8 @@
                           <thead>
                               <tr>
                                   <th class="text-center">ID</th>
-                                  <th>notas</th>
+                                  <th>Nome</th>
+                                  <th class="text-center" >Data</th>
                                   <th class="text-center"> Ação </th>
                               </tr>
                           </thead>
@@ -77,15 +128,16 @@
                               <tr>
                                   <td class="text-center align-middle">{{ $nota->id }}</td>
                                   <td class="align-middle">{{ $nota->nome_nota }}</td>
+                                  <td class="text-center align-middle">{{ $nota->data_vencimento }}</td>
                                   <td class="text-center align-middle">
-                                      <button type="button" class="btn btn-primary btn-icon mx-2">
+                                      {{-- <button type="button" class="btn btn-primary btn-icon mx-2">
                                           <a href="{{ route('admin.notas.edit', ['nota' => $nota->id]) }}">
                                               <i data-feather="edit" style="color: #ffffff;"></i>
                                           </a>
-                                      </button>
+                                      </button> --}}
                       
                                       <button type="button" class="btn btn-danger btn-icon" data-toggle="modal"
-                                          data-target="#confirmDelete{{ $nota->id }}" @if ($nota->id == 1) disabled @endif>
+                                          data-target="#confirmDelete{{ $nota->id }}">
                                           <i data-feather="trash-2"></i>
                                       </button>
                                   </td>

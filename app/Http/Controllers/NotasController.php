@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Notas;
 use Illuminate\Http\Request;
+use App\Models\CategoriaNota;
 
 class NotasController extends Controller
 {
     public function index()
     {
         $notas = Notas::all();
-        return view('admin.admin_lista_notas_notas', compact('notas'));
+        $categorias = CategoriaNota::all();
+        return view('admin.admin_lista_notas_notas', compact('notas', 'categorias'));
     }
 
     public function create()
