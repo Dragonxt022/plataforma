@@ -29,13 +29,13 @@
                 </a>
                 <div class="collapse" id="treinamentos">
                     <ul class="nav sub-menu">
-                        
+
                         <li class="nav-item">
-                            <a href="{{ route('admin.treinamentos.index') }}" class="nav-link">Lista</a>
+                            <a href="{{ route('admin.treinamentos.index') }}" class="nav-link">Lista todos</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('admin.treinamentos.create') }}" class="nav-link">Cadastrar</a>
+                            <a href="{{ route('admin.treinamentos.create') }}" class="nav-link">Cadastrar novo</a>
                         </li>
                         
                     </ul>

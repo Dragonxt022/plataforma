@@ -60,7 +60,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
 
     // // Rotas para Treinamentos
-    Route::get('/admin/treinamentos', [TreinamentoController::class, 'index'])->name('admin.treinamentos.index');
+    Route::get('/admin/treinamentos/listar', [TreinamentoController::class, 'index'])->name('admin.treinamentos.index');
     Route::get('/admin/treinamentos/cadastrar', [TreinamentoController::class, 'create'])->name('admin.treinamentos.create');
     Route::post('/admin/treinamentos/store', [TreinamentoController::class, 'store'])->name('admin.treinamentos.store');
     Route::get('/admin/treinamentos/{treinamento}/editar', [TreinamentoController::class, 'edit'])->name('admin.treinamentos.edit');
