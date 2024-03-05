@@ -95,6 +95,21 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="folder" class="form-label">Arquivo (ex. PDF, Word):</label>
+        
+                                                {{-- Campo de upload de arquivo --}}
+                                                <input type="file" class="form-control @error('folder') is-invalid @enderror" name="folder" id="folder">
+
+                                                {{-- Campo oculto para armazenar o nome do arquivo atual --}}
+                                                <input type="hidden" name="current_folder" value="{{ $treinamento->folder }}">
+        
+                                                @error('folder')
+                                                    <span class="text-danger pt-2">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                      {{-- Linha 6 --}}
                                      <div class="row">

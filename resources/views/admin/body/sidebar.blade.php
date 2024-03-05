@@ -24,17 +24,20 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#treinamentos" role="button" aria-expanded="false" aria-controls="treinamentos">
                     <i class="link-icon" data-feather="book-open"></i>
-                    <span class="link-title">Cursos/Treinamentos</span>
+                    <span class="link-title">Gerencia Cursos</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse" id="treinamentos">
                     <ul class="nav sub-menu">
+                        
+                        <li class="nav-item">
+                            <a href="{{ route('admin.treinamentos.index') }}" class="nav-link">Lista</a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="{{ route('admin.treinamentos.create') }}" class="nav-link">Cadastrar</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.treinamentos.index') }}" class="nav-link">Lista de Treinamentos</a>
-                        </li>
+                        
                     </ul>
                 </div>
             </li>

@@ -93,6 +93,17 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="folder" class="form-label">Arquivo (ex. PDF, Word):</label>
+        
+                                                <input type="file" class="form-control @error('folder') is-invalid @enderror" name="folder" id="folder" value="{{ old('folder') }}">
+        
+                                                @error('folder')
+                                                    <span class="text-danger pt-2">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                      {{-- Linha 6 --}}
                                      <div class="row">

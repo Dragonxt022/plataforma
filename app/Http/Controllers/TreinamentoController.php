@@ -68,6 +68,7 @@ class TreinamentoController extends Controller
             'valor' => 'required|numeric',
             'vagas' => 'required|integer',
             'local' => 'required|string|max:255',
+            'folder' => 'nullable|file|mimes:pdf,png,jpg,doc,docx,xlsx|max:4048', 
             'id_empresa' => 'required|exists:empresas,id', 
             'docente' => 'required|string|max:255',
             'banner' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -85,6 +86,7 @@ class TreinamentoController extends Controller
             'vagas.integer' => 'A quantidade de vagas deve ser um número inteiro.',
             'local.required' => 'O local do curso é obrigatório.',
             'local.max' => 'O local do curso não pode ter mais de 255 caracteres.',
+            'folder.mimes' => '*Formato permitido: PDF, PNG, JPG, DOC, DOCX, XLSX, tamanho maximo 12mb',
             'id_empresa.required' => 'É necessário selecionar uma empresa.',
             'id_empresa.exists' => 'A empresa selecionada é inválida.',
             'nome_empresa.required' => 'O nome da empresa é obrigatório.',
@@ -106,6 +108,15 @@ class TreinamentoController extends Controller
             $filename = null; // Se não houver arquivo enviado, defina como null
         }
 
+        // Processar o upload do arquivo
+        if ($request->hasFile('folder')) {
+            $arquivo = $request->file('folder');
+            $arquivoNome = time() . '_' . $arquivo->getClientOriginalName();
+            $arquivo->move(public_path('upload/folder'), $arquivoNome);
+        } else {
+            $arquivoNome = null; // Se não houver arquivo enviado, defina como null
+        }
+
         // Criar um novo treinamento
         $treinamento = new Treinamento();
         $treinamento->nome = $request->nome;
@@ -116,6 +127,7 @@ class TreinamentoController extends Controller
         $treinamento->valor = $request->valor;
         $treinamento->vagas = $request->vagas;
         $treinamento->local = $request->local;
+        $treinamento->folder = $arquivoNome;
         $treinamento->id_empresa = $request->id_empresa;
         $treinamento->docente = $request->docente;
         $treinamento->banner = $filename;
@@ -153,6 +165,7 @@ class TreinamentoController extends Controller
             'valor' => 'required|numeric',
             'vagas' => 'required|integer',
             'local' => 'required|string|max:255',
+            'folder' => 'nullable|file|mimes:pdf,png,jpg,doc,docx,xlsx|max:4048', 
             'id_empresa' => 'required|exists:empresas,id', 
             'docente' => 'required|string|max:255',
             'banner' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -170,6 +183,7 @@ class TreinamentoController extends Controller
             'vagas.integer' => 'A quantidade de vagas deve ser um número inteiro.',
             'local.required' => 'O local do curso é obrigatório.',
             'local.max' => 'O local do curso não pode ter mais de 255 caracteres.',
+            'folder.mimes' => '*Formato permitido: PDF, PNG, JPG, DOC, DOCX, XLSX, tamanho maximo 12mb',
             'id_empresa.required' => 'É necessário selecionar uma empresa.',
             'id_empresa.exists' => 'A empresa selecionada é inválida.',
             'nome_empresa.required' => 'O nome da empresa é obrigatório.',
@@ -182,7 +196,7 @@ class TreinamentoController extends Controller
         ]);
         
         
-        // Processar o upload do banner
+       // Processar o upload do banner
         if ($request->hasFile('banner')) {
             // Verifica se existe um arquivo de banner atual
             if ($treinamento->banner) {
@@ -194,12 +208,32 @@ class TreinamentoController extends Controller
 
             // Move o novo banner para o diretório de upload
             $banner = $request->file('banner');
-            $filename = time() . '_' . $banner->getClientOriginalName();
-            $banner->move(public_path('upload/cursos_images'), $filename);
+            $bannername = time() . '_' . $banner->getClientOriginalName(); // Variável renomeada para $bannername
+            $banner->move(public_path('upload/cursos_images'), $bannername);
         } else {
             // Se não houver arquivo enviado, mantém o valor do banner atual
-            $filename = $treinamento->banner;
+            $bannername = $treinamento->banner;
         }
+
+        // Processar o upload do folder (folder)
+        if ($request->hasFile('folder')) {
+            // Verifica se existe um arquivo de folder atual
+            if ($treinamento->folder) {
+                // Exclui o arquivo antigo
+                if (file_exists(public_path('upload/folder/' . $treinamento->folder))) {
+                    unlink(public_path('upload/folder/' . $treinamento->folder));
+                }
+            }
+
+            // Move o novo folder para o diretório de upload
+            $folder = $request->file('folder');
+            $foldername = time() . '_' . $folder->getClientOriginalName(); // Variável renomeada para $foldername
+            $folder->move(public_path('upload/folder'), $foldername);
+        } else {
+            // Se não houver arquivo enviado, mantém o valor do folder atual
+            $foldername = $treinamento->folder;
+        }
+
 
         // Atualizar os dados do treinamento
         $treinamento->update([
@@ -211,10 +245,12 @@ class TreinamentoController extends Controller
             'valor' => $request->valor,
             'vagas' => $request->vagas,
             'local' => $request->local,
+            'folder' => $foldername,
             'id_empresa' => $request->id_empresa,
             'docente' => $request->docente,
-            'banner' => $filename,
+            'banner' => $bannername,
         ]);
+
 
         // Retornar mensagem de sucesso
         $notification = [
