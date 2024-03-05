@@ -10,7 +10,7 @@ use App\Http\Controllers\NotasController;
 
 
 Route::get('/', function () {
-    return view('index');
+    return view('site.index');
 });
 
 

@@ -16,7 +16,7 @@
                     <a class="nav-link" href="#">Contatos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=" {{ route('admin.login') }} " target="_blank">Login</a>
+                    <a class="nav-link" href=" {{ route('admin.dashboard') }} " target="_blank">Login</a>
                 </li>
             </ul>
         </div>
