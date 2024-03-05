@@ -22,14 +22,21 @@ class TreinamentoController extends Controller
 
         // Limitar o tamanho do nome para cada treinamento
         foreach ($treinamentos as $treinamento) {
-            $treinamento->nome = substr($treinamento->nome, 0, 50);
+            $treinamento->nome = substr($treinamento->nome, 0, 45,);
             $treinamento->empresa->nome = substr($treinamento->empresa->nome, 0, 20);
 
             // Verificar se a data de início está no passado ou no futuro e definir o status
             if (Carbon::parse($treinamento->data_inicio)->isPast()) {
                 $treinamento->status = 'Encerrado';
             } else {
-                $treinamento->status = 'Em Andamento';
+                $treinamento->status = 'Ativado';
+            }
+
+             // Verificar se a data de início é vencida e definir a cor do texto
+            if (Carbon::parse($treinamento->data_inicio)->isPast()) {
+                $treinamento->data_inicio_class = 'text-danger';
+            } else {
+                $treinamento->data_inicio_class = '';
             }
 
             $treinamento->data_inicio = Carbon::parse($treinamento->data_inicio)->format('d/m/Y');

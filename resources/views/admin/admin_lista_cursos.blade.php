@@ -28,29 +28,19 @@
                 <tbody>
                   @foreach ($treinamentos as $treinamento)
                   <tr>
-                    <td class="text-center">{{ $treinamento->id }}</td>
+                    <td class="text-center align-middle {{ $treinamento->data_inicio_class }}">{{ $treinamento->id }}</td>
                     <td class="text-center">
                       <img src="{{ $treinamento->banner ? asset('upload/cursos_images/' . $treinamento->banner) : asset('upload/cursos_images/semimagembanner.png') }}">
 
 
                      </td>
-                    <td class="align-middle" title="{{ $treinamento->title }}">{{ $treinamento->nome }}</td>
-                    <td class="text-center align-middle">{{ $treinamento->vagas }}</td>
-                    <td class="text-center align-middle">{{ $treinamento->data_inicio }}</td>
-                    <td class="align-middle" >{{ $treinamento->empresa->nome }}</td>
+                    <td class="align-middle {{ $treinamento->data_inicio_class }}" title="{{ $treinamento->title }}">{{ $treinamento->nome }}</td>
+                    <td class="text-center align-middle {{ $treinamento->data_inicio_class }}">{{ $treinamento->vagas }}</td>
+                    <td class="text-center align-middle {{ $treinamento->data_inicio_class }}">{{ $treinamento->data_inicio }}</td>
+                    <td class="align-middle {{ $treinamento->data_inicio_class }}" >{{ $treinamento->empresa->nome }}</td>
 
-                    <td>
-                      @if ($treinamento->status == 'Em Andamento')
-                        <div class="d-grid gap-2">
-                          <button class="btn btn-success ">{{ $treinamento->status }}</button>
-                        </div>
-                          
-                      @else
-                        <div class="d-grid gap-2">
-                          <button class="btn btn-danger" disabled>{{ $treinamento->status }}</button>
-                        </div>
-                          
-                      @endif
+                    <td class=" text-center align-middle {{ $treinamento->data_inicio_class }}">
+                     {{ $treinamento->status }}
                     </td>
                     <td class="d-flex">
                         <button type="button" class="btn btn-primary btn-icon mx-2">
@@ -108,7 +98,8 @@
         $('#dataTabelatreinamento').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json"
-            }
+            },
+            "order": [[0, "desc"]]
         });
     });
 </script>

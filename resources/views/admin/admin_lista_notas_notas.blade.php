@@ -14,10 +14,10 @@
                     </div>
                 @endif
             <h4 class="card-title">notas</h4>
-            <p class="text-muted mb-3">Lista contendo as notas usadas para separação de documentos.</p>
+            <p class="text-muted mb-3">Gerencie a documentação de sua empresa.</p>
 
             <div class="row">
-                <div class="col-4">
+                <div class="col-3">
                     
 
                     <form method="POST" action="{{ route('admin.notas.store') }}" class="forms-sample" enctype="multipart/form-data">
@@ -111,7 +111,7 @@
 
                 </div>
 
-                <div class="col-8">
+                <div class="col-9">
 
                     <div class="table-responsive pt-3">
                         <table id="dataTabelatreinamento" class="table table-dark display responsive" style="width:100%">
@@ -119,6 +119,7 @@
                               <tr>
                                   <th class="text-center">ID</th>
                                   <th>Nome</th>
+                                  <th>Categoria</th>
                                   <th class="text-center" >Data</th>
                                   <th class="text-center"> Ação </th>
                               </tr>
@@ -126,15 +127,23 @@
                           <tbody>
                               @foreach ($notas as $nota)
                               <tr>
-                                  <td class="text-center align-middle">{{ $nota->id }}</td>
-                                  <td class="align-middle">{{ $nota->nome_nota }}</td>
-                                  <td class="text-center align-middle">{{ $nota->data_vencimento }}</td>
+                                  <td class="text-center align-middle {{ $nota->data_vencimento_class }}">{{ $nota->id }}</td>
+                                  <td class="align-middle {{ $nota->data_vencimento_class }}">{{ $nota->nome_nota }}</td>
+                                  <td class="align-middle {{ $nota->data_vencimento_class }}">
+                                        @foreach ($categorias as $categoria)
+                                            @if ($categoria->id == $nota->id_notas_categoria)
+                                                {{ $categoria->nome_categoria }}
+                                            @endif
+                                        @endforeach
+                                  </td>
+                                  <td class="text-center align-middle {{ $nota->data_vencimento_class }}">{{ $nota->data_vencimento }}</td>
                                   <td class="text-center align-middle">
-                                      {{-- <button type="button" class="btn btn-primary btn-icon mx-2">
-                                          <a href="{{ route('admin.notas.edit', ['nota' => $nota->id]) }}">
-                                              <i data-feather="edit" style="color: #ffffff;"></i>
-                                          </a>
-                                      </button> --}}
+                                    <button type="button" class="btn btn-primary btn-icon mx-2">
+                                        <a href="{{ asset('upload/notas_pdf/' . $nota->link_arquivo) }}" target="_blank">
+                                            <i data-feather="eye" style="color: #ffffff;"></i> 
+                                        </a>
+                                    </button>
+                                    
                       
                                       <button type="button" class="btn btn-danger btn-icon" data-toggle="modal"
                                           data-target="#confirmDelete{{ $nota->id }}">
@@ -186,13 +195,15 @@
 @endforeach
 
 <script>
-  $(document).ready(function() {
+    $(document).ready(function() {
         $('#dataTabelatreinamento').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json"
-            }
+            },
+            "order": [[2, "asc"]] // Defina a ordem inicial da primeira coluna em ordem decrescente
         });
     });
+
 </script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
