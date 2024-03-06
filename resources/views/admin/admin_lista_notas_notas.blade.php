@@ -73,7 +73,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3">
-                                            <label for="id_notas_categoria" class="form-label">Empresa:</label>
+                                            <label for="id_notas_categoria" class="form-label">Categoria:</label>
                                             <select class="form-select @error('id_notas_categoria') is-invalid @enderror" name="id_notas_categoria" id="id_notas_categoria">
                                                 <option value="">Selecione uma categoria</option>
                                                 @foreach($categorias as $categoria)

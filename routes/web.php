@@ -48,7 +48,6 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::delete('/admin/usuarios/{id}', [AdminControlller::class, 'destroy'])->name('admin.usuarios.destroy');
 
 
-
     // Rotas para Empresas
     Route::get('/admin/empresas/lista', [EmpresaController::class, 'ListaDeEmpressas'])->name('admin.lista.empressas');
     Route::get('/admin/empresas/cadastrar', [EmpresaController::class, 'create'])->name('admin.empresas.create');
@@ -78,17 +77,11 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     // Rotas para Notas
     Route::get('/admin/notas', [NotasController::class, 'index'])->name('admin.notas.index');
-
     Route::get('/admin/notas/create', [NotasController::class, 'create'])->name('admin.notas.create');
-
     Route::post('/admin/notas', [NotasController::class, 'store'])->name('admin.notas.store');
-
     Route::get('/admin/notas/{nota}', [NotasController::class, 'show'])->name('admin.notas.show');
-
     Route::get('/admin/notas/{nota}/edit', [NotasController::class, 'edit'])->name('admin.notas.edit');
-
     Route::put('/admin/notas/{nota}', [NotasController::class, 'update'])->name('admin.notas.update');
-
     Route::delete('/admin/notas/{nota}', [NotasController::class, 'destroy'])->name('admin.notas.destroy');
 
 }); // Fim do Grupo Adim pelo Middleware
