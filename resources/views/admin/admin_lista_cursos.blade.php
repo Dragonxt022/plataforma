@@ -8,7 +8,7 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Lista de treinamentos</h4>
+            <h4 class="card-title">Lista de cursos/Treinamentos</h4>
             <p class="text-muted mb-3">Esta pagina contem a lista de cursos cadastrados, tendo a posibilidade de estar atualizar e vendo os status dos Curso ou Treinamento.</p>
             <div class="table-responsive pt-3">
               <table id="dataTabelatreinamento" class="table table-dark display responsive" style="width:100%">

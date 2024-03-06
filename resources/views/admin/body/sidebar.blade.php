@@ -24,7 +24,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#treinamentos" role="button" aria-expanded="false" aria-controls="treinamentos">
                     <i class="link-icon" data-feather="book-open"></i>
-                    <span class="link-title">Gerencia Cursos</span>
+                    <span class="link-title">Cursos/Treinamentos</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse" id="treinamentos">
@@ -41,8 +41,6 @@
                     </ul>
                 </div>
             </li>
-
-            <li class="nav-item nav-category">Configurações</li>
 
             {{-- Gerenciar Categoria --}}
             <li class="nav-item">
@@ -64,12 +62,10 @@
                         </li>
                         
                     </ul>
-                </div>
-                
-                
-
+                </div> 
             </li>
 
+            <li class="nav-item nav-category">Configurações</li>
             {{-- Gerenciar Empresas --}}
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#Empresas" role="button" aria-expanded="false" aria-controls="Empresas">
