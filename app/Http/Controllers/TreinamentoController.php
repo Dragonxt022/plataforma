@@ -10,6 +10,7 @@ use App\Models\Empresa;
 use Illuminate\Support\Facades\Auth;
 // Armazenar um novo treinamento no banco de dados
 use App\Models\Treinamento;
+use App\Models\Inscricoes;
 
 
 
@@ -22,7 +23,7 @@ class TreinamentoController extends Controller
 
         // Limitar o tamanho do nome para cada treinamento
         foreach ($treinamentos as $treinamento) {
-            $treinamento->nome = substr($treinamento->nome, 0, 45,);
+            $treinamento->nome = substr($treinamento->nome, 0, 40,);
             $treinamento->empresa->nome = substr($treinamento->empresa->nome, 0, 20);
 
             // Verificar se a data de início está no passado ou no futuro e definir o status
@@ -264,9 +265,15 @@ class TreinamentoController extends Controller
     }
 
     // Excluir um treinamento do banco de dados
+    // Excluir um treinamento do banco de dados
     public function destroy(Treinamento $treinamento)
     {
-        // Exclua a imagem associada ao treinamento se existir
+        // Verificar se há inscrições associadas a este treinamento
+    if ($treinamento->inscricoes()->exists()) {
+        // Se houver inscrições associadas, exclua-as primeiro
+        $treinamento->inscricoes()->delete();
+    }
+        // Excluir a imagem associada ao treinamento se existir
         if ($treinamento->banner) {
             // Construa o caminho completo para a imagem
             $caminhoImagem = public_path('upload/cursos_images/' . $treinamento->banner);
@@ -278,17 +285,32 @@ class TreinamentoController extends Controller
             }
         }
 
-        // Exclua o treinamento do banco de dados
+        // Excluir o PDF associado ao treinamento se existir
+        if ($treinamento->pdf_caminho) {
+            // Construa o caminho completo para o PDF
+            $caminhoPDF = public_path('upload/folder/' . $treinamento->pdf_caminho);
+            
+            // Verifique se o arquivo PDF realmente existe antes de tentar excluí-lo
+            if (file_exists($caminhoPDF)) {
+                // Excluir o PDF do diretório
+                unlink($caminhoPDF);
+            }
+        }
+
+        // Excluir o treinamento do banco de dados
         $treinamento->delete();
 
         // Retornar mensagem de sucesso
         $notification = [
-            'message' => 'Treinamento Excluido com sucesso!',
+            'message' => 'Treinamento excluído com sucesso!',
             'alert-type' => 'success',
         ];
 
         // Retornar a notificação ou redirecionar para a página desejada
         return redirect()->back()->with($notification);
     }
+
+
+
 
 }

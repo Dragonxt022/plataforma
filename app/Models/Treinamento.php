@@ -30,4 +30,9 @@ class Treinamento extends Model
         return $this->belongsTo(Empresa::class, 'id_empresa');
     }
 
+    public function inscricoes()
+    {
+        return $this->hasMany(Inscricoes::class, 'id_treinamento');
+    }
+
 }

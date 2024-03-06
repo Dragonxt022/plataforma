@@ -65,8 +65,10 @@
                                   </button>
                               </div>
                               <div class="modal-body">
-                                  Tem certeza que deseja excluir esta treinamento? {{ $treinamento->nome }}
-                              </div>
+                                Tem certeza que deseja excluir este treinamento? {{ $treinamento->nome }}
+                            
+                                <p class="text-danger"><br> ATENÇÃO!!!<br> Isso apagará também todas as fichas de inscrições associadas a este curso, ou seja, todas as inscrições realizadas neste curso serão excluídas sem nenhuma possibilidade de recuperação.</p>
+                            </div>
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                   <form method="POST" action="{{ route('admin.treinamentos.destroy', $treinamento) }}">
@@ -99,7 +101,7 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json"
             },
-            "order": [[0, "desc"]]
+            "order": [[3, "desc"]]
         });
     });
 </script>

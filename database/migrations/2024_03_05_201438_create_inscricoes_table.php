@@ -21,7 +21,7 @@ return new class extends Migration
         $table->string('id_empresa');
         $table->string('pdf_caminho')->nullable();
         $table->string('nome_treinamento');
-        $table->string('id_treinamento');
+        $table->unsignedBigInteger('id_treinamento');
         $table->string('nome_empresa');
         $table->date('data_inicio');
         $table->string('nome_juridico');

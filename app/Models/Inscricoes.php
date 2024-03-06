@@ -35,4 +35,9 @@ class Inscricoes extends Model
         'status',
         'data_termino',
     ];
+
+    public function treinamento()
+    {
+        return $this->belongsTo(Treinamento::class, 'id_treinamento');
+    }
 }
