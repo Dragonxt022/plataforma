@@ -10,7 +10,6 @@ use App\Models\Notas;
 class CategoriaNota extends Model
 {
     protected $fillable = [];
-    protected $table = 'notas_categoria';
 
     // Relacionamento com as notas
     public function notas()

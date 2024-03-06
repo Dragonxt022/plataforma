@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('nome_nota', 255);
             $table->string('link_arquivo', 255)->nullable();
-            $table->date('data_vencimento');
+            $table->date('data_vencimento')->nullable();
             $table->unsignedBigInteger('id_notas_categoria');
             $table->timestamps();
 
-            $table->foreign('id_notas_categoria')->references('id')->on('notas_categoria');
+            $table->foreign('id_notas_categoria')->references('id')->on('categoria_notas');
         });;
     }
 
