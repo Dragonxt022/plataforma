@@ -14,7 +14,7 @@
                     </div>
                 @endif
             <h4 class="card-title">Inscrições</h4>
-            <p class="text-muted mb-3">Gerencie inscri.</p>
+            <p class="text-muted mb-3">Página de gerenciamento de inscrições recebidas pelos formulários</p>
 
             <div class="row">
 
@@ -28,8 +28,8 @@
                                   <th>JURIDICO/OGRÃO</th>
                                   {{-- <th> CURSO/TREINAMENTO </th> --}}
                                   <th> CIDADE </th>
-                                  <th class="text-center"> DATA/HORA </th>
-                                  <th>Valor R$ </th>
+                                  <th class="text-center"> DATA </th>
+                                  <th>Valor</th>
                                   <th class="text-center"> STATUS </th>
                                   <th class="text-center"> Ação </th>
                               </tr>
@@ -43,7 +43,7 @@
                                   <td class="align-middle">{{ $inscricao->cidade }}</td>
 
                                   <td class="align-middle text-center">{{ $inscricao->data_realizacao }}</td>
-                                  <td class="align-middle">{{ $inscricao->total }}</td>
+                                  <td class="align-middle">R$ {{ $inscricao->total }}</td>
 
                                   <td class="align-middle text-center">
                                         <form method="POST" action="{{ route('admin.alterar.status', $inscricao->id) }}">
@@ -60,10 +60,8 @@
                                   </td>
 
                                   <td class="text-center align-middle">
-                                    <button type="button" class="btn btn-primary btn-xs btn-icon mx-2">
-                                        <a href="{{ asset('upload/inscricoes_pdf/' . $inscricao->pdf_caminho) }}" target="_blank">
-                                            <i data-feather="eye" style="color: #ffffff;"></i> 
-                                        </a>
+                                    <button type="button" class="btn btn-primary btn-xs btn-icon mx-2" data-bs-toggle="modal" data-bs-target="#detalhesInscricao{{ $inscricao->id }}">
+                                        <i data-feather="eye" style="color: #ffffff;"></i> 
                                     </button>
                                     
                       
@@ -90,31 +88,41 @@
 </div>
 
 <!-- Modal de Confirmação de Exclusão -->
-{{-- @foreach ($inscricoes as $inscricoe)
-<div class="modal fade" id="confirmDelete{{ $inscricoe->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+@foreach ($inscricoes as $inscricao)
+    <div class="modal fade" id="detalhesInscricao{{ $inscricao->id }}" tabindex="-1" aria-labelledby="detalhesInscricaoLabel{{ $inscricao->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmação de Exclusão</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            {{-- Linha  --}}
+            <div class="row">
+                <div class="modal-header">
+                    <div class="col-10 d-flex justify-content-between ms-3">
+                        <h5 class="modal-title" id="detalhesInscricaoLabel{{ $inscricao->id }}">Detalhes da Inscrição N° {{ $inscricao->id }}</h5>
+                        <p class="text-left {{ $inscricao->cor_classe }}">{{ $inscricao->status }}</p>
+                    </div>
+                    <div class="col ms-6">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    
+                </div>
+            </div>
+            {{-- Linha --}}
+            <div class="row">
+                
             </div>
             <div class="modal-body">
-                Tem certeza que deseja excluir esta inscricoe? {{ $inscricoe->nome_inscricoe }} <br><br> ATENÇÃO! Se a inscricoe estiver vinculada com algum arquivo, esse arquivo assumira a inscricoe padrão do sistema.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <form method="POST" action="{{ route('admin.inscricoes.destroy', $inscricoe) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Excluir</button>
-                </form>
+                <ul>
+                    <li>Quantidade de Inscritos: {{ $inscricao->quantidade_inscritos }}</li>
+                    <li>Valor do Curso: R$ {{ $inscricao->valor_curso }}</li>
+                    <li>Subtotal: R$ {{ $inscricao->subtotal }}</li>
+                    <li>Desconto: R$ {{ $inscricao->desconto }}</li>
+                    <li>Total: R$ {{ $inscricao->total }}</li>
+                    <!-- Adicione outras informações da inscrição aqui -->
+                </ul>
             </div>
         </div>
+        </div>
     </div>
-</div>
-@endforeach --}}
+@endforeach
 
 <script>
     $(document).ready(function() {
@@ -122,7 +130,7 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json"
             },
-            "order": [[0, "desc"]] // Defina a ordem inicial da primeira coluna em ordem decrescente
+            "order": [[0, "desc"]] 
         });
     });
 

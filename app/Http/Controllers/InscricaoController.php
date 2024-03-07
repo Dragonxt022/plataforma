@@ -14,7 +14,8 @@ class InscricaoController extends Controller
      */
     public function index()
     {
-        $inscricoes = Inscricoes::all();
+        // Recuperar todas as inscrições ordenadas pelo ID em ordem decrescente
+        $inscricoes = Inscricoes::orderBy('id', 'desc')->get();
 
         foreach ($inscricoes as $inscricao) {
             // Limitar o tamanho do nome para cada inscricao
