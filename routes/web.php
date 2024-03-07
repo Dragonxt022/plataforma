@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\TreinamentoController;
 use App\Http\Controllers\CategoriaNotaController;
 use App\Http\Controllers\NotasController;
+use App\Http\Controllers\InscricaoController;
 
 
 Route::get('/', function () {
@@ -83,6 +84,23 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/notas/{nota}/edit', [NotasController::class, 'edit'])->name('admin.notas.edit');
     Route::put('/admin/notas/{nota}', [NotasController::class, 'update'])->name('admin.notas.update');
     Route::delete('/admin/notas/{nota}', [NotasController::class, 'destroy'])->name('admin.notas.destroy');
+
+
+    // Gerenciamento de Inscrições
+    Route::get('/admin/inscricoes/lista', [InscricaoController::class, 'index'])->name('admin.inscricoes.index');
+
+    Route::get('/admin/inscricoes/criar', [InscricaoController::class, 'create'])->name('admin.inscricoes.create');
+
+    Route::post('/admin/inscricoes/store', [InscricaoController::class, 'store'])->name('admin.inscricoes.store');
+
+    Route::get('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'show'])->name('admin.inscricoes.show');
+
+    Route::get('/admin/inscricoes/{inscricao}/edit', [InscricaoController::class, 'edit'])->name('admin.inscricoes.edit');
+
+    Route::put('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'update'])->name('admin.inscricoes.update');
+
+    Route::delete('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'destroy'])->name('admin.inscricoes.destroy');
+
 
 }); // Fim do Grupo Adim pelo Middleware
 
