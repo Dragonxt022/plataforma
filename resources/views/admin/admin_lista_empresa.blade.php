@@ -29,13 +29,13 @@
                     <td class=" align-middle">{{ $empresa->cnpj }}</td>
                     <td class=" align-middle">{{ $empresa->banco }}</td>
                     <td class="d-flex">
-                      <button type="button" class="btn btn-primary btn-icon mx-2">
+                      <button type="button" class="btn btn-primary btn-xs btn-icon mx-2">
                           <a href="{{ route('admin.editar.empresa', ['empresa' => $empresa->id]) }}">
                               <i data-feather="edit" style="color: #ffffff;"></i>
                           </a>
                       </button>
                     
-                      <button type="button" class="btn btn-danger btn-icon"  data-toggle="modal" data-target="#confirmDelete{{ $empresa->id }}">
+                      <button type="button" class="btn btn-danger btn-xs btn-icon"  data-toggle="modal" data-target="#confirmDelete{{ $empresa->id }}">
                         <i data-feather="trash-2"></i>
                       </button>
                   </td>

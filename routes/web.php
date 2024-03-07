@@ -89,6 +89,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     // Gerenciamento de Inscrições
     Route::get('/admin/inscricoes/lista', [InscricaoController::class, 'index'])->name('admin.inscricoes.index');
 
+    Route::put('/admin/inscricoes/{id}/alterar-status', [InscricaoController::class, 'alterarStatus'])->name('admin.alterar.status');
+
+
     Route::get('/admin/inscricoes/criar', [InscricaoController::class, 'create'])->name('admin.inscricoes.create');
 
     Route::post('/admin/inscricoes/store', [InscricaoController::class, 'store'])->name('admin.inscricoes.store');

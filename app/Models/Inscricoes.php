@@ -40,4 +40,6 @@ class Inscricoes extends Model
     {
         return $this->belongsTo(Treinamento::class, 'id_treinamento');
     }
+
+    
 }

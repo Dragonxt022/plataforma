@@ -138,14 +138,14 @@
                                   </td>
                                   <td class="text-center align-middle {{ $nota->data_vencimento_class }}">{{ $nota->data_vencimento }}</td>
                                   <td class="text-center align-middle">
-                                    <button type="button" class="btn btn-primary btn-icon mx-2">
+                                    <button type="button" class="btn btn-primary btn-xs btn-icon mx-2">
                                         <a href="{{ asset('upload/notas_pdf/' . $nota->link_arquivo) }}" target="_blank">
                                             <i data-feather="eye" style="color: #ffffff;"></i> 
                                         </a>
                                     </button>
                                     
                       
-                                      <button type="button" class="btn btn-danger btn-icon" data-toggle="modal"
+                                      <button type="button" class="btn btn-danger btn-xs btn-icon" data-toggle="modal"
                                           data-target="#confirmDelete{{ $nota->id }}">
                                           <i data-feather="trash-2"></i>
                                       </button>

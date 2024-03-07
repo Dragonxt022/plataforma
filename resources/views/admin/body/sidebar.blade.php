@@ -42,6 +42,23 @@
                 </div>
             </li>
 
+            {{-- Gerenciar de inscrições --}}
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#inscricao" role="button" aria-expanded="false" aria-controls="inscricao">
+                                <i class="link-icon" data-feather="airplay"></i>
+                                <span class="link-title">Inscrições</span>
+                                <i class="link-arrow" data-feather="chevron-down"></i>
+                            </a>
+                            <div class="collapse" id="inscricao">
+                                <ul class="nav sub-menu">
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.inscricoes.index') }}" class="nav-link">Lista Inscrições</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
             {{-- Gerenciar Categoria --}}
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#gerenciarNotas" role="button" aria-expanded="false" aria-controls="gerenciarNotas">

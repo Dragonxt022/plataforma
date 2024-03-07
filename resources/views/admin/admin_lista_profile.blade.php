@@ -52,13 +52,13 @@
                     <td class=" align-middle">{{ $usuario->phone }}</td>
                     <td class="d-flex text-center">
 
-                      <button type="button" class="btn btn-primary btn-icon mx-2">
+                      <button type="button" class="btn btn-primary btn-xs btn-icon mx-2">
                           <a  href="{{ route('admin.editar.perfil', ['usuarios' => $usuario->id]) }}">
                               <i data-feather="edit" style="color: #ffffff;"></i>
                           </a>
                       </button>
                     
-                      <button type="button" class="btn btn-danger btn-icon"  data-toggle="modal" data-target="#confirmDelete{{ $usuario->id }}">
+                      <button type="button" class="btn btn-danger btn-xs btn-icon"  data-toggle="modal" data-target="#confirmDelete{{ $usuario->id }}">
                         <i data-feather="trash-2"></i>
                       </button>
                   </td>
@@ -81,7 +81,7 @@
                                   <form method="POST" action="{{ route('admin.usuarios.destroy', $usuario) }}">
                                       @csrf
                                       @method('DELETE')
-                                      <button type="submit" class="btn btn-danger">Excluir</button>
+                                      <button type="submit" class="btn btn-danger ">Excluir</button>
                                   </form>
                               </div>
                           </div>

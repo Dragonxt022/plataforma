@@ -78,13 +78,13 @@
                                   <td class="text-center align-middle">{{ $categoria->id }}</td>
                                   <td class="align-middle">{{ $categoria->nome_categoria }}</td>
                                   <td class="text-center align-middle">
-                                      <button type="button" class="btn btn-primary btn-icon mx-2">
+                                      <button type="button" class="btn btn-primary btn-xs btn-icon mx-2">
                                           <a href="{{ route('admin.categorias.edit', ['categoria' => $categoria->id]) }}">
                                               <i data-feather="edit" style="color: #ffffff;"></i>
                                           </a>
                                       </button>
                       
-                                      <button type="button" class="btn btn-danger btn-icon" data-toggle="modal"
+                                      <button type="button" class="btn btn-danger btn-xs btn-icon" data-toggle="modal"
                                           data-target="#confirmDelete{{ $categoria->id }}" @if ($categoria->id == 1) disabled @endif>
                                           <i data-feather="trash-2"></i>
                                       </button>
