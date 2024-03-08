@@ -16,7 +16,7 @@ use App\Models\Inscricoes;
 
 class TreinamentoController extends Controller
 {
-    // Exibir todos os treinamentos
+    // Exibir todos os treinamentos pagina do Admininstrador
     public function index()
     {
         $treinamentos = Treinamento::with('empresa:id,nome')->get();
@@ -46,6 +46,59 @@ class TreinamentoController extends Controller
         }
         
         return view('admin.admin_lista_cursos', compact('treinamentos'));
+    }
+
+    
+    // Lista todos os Treinamentos na pagina do Site
+    public function Listatreinamento()
+    {
+        $treinamentos = Treinamento::all();
+
+        // Limitar o tamanho do nome para cada treinamento
+        foreach ($treinamentos as $treinamento) {
+            $treinamento->nome = substr($treinamento->nome, 0, 150,);
+
+            // Verificar se a data de início está no passado ou no futuro e definir o status
+            if (Carbon::parse($treinamento->data_inicio)->isPast()) {
+                $treinamento->status = 'Encerrado';
+            } else {
+                $treinamento->status = 'Ativado';
+            }
+
+             // Verificar se a data de início é vencida e definir a cor do texto
+            if (Carbon::parse($treinamento->data_inicio)->isPast()) {
+                $treinamento->data_inicio_class = 'text-danger';
+            } else {
+                $treinamento->data_inicio_class = '';
+            }
+
+            $treinamento->data_inicio = Carbon::parse($treinamento->data_inicio)->format('d/m/Y');
+            $treinamento->data_termino = Carbon::parse($treinamento->data_termino)->format('d/m/Y');
+
+            
+        }
+
+        return view('site.treinamentos', compact('treinamentos'));
+    }
+    // Pagina que lista os detalhes de cada treinamento
+    public function Detalhestreinamento($id)
+    {
+        $treinamento = Treinamento::findOrFail($id);
+
+        // Limitar o tamanho do nome para cada treinamento       
+        $treinamento->data_inicio = Carbon::parse($treinamento->data_inicio)->format('d/m/Y');
+        $treinamento->data_termino = Carbon::parse($treinamento->data_termino)->format('d/m/Y');
+
+            
+        
+
+        return view('site.Treinamentos_detalhes', compact('treinamento'));
+    }
+
+    // Paina de inicio do site
+    public function PaginaInicio()
+    {
+        return view('site.inicio');
     }
 
     // Exibir formulário para criar um novo treinamento

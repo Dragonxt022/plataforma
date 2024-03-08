@@ -10,12 +10,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    @include('site.body.menu') <!-- Include do menu -->
+    @include('site.body.cabecalho') <!-- Include do Cabeçalho -->
     
     <div class="container">
-        @yield('content') <!-- Conteúdo da página específica -->
+
+        @yield('content')
+        
     </div>
 
+    @include('site.body.rodape') <!-- Include do Cabeçalho -->
 
 
 

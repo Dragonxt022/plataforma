@@ -11,8 +11,20 @@ use App\Http\Controllers\InscricaoController;
 
 
 Route::get('/', function () {
-    return view('site.index');
+    return view('site.inicio');
 });
+
+Route::get('/admin/login', [AdminControlller::class, 'AdminLogin'])->name('admin.login');
+
+// Pagina do site
+Route::get('/Inicio', [TreinamentoController::class, 'PaginaInicio'])->name('site.pagina.inicio');
+Route::get('/treinamentos', [TreinamentoController::class, 'Listatreinamento'])->name('site.treinamentos');
+Route::get('/treinamentos/{id}', [TreinamentoController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
+
+
+
+
+
 
 
 Route::get('/dashboard', function () {
@@ -115,4 +127,5 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
 }); // Fim do Grupo Agent pelo Middleware
 
 
-Route::get('/admin/login', [AdminControlller::class, 'AdminLogin'])->name('admin.login');
+
+
