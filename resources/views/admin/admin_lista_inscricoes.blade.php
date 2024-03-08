@@ -52,7 +52,7 @@
                                             <div class="form-group">
                                                 <select class="form-control {{ $inscricao->cor_classe }}" name="status" onchange="this.form.submit()">
                                                     <option value="Processando" {{ $inscricao->status == 'Processando' ? 'selected' : '' }}>Processando</option>
-                                                    <option value="Pago" {{ $inscricao->status == 'Pago' ? 'selected' : '' }}>Concluído</option>
+                                                    <option value="Concluido" {{ $inscricao->status == 'Concluido' ? 'selected' : '' }}>Concluido</option>
                                                     <option value="Cancelado" {{ $inscricao->status == 'Cancelado' ? 'selected' : '' }}>Cancelado</option>
                                                 </select>
                                             </div>
@@ -91,38 +91,62 @@
 @foreach ($inscricoes as $inscricao)
     <div class="modal fade" id="detalhesInscricao{{ $inscricao->id }}" tabindex="-1" aria-labelledby="detalhesInscricaoLabel{{ $inscricao->id }}" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            {{-- Linha  --}}
-            <div class="row">
-                <div class="modal-header">
-                    <div class="col-10 d-flex justify-content-between ms-3">
-                        <h5 class="modal-title" id="detalhesInscricaoLabel{{ $inscricao->id }}">Detalhes da Inscrição N° {{ $inscricao->id }}</h5>
-                        <p class="text-left {{ $inscricao->cor_classe }}">{{ $inscricao->status }}</p>
+            <div class="modal-content">
+                 {{-- Linha  --}}
+                 <div class="row">
+                    <div class="modal-header">
+                        <div class="col-10 d-flex justify-content-between ms-3">
+                            <h5 class="modal-title" id="detalhesInscricaoLabel{{ $inscricao->id }}">Detalhes da Inscrição N° {{ $inscricao->id }}</h5>
+                            <p class="text-left {{ $inscricao->cor_classe }}">{{ $inscricao->status }}</p>
+                        </div>
+                        <div class="col ms-6">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+                        
                     </div>
-                    <div class="col ms-6">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="py-2">Dados do Participante</h3>
+                            <ul class="list-group">
+                                <li class="list-group-item">Jurídico/Órgão: {{ $inscricao->nome_juridico }}</li>
+                                <li class="list-group-item">CNPJ: {{ $inscricao->cnpj }}</li>
+                                <li class="list-group-item">Endereço: {{ $inscricao->rua }}, {{ $inscricao->numero }}</li>
+                                <li class="list-group-item">Bairro: {{ $inscricao->bairro }}</li>
+                                <li class="list-group-item">Cidade: {{ $inscricao->cidade }}</li>
+                                <li class="list-group-item">CEP: {{ $inscricao->cep }}</li>
+                                <li class="list-group-item">E-mail: {{ $inscricao->email }}</li>
+                                <li class="list-group-item">Telefone: {{ $inscricao->telefone }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="py-2">Dados do Curso</h3>
+                            <ul class="list-group">
+                                <li class="list-group-item">Curso: {{ $inscricao->nome_treinamento }}</li>
+                                <li class="list-group-item">Data da Inscrição: {{ $inscricao->data_realizacao }}</li>
+                                <li class="list-group-item">Quantidade de inscritos: {{ $inscricao->quantidade_inscritos }}</li>
+                                <li class="list-group-item">Valor do curso: R$ {{ $inscricao->valor_curso }}</li>
+                                <li class="list-group-item">Subtotal: R$ {{ $inscricao->subtotal }}</li>
+                                <li class="list-group-item">Desconto: R$ {{ $inscricao->desconto }}</li>
+                                <li class="list-group-item">Total: R$ {{ $inscricao->total }}</li>
+                            </ul>
+                        </div>
                     </div>
-                    
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <a href="#" class="btn btn-xs btn-primary">Baixar Ficha PDF</a>
+                            <a href="#" class="btn  btn-xs btn-warning">Editar Inscrição</a>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
-            {{-- Linha --}}
-            <div class="row">
-                
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <li>Quantidade de Inscritos: {{ $inscricao->quantidade_inscritos }}</li>
-                    <li>Valor do Curso: R$ {{ $inscricao->valor_curso }}</li>
-                    <li>Subtotal: R$ {{ $inscricao->subtotal }}</li>
-                    <li>Desconto: R$ {{ $inscricao->desconto }}</li>
-                    <li>Total: R$ {{ $inscricao->total }}</li>
-                    <!-- Adicione outras informações da inscrição aqui -->
-                </ul>
-            </div>
-        </div>
         </div>
     </div>
 @endforeach
+
 
 <script>
     $(document).ready(function() {

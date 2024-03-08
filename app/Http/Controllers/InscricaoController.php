@@ -24,6 +24,9 @@ class InscricaoController extends Controller
             $inscricao->data_realizacao = Carbon::parse($inscricao->data_realizacao)->format('d/m/Y');
 
             // Converter o valor para o formato de moeda brasileira
+            $inscricao->valor_curso = number_format($inscricao->valor_curso, 2, ',', '.');
+            $inscricao->subtotal = number_format($inscricao->subtotal, 2, ',', '.');
+            $inscricao->desconto = number_format($inscricao->desconto, 2, ',', '.');
             $inscricao->total = number_format($inscricao->total, 2, ',', '.');
 
            // Adicionar classe de cor com base no status
@@ -31,7 +34,7 @@ class InscricaoController extends Controller
                 case 'Processando':
                     $inscricao->cor_classe = 'btn btn-xs text-black bg-warning text-center';
                     break;
-                case 'Pago':
+                case 'Concluido':
                     $inscricao->cor_classe = 'btn btn-xs text-white bg-success text-center';
                     break;
                 case 'Cancelado':

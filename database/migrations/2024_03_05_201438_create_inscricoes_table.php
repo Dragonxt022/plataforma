@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('inscricoes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id'); // Adicionando a coluna user_id
             $table->string('quantidade_inscritos');
             $table->decimal('valor_curso', 10, 2);
             $table->decimal('subtotal', 10, 2);
@@ -35,16 +36,15 @@ return new class extends Migration
             $table->string('telefone');
             $table->string('email');
             $table->date('data_realizacao');
-            $table->enum('status', ['Processando', 'Pago', 'Cancelado'])->default('Processando');
+            $table->enum('status', ['Processando', 'Concluido', 'Cancelado'])->default('Processando'); // Corrigindo o typo em "Concluído"
             $table->date('data_termino');
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users'); // Adicionando a chave estrangeira para users
             $table->foreign('id_empresa')->references('id')->on('empresas');
             $table->foreign('id_treinamento')->references('id')->on('treinamentos');
         });
     }
-
-
 
     /**
      * Reverse the migrations.
@@ -53,4 +53,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('inscricoes');
     }
+
 };
