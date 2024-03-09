@@ -103,6 +103,24 @@
                     
                 </div>
             </li>
+
+            {{-- Gerenciar Banners --}}
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#Banners" role="button" aria-expanded="false" aria-controls="Banners">
+                    <i class="link-icon" data-feather="image"></i>
+                    <span class="link-title">Banners</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="Banners">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.banners.index') }}" class="nav-link">Lista</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </li>
+
             {{-- Gerenciar de usuários --}}
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#submenuUsuarios" role="button" aria-expanded="false" aria-controls="submenuUsuarios">
