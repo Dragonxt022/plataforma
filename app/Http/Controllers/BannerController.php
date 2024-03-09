@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Banner;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {   
@@ -19,6 +20,9 @@ class BannerController extends Controller
         $banners = Banner::pluck('titulo', 'id');
         return view('admin.admin_editar_banner', compact('banners'));
     }
+
+
+
 
 
     // Adiciona o banner
@@ -85,9 +89,10 @@ class BannerController extends Controller
     }
     
 
-    public function edit(Banner $banner)
+    public function edit($id)
     {
-        return view('banners.edit', compact('banner'));
+        $banner = Banner::findOrFail($id);
+        return view('admin.admin_editar_banner', compact('banner'));
     }
 
     public function update(Request $request, Banner $banner)

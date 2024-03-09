@@ -5,7 +5,7 @@
 <div class="page-content">
     <div class="row profile-body">
       <!-- middle wrapper start -->
-      <div class="col-lg-12 grid-margin stretch-card">
+      <div class="col-lg-6 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
                 @if(session('success'))
@@ -13,15 +13,17 @@
                         {{ session('success') }}
                     </div>
                 @endif
-            <h4 class="card-title">Banners</h4>
+            <h4 class="card-title">Banner</h4>
             <p class="text-muted mb-3">Editar Banner de destaque na pagina Inicial do site.</p>
 
             <div class="row">
                 <div class="col">
                     
 
-                    <form method="POST" action="{{ route('admin.categorias.update', ['banners' => $banners->id]) }}" class="forms-sample" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.banners.update', ['banner' => $banner->id]) }}" class="forms-sample" enctype="multipart/form-data">
+
                         @csrf
+                        @method('PUT')
                         {{-- Linha com coluna 1 --}}
                         <div class="row">
                             <div class="col">
@@ -30,7 +32,7 @@
                                         <div class="mb-3">
                                             <label for="titulo" class="form-label">Titulo:</label>
     
-                                            <input class="form-control @error('titulo') is-invalid @enderror" name="titulo" id="titulo" value="{{ $banners->titulo }}">
+                                            <input class="form-control @error('titulo') is-invalid @enderror" name="titulo" id="titulo" value="{{ $banner->titulo }}">
     
                                             @error('titulo')
                                                 <span class="text-danger pt-2">{{ $message }}</span>
@@ -44,7 +46,7 @@
                                         <div class="mb-3">
                                             <label for="subtitulo" class="form-label">Subtitulo:</label>
     
-                                            <input class="form-control @error('subtitulo') is-invalid @enderror" name="subtitulo" id="subtitulo" value="{{ $banners->subtitulo }}">
+                                            <input class="form-control @error('subtitulo') is-invalid @enderror" name="subtitulo" id="subtitulo" value="{{ $banner->subtitulo }}">
     
                                             @error('subtitulo')
                                                 <span class="text-danger pt-2">{{ $message }}</span>
@@ -56,15 +58,12 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3">
-                                            <label for="paragrafo" class="form-label">Paragrafo:</label>
-                                            
-                                            <textarea class="form-control @error('paragrafo') is-invalid @enderror"  name="paragrafo" id="paragrafo" cols="10" rows="5" value="{{ $banners->paragrafo }}"></textarea>
-    
+                                            <label for="paragrafo" class="form-label">Parágrafo:</label>
+                                            <textarea class="form-control @error('paragrafo') is-invalid @enderror" name="paragrafo" id="paragrafo" cols="10" rows="5">{{ $banner->paragrafo }}</textarea>
                                             @error('paragrafo')
                                                 <span class="text-danger pt-2">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -74,14 +73,15 @@
                                             <input type="file" id="img_banner" name="img_banner" style="display: none;" accept="image/jpeg,image/png">
                                             <!-- Imagem clicável -->
                                             <label for="img_banner">
-                                                <img id="showImage" src="{{ url('upload/empresas_images/semimagem.png') }}" alt="Banner" style="border: solid 1px cornflowerblue; cursor: pointer;" class="img-fluid @error('img_banner') is-invalid @enderror">
-
-                                                @error('img_banner')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
+                                                <img id="showImage" src="{{ $banner->img_banner ? asset('upload/admin_banner/' . $banner->img_banner) : asset('upload/empresas_images/semimagem.png') }}" alt="Banner" style="border: solid 1px cornflowerblue; cursor: pointer;" class="img-fluid @error('img_banner') is-invalid @enderror">
                                             </label>
+                                            <!-- Mensagem de erro, se houver -->
+                                            @error('img_banner')
+                                                <span class="text-danger pt-2">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
+                                    
                                 </div>
 
                                 <div class="row">
@@ -95,7 +95,7 @@
                                         <div class="mb-3">
                                             <label for="link_botao" class="form-label">Apontar para Link:</label>
     
-                                            <input class="form-control @error('link_botao') is-invalid @enderror" name="link_botao" id="link_botao" value="{{ $banners->link_botao }}">
+                                            <input class="form-control @error('link_botao') is-invalid @enderror" name="link_botao" id="link_botao" value="{{ $banner->link_botao }}">
     
                                             @error('link_botao')
                                                 <span class="text-danger pt-2">{{ $message }}</span>
@@ -111,7 +111,7 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col d-grid gap-2">
-                                        <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Atualizar</button>
                                     </div>
                                 </div>
                             </div>   

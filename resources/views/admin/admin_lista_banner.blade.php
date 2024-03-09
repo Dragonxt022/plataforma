@@ -157,7 +157,7 @@
 
                                   <td class="text-center align-middle">
                                       <button type="button" class="btn btn-primary btn-xs btn-icon mx-2">
-                                          <a href="{{ route('admin.banners.create', ['banner' => $banner->id]) }}">
+                                          <a href="{{ route('admin.banners.edit', ['banner' => $banner->id]) }}">
                                               <i data-feather="edit" style="color: #ffffff;"></i>
                                           </a>
                                       </button>
