@@ -7,7 +7,9 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\TreinamentoController;
 use App\Http\Controllers\CategoriaNotaController;
 use App\Http\Controllers\NotasController;
-use App\Http\Controllers\InscricaoController;
+use App\Http\Controllers\InscricaoController; 
+use App\Http\Controllers\BannerController;
+
 
 
 // Route::get('/', function () {
@@ -74,7 +76,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
 
 
-    // // Rotas para Treinamentos
+    // Rotas para Treinamentos
     Route::get('/admin/treinamentos/listar', [TreinamentoController::class, 'index'])->name('admin.treinamentos.index');
     Route::get('/admin/treinamentos/cadastrar', [TreinamentoController::class, 'create'])->name('admin.treinamentos.create');
     Route::post('/admin/treinamentos/store', [TreinamentoController::class, 'store'])->name('admin.treinamentos.store');
@@ -118,6 +120,19 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::put('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'update'])->name('admin.inscricoes.update');
 
     Route::delete('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'destroy'])->name('admin.inscricoes.destroy');
+
+    // sistema de gerenciamento de banner pagina Incial
+    Route::get('/admin/banners/lista', [BannerController::class, 'index'])->name('admin.banners.index');
+
+    Route::get('/admin/banners/criar', [BannerController::class, 'create'])->name('admin.banners.create');
+
+    Route::post('/admin/banners', [BannerController::class, 'store'])->name('admin.banners.store');
+
+    Route::get('/admin/banners/{banner}/edit', [BannerController::class, 'edit'])->name('admin.banners.edit');
+
+    Route::put('/admin/banners/{banner}', [BannerController::class, 'update'])->name('admin.banners.update');
+
+    Route::delete('/admin/banners/{banner}', [BannerController::class, 'destroy'])->name('admin.banners.destroy');
 
 
 }); // Fim do Grupo Adim pelo Middleware

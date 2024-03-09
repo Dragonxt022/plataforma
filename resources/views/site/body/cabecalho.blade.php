@@ -36,7 +36,7 @@
             </div>
             <div class="rd-navbar-nav-wrap">
               <div class="rd-navbar-nav-inner">
-                <div class="rd-navbar-btn-wrap"><a class="button button-smaller button-primary-outline" href="#">CONTATO</a></div>
+                <div class="rd-navbar-btn-wrap"><a class="button button-smaller button-primary-outline" href="{{ route('admin.login') }}">Area do Aluno</a></div>
                 <ul class="rd-navbar-nav">
                   <li class="active"><a href=" {{ route('site.pagina.inicio') }} ">Inicio</a>
                   </li>
