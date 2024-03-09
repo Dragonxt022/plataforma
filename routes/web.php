@@ -105,9 +105,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     // Gerenciamento de Inscrições
     Route::get('/admin/inscricoes/lista', [InscricaoController::class, 'index'])->name('admin.inscricoes.index');
-
+    // Altera o status da ficha de inscrição
     Route::put('/admin/inscricoes/{id}/alterar-status', [InscricaoController::class, 'alterarStatus'])->name('admin.alterar.status');
-
 
     Route::get('/admin/inscricoes/criar', [InscricaoController::class, 'create'])->name('admin.inscricoes.create');
 
@@ -115,25 +114,22 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'show'])->name('admin.inscricoes.show');
 
+    // método para editar a inscrição
     Route::get('/admin/inscricoes/{inscricao}/edit', [InscricaoController::class, 'edit'])->name('admin.inscricoes.edit');
 
     Route::put('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'update'])->name('admin.inscricoes.update');
 
     Route::delete('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'destroy'])->name('admin.inscricoes.destroy');
 
+
     // sistema de gerenciamento de banner pagina Incial
     Route::get('/admin/banners/lista', [BannerController::class, 'index'])->name('admin.banners.index');
-
     // Rota para o formulario
     Route::get('/admin/banners/criar', [BannerController::class, 'create'])->name('admin.banners.create');
-
     // rota responsavel por criar um novo banner
     Route::post('/admin/banners', [BannerController::class, 'store'])->name('admin.banners.store');
-
     Route::get('/admin/banners/{banner}/edit', [BannerController::class, 'edit'])->name('admin.banners.edit');
-
     Route::put('/admin/banners/{banner}', [BannerController::class, 'update'])->name('admin.banners.update');
-
     Route::delete('/admin/banners/{banner}', [BannerController::class, 'destroy'])->name('admin.banners.destroy');
 
 

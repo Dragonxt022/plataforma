@@ -91,7 +91,11 @@ class InscricaoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Buscar a inscrição pelo ID
+        $inscricao = Inscricoes::findOrFail($id);
+
+        // Retornar a view de edição com a inscrição
+        return view('admin_editar_inscricoes', compact('inscricao'));
     }
 
     /**
