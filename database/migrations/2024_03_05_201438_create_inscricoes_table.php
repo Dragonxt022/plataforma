@@ -21,7 +21,6 @@ return new class extends Migration
             $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('id_empresa');
             $table->string('pdf_caminho')->nullable();
-            $table->string('nome_treinamento');
             $table->unsignedBigInteger('id_treinamento');
             $table->string('nome_empresa');
             $table->date('data_inicio');

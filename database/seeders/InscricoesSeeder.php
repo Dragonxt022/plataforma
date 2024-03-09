@@ -45,7 +45,6 @@ class InscricoesSeeder extends Seeder
                 'total' => $total,
                 'id_empresa' => 1,
                 'pdf_caminho' => null,
-                'nome_treinamento' => $faker->sentence(),
                 'id_treinamento' => 1,
                 'nome_empresa' => $faker->company,
                 'data_inicio' => $data_inicio,

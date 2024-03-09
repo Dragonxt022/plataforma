@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 use App\Models\Inscricoes;
+use App\Models\Treinamento;
+use App\Models\Participante;
+
 use Carbon\Carbon;
 
 class InscricaoController extends Controller
@@ -17,11 +21,23 @@ class InscricaoController extends Controller
         // Recuperar todas as inscrições ordenadas pelo ID em ordem decrescente
         $inscricoes = Inscricoes::orderBy('id', 'desc')->get();
 
+        // Inicializar um array para armazenar os treinamentos correspondentes
+        $treinamentos = [];
+
         foreach ($inscricoes as $inscricao) {
             // Limitar o tamanho do nome para cada inscricao
             $inscricao->nome_empresa = substr($inscricao->nome_empresa, 0, 40);
 
             $inscricao->data_realizacao = Carbon::parse($inscricao->data_realizacao)->format('d/m/Y');
+
+            // Buscar o treinamento correspondente ao ID da inscrição
+            $treinamento = Treinamento::findOrFail($inscricao->id_treinamento);
+
+            // Limitar o tamanho do nome para cada curso
+            $treinamento->nome = substr($treinamento->nome, 0, 78);
+
+            // Adicionar o treinamento ao array
+            $treinamentos[] = $treinamento;
 
             // Converter o valor para o formato de moeda brasileira
             $inscricao->valor_curso = number_format($inscricao->valor_curso, 2, ',', '.');
@@ -46,11 +62,9 @@ class InscricaoController extends Controller
 
 
 
-        }
+        } 
 
-        
-
-        return view('admin.admin_lista_inscricoes', compact('inscricoes'));
+        return view('admin.admin_lista_inscricoes', compact('inscricoes', 'treinamento'));
     }
     // Método para alterar o status da inscrição
     public function alterarStatus(Request $request, $id)
@@ -93,9 +107,15 @@ class InscricaoController extends Controller
     {
         // Buscar a inscrição pelo ID
         $inscricao = Inscricoes::findOrFail($id);
+        
+        // Buscar o treinamento correspondente ao ID da inscrição
+        $treinamento = Treinamento::findOrFail($inscricao->id_treinamento);
 
-        // Retornar a view de edição com a inscrição
-        return view('admin.admin_editar_inscricoes', compact('inscricao'));
+        // Buscar os participantes associados à ficha de inscrição
+        $participantes = Participante::where('inscricao_id', $id)->get();
+
+        // Retornar a view de edição com a inscrição e o nome do curso
+        return view('admin.admin_editar_inscricoes', compact('inscricao', 'treinamento', 'participantes'));
     }
 
     /**

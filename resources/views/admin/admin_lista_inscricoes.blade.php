@@ -122,7 +122,7 @@
                         <div class="col-md-6">
                             <h3 class="py-2">Dados do Curso</h3>
                             <ul class="list-group">
-                                <li class="list-group-item">Curso: {{ $inscricao->nome_treinamento }}</li>
+                                <li class="list-group-item">Curso: {{ $treinamento->nome }}</li>
                                 <li class="list-group-item">Data da Inscrição: {{ $inscricao->data_realizacao }}</li>
                                 <li class="list-group-item">Quantidade de inscritos: {{ $inscricao->quantidade_inscritos }}</li>
                                 <li class="list-group-item">Valor do curso: R$ {{ $inscricao->valor_curso }}</li>
@@ -135,7 +135,11 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <a href="{{ $inscricao->pdf_caminho }}" class="btn btn-xs btn-primary" target="_blank">Baixar Ficha PDF</a>
+                            @if(!empty($inscricao->pdf_caminho))
+                                <a href="{{ $inscricao->pdf_caminho }}" class="btn btn-xs btn-primary" title="Baixe uma cópia da ficha de inscrição em PDF">Baixar Ficha PDF</a>
+                            @else
+                                <button class="btn btn-xs btn-primary" title="Não Arquivo presente no momento" disabled>Baixar Ficha PDF</button>
+                            @endif
                             
                             <a href="{{ route('admin.inscricoes.edit', ['inscricao' => $inscricao->id]) }}" class="btn  btn-xs btn-warning">Editar Inscrição</a>
                             
