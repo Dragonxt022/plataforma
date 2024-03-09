@@ -5,7 +5,7 @@
 <div class="page-content">
     <div class="row profile-body">
       <!-- middle wrapper start -->
-      <div class="col-lg-6 grid-margin stretch-card">
+      <div class="col-lg-8 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
                 @if(session('success'))

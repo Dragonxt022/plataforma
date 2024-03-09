@@ -114,7 +114,7 @@
                 <div class="collapse" id="Banners">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{ route('admin.banners.index') }}" class="nav-link">Lista</a>
+                            <a href="{{ route('admin.banners.index') }}" class="nav-link">Pagina Inicial</a>
                         </li>
                     </ul>
                     

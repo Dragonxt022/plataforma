@@ -12,32 +12,6 @@
                 </div>
         </form>
         <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="appsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i data-feather="grid"></i>
-                </a>
-                <div class="dropdown-menu p-0" aria-labelledby="appsDropdown">
-                <div class="px-3 py-2 d-flex align-items-center justify-content-between border-bottom">
-                        <p class="mb-0 fw-bold">Menu</p>
-                        <a href="javascript:;" class="text-muted">Editar</a>
-                    </div>
-                <div class="row g-0 p-1">
-                <div class="col-3 text-center">
-                    <a href="pages/apps/calendar.html" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="calendar" class="icon-lg mb-1"></i><p class="tx-12">Calendário</p></a>
-                </div>
-                <div class="col-3 text-center">
-                    <a href="pages/email/inbox.html" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="mail" class="icon-lg mb-1"></i><p class="tx-12">E-mail</p></a>
-                </div>
-                <div class="col-3 text-center">
-                    <a href="pages/general/profile.html" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="instagram" class="icon-lg mb-1"></i><p class="tx-12">Perfil</p></a>
-                </div>
-                </div>
-                    <div class="px-3 py-2 d-flex align-items-center justify-content-center border-top">
-                        <a href="javascript:;">Visualizar todos</a>
-                    </div>
-                </div>
-            </li>
-
             @php
                 
                 $id = Auth::user()->id;
@@ -61,8 +35,8 @@
                     </div>
                     <div class="d-flex justify-content-between flex-grow-1">
                     <div class="me-4">
-                        <p>Leonardo Payne</p>
-                        <p class="tx-12 text-muted">Status do Projeto</p>
+                        <p>Camara de Ji-Paraná</p>
+                        <p class="tx-12 text-muted">Nova Inscrição</p>
                     </div>
                     <p class="tx-12 text-muted">2 min ago</p>
                     </div>	
@@ -73,8 +47,8 @@
                     </div>
                     <div class="d-flex justify-content-between flex-grow-1">
                     <div class="me-4">
-                        <p>Carl Henson</p>
-                        <p class="tx-12 text-muted">Client meeting</p>
+                        <p>Prefeitura de Cacaulandia</p>
+                        <p class="tx-12 text-muted">Novo comentário</p>
                     </div>
                     <p class="tx-12 text-muted">30 min ago</p>
                     </div>	
@@ -85,36 +59,13 @@
                     </div>
                     <div class="d-flex justify-content-between flex-grow-1">
                     <div class="me-4">
-                        <p>Jensen Combs</p>
-                        <p class="tx-12 text-muted">Atualizações do Projeto</p>
+                        <p>Camara Cerejeiras</p>
+                        <p class="tx-12 text-muted">Emitiu certificado</p>
                     </div>
                     <p class="tx-12 text-muted">1 hrs ago</p>
                     </div>	
                 </a>
-                <a href="javascript:;" class="dropdown-item d-flex align-items-center py-2">
-                    <div class="me-3">
-                    <img class="wd-30 ht-30 rounded-circle" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="userr">
-                    </div>
-                    <div class="d-flex justify-content-between flex-grow-1">
-                    <div class="me-4">
-                        <p>Amiah Burton</p>
-                        <p class="tx-12 text-muted">Project deatline</p>
-                    </div>
-                    <p class="tx-12 text-muted">2 hrs ago</p>
-                    </div>	
-                </a>
-                <a href="javascript:;" class="dropdown-item d-flex align-items-center py-2">
-                    <div class="me-3">
-                    <img class="wd-30 ht-30 rounded-circle" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="userr">
-                    </div>
-                    <div class="d-flex justify-content-between flex-grow-1">
-                    <div class="me-4">
-                        <p>Yaretzi Mayo</p>
-                        <p class="tx-12 text-muted">New record</p>
-                    </div>
-                    <p class="tx-12 text-muted">5 hrs ago</p>
-                    </div>	
-                </a>
+
                 </div>
                     <div class="px-3 py-2 d-flex align-items-center justify-content-center border-top">
                         <a href="javascript:;">Ver todos</a>
@@ -139,7 +90,7 @@
                                                     <i class="icon-sm text-white" data-feather="gift"></i>
                             </div>
                             <div class="flex-grow-1 me-2">
-                                                    <p>New Order Recieved</p>
+                                                    <p>Certidão Municipal - Vencida</p>
                                                     <p class="tx-12 text-muted">30 min ago</p>
                             </div>	
                         </a>
@@ -148,7 +99,7 @@
                                                     <i class="icon-sm text-white" data-feather="alert-circle"></i>
                             </div>
                             <div class="flex-grow-1 me-2">
-                                <p>Server Limit Reached!</p>
+                                <p>Adriano Silva - Fez Login</p>
                                 <p class="tx-12 text-muted">1 hrs ago</p>
                             </div>	
                         </a>
@@ -157,26 +108,8 @@
                             <img class="wd-30 ht-30 rounded-circle" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="userr">
                             </div>
                             <div class="flex-grow-1 me-2">
-                                <p>New customer registered</p>
+                                <p>Sua parcela vence em 3 dias</p>
                                 <p class="tx-12 text-muted">2 sec ago</p>
-                            </div>	
-                        </a>
-                        <a href="javascript:;" class="dropdown-item d-flex align-items-center py-2">
-                            <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
-                                <i class="icon-sm text-white" data-feather="layers"></i>
-                            </div>
-                            <div class="flex-grow-1 me-2">
-                                <p>Apps are ready for update</p>
-                                <p class="tx-12 text-muted">5 hrs ago</p>
-                            </div>	
-                        </a>
-                        <a href="javascript:;" class="dropdown-item d-flex align-items-center py-2">
-                            <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
-                                <i class="icon-sm text-white" data-feather="download"></i>
-                            </div>
-                            <div class="flex-grow-1 me-2">
-                                <p>Download completed</p>
-                                <p class="tx-12 text-muted">6 hrs ago</p>
                             </div>	
                         </a>
                         </div>

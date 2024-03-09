@@ -48,6 +48,11 @@
 </head>
 <body>
 	<div class="main-wrapper">
+		<div>
+			<div class="loader-wrapper">
+			<div class="loader">loading...</div>
+			</div>
+		</div>
 
 		<!-- partial:partials/_sidebar.html -->
 		@include('admin.body.sidebar')
@@ -182,6 +187,15 @@
 					break;
 			}
 		@endif
+	</script>
+	{{-- Loder de carregamento --}}
+	<script>
+		// Espera até que o DOM esteja completamente carregado
+		document.addEventListener("DOMContentLoaded", function() {
+			// Remove a classe 'loaded' do elemento '.loader-wrapper'
+			document.querySelector('.loader-wrapper').classList.remove('loader-wrapper');
+		});
+
 	</script>
 	
 	
