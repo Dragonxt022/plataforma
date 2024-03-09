@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Banner;
 
 class BannerController extends Controller
-{
+{   
+    // Pagina que lista os banners
     public function index()
     {
         $banners = Banner::all();
-        return view('banners.index', compact('banners'));
+        return view('admin.admin_lista_banner', compact('banners'));
     }
 
     public function create()
@@ -18,10 +19,12 @@ class BannerController extends Controller
         return view('banners.create');
     }
 
+    // Adiciona o banner
     public function store(Request $request)
     {
         Banner::create($request->all());
-        return redirect()->route('banners.index')->with('success', 'Banner criado com sucesso!');
+        
+        return redirect()->route('admin.admin_lista_banner')->with('success', 'Banner criado com sucesso!');
     }
 
     public function edit(Banner $banner)

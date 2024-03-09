@@ -124,8 +124,10 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     // sistema de gerenciamento de banner pagina Incial
     Route::get('/admin/banners/lista', [BannerController::class, 'index'])->name('admin.banners.index');
 
+    // Rota para o formulario - Não usado!
     Route::get('/admin/banners/criar', [BannerController::class, 'create'])->name('admin.banners.create');
 
+    // rota responsavel por criar um novo banner
     Route::post('/admin/banners', [BannerController::class, 'store'])->name('admin.banners.store');
 
     Route::get('/admin/banners/{banner}/edit', [BannerController::class, 'edit'])->name('admin.banners.edit');
