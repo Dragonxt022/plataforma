@@ -10,15 +10,18 @@ use App\Http\Controllers\NotasController;
 use App\Http\Controllers\InscricaoController;
 
 
-Route::get('/', function () {
-    return view('site.inicio');
-});
+// Route::get('/', function () {
+//     return view('site.inicio');
+// });
 
-Route::get('/admin/login', [AdminControlller::class, 'AdminLogin'])->name('admin.login');
 
 // Pagina do site
-Route::get('/Inicio', [TreinamentoController::class, 'PaginaInicio'])->name('site.pagina.inicio');
+Route::get('/', [TreinamentoController::class, 'PaginaInicio'])->name('site.pagina.inicio');
+
+// PAGINA DE TREINAMENTOS
 Route::get('/treinamentos', [TreinamentoController::class, 'Listatreinamento'])->name('site.treinamentos');
+
+// PAGINA DE DETALHES DOS CURSOS
 Route::get('/treinamentos/{id}', [TreinamentoController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
 
 
@@ -127,5 +130,5 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
 }); // Fim do Grupo Agent pelo Middleware
 
 
-
+Route::get('/admin/login', [AdminControlller::class, 'AdminLogin'])->name('admin.login');
 
