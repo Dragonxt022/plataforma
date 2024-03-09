@@ -11,172 +11,118 @@
                     <div class="card-body p-2">
                         <h6 class="card-title py-4">Atualizar ficha de inscrição</h6>
 
-                        <form method="POST" action="{{ route('admin.inscricoes.update', ['inscricao' => $inscricao->id]) }}" class="forms-sample d-flex flex-row flex-wrap justify-content-around" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('admin.inscricoes.update', ['inscricao' => $inscricao->id]) }}" class="forms-sample" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
-                            {{-- Linha com coluna 1 --}}
-                            <div class="row" style="width: 78%;">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="nome" class="form-label">Nome do curso:</label>
-        
-                                                <input class="form-control @error('nome') is-invalid @enderror" name="nome" id="nome" value="{{ $inscricao->nome }}">
-        
-                                                @error('nome')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="descricao" class="form-label">Descrição:</label>
-                                                
-                                                <textarea class="form-control @error('descricao') is-invalid @enderror" name="descricao" id="editor">{{ $inscricao->descricao }}</textarea>
-                                    
-                                                @error('descricao')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Linha 2 --}}
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="data_inicio" class="form-label">Data de Início:</label>
-                                                <input type="date" class="form-control @error('data_inicio') is-invalid @enderror"  name="data_inicio" id="data_inicio" value="{{ $inscricao->data_inicio }}">
-                                                @error('data_inicio')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="data_termino" class="form-label">Data de Término:</label>
-                                                <input type="date" class="form-control @error('data_termino') is-invalid @enderror"  name="data_termino" id="data_termino" value="{{ $inscricao->data_termino }}">
-                                                @error('data_termino')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="valor" class="form-label">Valor R$:</label>
-                                                <input type="number" class="form-control @error('valor') is-invalid @enderror"  name="valor" id="valor" value="{{ $inscricao->valor }}">
-                                                @error('valor')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="vagas" class="form-label">Vagas:</label>
-                                                <input type="number" class="form-control @error('vagas') is-invalid @enderror"  name="vagas" id="vagas" value="{{ $inscricao->vagas }}">
-                                                @error('vagas')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Linha 4 --}}
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="local" class="form-label">Local:</label>
-                                                <input type="text" class="form-control @error('local') is-invalid @enderror"  name="local" id="local" value="{{ $inscricao->local }}">
-                                                @error('local')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="folder" class="form-label">Arquivo (ex. PDF, Word):</label>
-        
-                                                {{-- Campo de upload de arquivo --}}
-                                                <input type="file" class="form-control @error('folder') is-invalid @enderror" name="folder" id="folder">
-
-                                                {{-- Campo oculto para armazenar o nome do arquivo atual --}}
-                                                <input type="hidden" name="current_folder" value="{{ $inscricao->folder }}">
-        
-                                                @error('folder')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                     {{-- Linha 6 --}}
-                                     <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="id_empresa" class="form-label">Empresa:</label>
-                                                <select class="form-select @error('id_empresa') is-invalid @enderror" name="id_empresa" id="id_empresa">
-                                                    <option value="" {{ !$inscricao->id_empresa ? 'selected' : '' }}>Selecione uma empresa</option>
-                                                    @foreach($empresas as $id => $nome)
-                                                        <option value="{{ $id }}" {{ $inscricao->id_empresa == $id ? 'selected' : '' }}>{{ $nome }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('id_empresa')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="docente" class="form-label">Professor(a):</label>
-                                                <input type="text" class="form-control @error('docente') is-invalid @enderror"  name="docente" id="docente" value="{{ $inscricao->docente }}">
-                                                @error('docente')
-                                                    <span class="text-danger pt-2">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                            
-                                        </div> 
-                                    </div>
-                                    
-                                </div>
-                            </div>
-
+                            {{-- Sublinha Linha  --}}
                             <div class="row">
                                 <div class="col">
-                                    <div class="col">
-                                        <!-- Adicionar input de arquivo invisível em cima da imagem -->
-                                        <input type="file" id="banner" name="banner" style="display: none;" accept="image/jpeg,image/png">
-                                        <!-- Imagem clicável -->
-                                        <label for="banner">
-                                            @if($inscricao->banner)
-                                                <img id="showImage" src="{{ url('upload/cursos_images/' . $inscricao->banner) }}" alt="profile" style="max-width: 215px; border: solid 1px cornflowerblue; cursor: pointer;" class="@error('banner') is-invalid @enderror">
-                                            @else
-                                                <img id="showImage" src="{{ url('upload/cursos_images/semimagembanner.png') }}" alt="profile" style="max-width: 215px; border: solid 1px cornflowerblue; cursor: pointer;" class="@error('banner') is-invalid @enderror">
-                                            @endif
-                            
-                                            @error('banner')
-                                                <span class="text-danger pt-2">{{ $message }}</span>
-                                            @enderror
-                                        </label>
+                                    <div class="mb-3">
+                                        <label for="nome_juridico" class="form-label">Jurídico/Entidade:</label>
+
+                                        <input class="form-control @error('nome_juridico') is-invalid @enderror" name="nome_juridico" id="nome_juridico" value="{{ $inscricao->nome_juridico }}">
+
+                                        @error('nome_juridico')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="cnpj" class="form-label">CNPJ:</label>
                                         
+                                        <input type="text" class="form-control @error('cnpj') is-invalid @enderror"  name="cnpj" id="cnpj" value="{{ $inscricao->cnpj }}">
+                            
+                                        @error('cnpj')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="row">
-                                        <div class="col d-grid gap-2 pb-2">
-                                            <button type="button" class="btn btn-warning mt-2 " onclick="document.getElementById('banner').click()">Adicionar Imagem</button>        
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col d-grid gap-2">
-                                            <button type="submit" class="btn btn-primary btn-block">Atualizar</button>
-                                        </div>
+                                </div>
+                                
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="cep" class="form-label">CEP:</label>
+                                        <input type="text" class="form-control @error('cep') is-invalid @enderror"  name="cep" id="cep" value="{{ $inscricao->cep }}">
+                                        @error('cep')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
+
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+                            {{-- Sublinha Linha  --}}
+                            <div class="row">
+                                
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="cidade" class="form-label">Cidade:</label>
+                                        <input type="text" class="form-control @error('cidade') is-invalid @enderror"  name="cidade" id="cidade" value="{{ $inscricao->cidade }}">
+                                        @error('cidade')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="bairro" class="form-label">Bairro:</label>
+                                        <input type="text" class="form-control @error('bairro') is-invalid @enderror"  name="bairro" id="bairro" value="{{ $inscricao->bairro }}">
+                                        @error('bairro')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="rua" class="form-label">Rua:</label>
+                                        <input type="text" class="form-control @error('rua') is-invalid @enderror"  name="rua" id="rua" value="{{ $inscricao->rua }}">
+                                        @error('rua')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Sublinha Linha --}}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="numero" class="form-label">Número:</label>
+                                        <input type="number" class="form-control @error('numero') is-invalid @enderror"  name="numero" id="numero" value="{{ $inscricao->numero }}">
+                                        @error('numero')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">E-mail Responsavel:</label>
+                                        <input type="text" class="form-control @error('email') is-invalid @enderror"  name="email" id="email" value="{{ $inscricao->email }}">
+                                        @error('email')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="telefone" class="form-label">Telefone Responsavel:</label>
+                                        <input type="text" class="form-control @error('telefone') is-invalid @enderror"  name="telefone" id="telefone" value="{{ $inscricao->telefone }}">
+                                        @error('telefone')
+                                            <span class="text-danger pt-2">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- sublinha linha --}}
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <a href="#" class="btn btn-xs btn-primary">Atualizar</a>
+                                    <a href="#" class="btn  btn-xs btn-danger">Baixar PDF</a>
+                                    <a href="#" class="btn  btn-xs btn-primary">Imprimir</a>
+                                    <a href="#" class="btn  btn-xs btn-warning">Enviar por E-mail</a>     
+                                </div>
+                            </div>
+
                         </form>                        
-                        
                     </div>
                 </div>
             </div>

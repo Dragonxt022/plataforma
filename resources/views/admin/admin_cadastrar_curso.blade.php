@@ -153,12 +153,12 @@
                                     </div>
                                     <div class="row">
                                         <div class="col d-grid gap-2 pb-2">
-                                            <button type="button" class="btn btn-warning mt-2 " onclick="document.getElementById('banner').click()">Adicionar Imagem</button>        
+                                            <button type="button" class="btn btn-xs btn-warning mt-2 " onclick="document.getElementById('banner').click()">Adicionar Imagem</button>        
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col d-grid gap-2">
-                                            <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                                            <button type="submit" class="btn btn-xs btn-primary btn-block">Cadastrar</button>
                                         </div>
                                     </div>
                                 </div>

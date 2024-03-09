@@ -65,10 +65,9 @@
                                     </button>
                                     
                       
-                                      <button type="button" class="btn btn-warning btn-xs btn-icon" data-toggle="modal"
-                                          data-target="#confirmDelete{{ $inscricao->id }}">
-                                          <i data-feather="edit"></i>
-                                      </button>
+                                    <a href="{{ route('admin.inscricoes.edit', ['inscricao' => $inscricao->id]) }}" class="btn btn-warning btn-xs btn-icon">
+                                        <i data-feather="edit"></i>
+                                    </a>
                                   </td>
                               </tr>
                               @endforeach
@@ -87,7 +86,7 @@
     </div>
 </div>
 
-<!-- Modal de Confirmação de Exclusão -->
+<!-- Modal de pré visualização de dados -->
 @foreach ($inscricoes as $inscricao)
     <div class="modal fade" id="detalhesInscricao{{ $inscricao->id }}" tabindex="-1" aria-labelledby="detalhesInscricaoLabel{{ $inscricao->id }}" aria-hidden="true">
         <div class="modal-dialog modal-lg">

@@ -95,7 +95,7 @@ class InscricaoController extends Controller
         $inscricao = Inscricoes::findOrFail($id);
 
         // Retornar a view de edição com a inscrição
-        return view('admin_editar_inscricoes', compact('inscricao'));
+        return view('admin.admin_editar_inscricoes', compact('inscricao'));
     }
 
     /**

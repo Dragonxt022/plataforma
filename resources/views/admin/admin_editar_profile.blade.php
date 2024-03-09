@@ -78,7 +78,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Atualizar informações
+                                        <button type="submit" class="btn btn-xs btn-primary">Atualizar informações
                                     </div>
                                 </div>
                             </div>

@@ -106,7 +106,7 @@
                           <div class="row">
                               <div class="col py-3">
                                   <div class="mb-3">
-                                      <button type="submit" class="btn btn-primary">Atualizar
+                                      <button type="submit" class="btn btn-xs42 btn-primary">Atualizar
                                   </div>
                               </div>
                           </div>

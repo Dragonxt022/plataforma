@@ -138,7 +138,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Cadastrar Empresa</button>
+                                        <button type="submit" class="btn btn-xs btn-primary">Cadastrar Empresa</button>
                                     </div>
                                 </div>
                             </div>

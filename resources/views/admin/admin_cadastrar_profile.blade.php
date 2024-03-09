@@ -112,7 +112,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary">Cadastrar Usuário</button>
+                                        <button type="submit" class="btn btn-xs btn-primary">Cadastrar Usuário</button>
                                     </div>
                                 </div>
                             </div>

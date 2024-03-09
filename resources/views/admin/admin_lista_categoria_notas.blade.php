@@ -84,7 +84,7 @@
                                           </a>
                                       </button>
                       
-                                      <button type="button" class="btn btn-danger btn-xs btn-icon" data-toggle="modal"
+                                      <button type="button" class="btn btn-xs btn-danger btn-xs btn-icon" data-toggle="modal"
                                           data-target="#confirmDelete{{ $categoria->id }}" @if ($categoria->id == 1) disabled @endif>
                                           <i data-feather="trash-2"></i>
                                       </button>
