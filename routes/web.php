@@ -21,10 +21,10 @@ use App\Http\Controllers\BannerController;
 Route::get('/', [TreinamentoController::class, 'PaginaInicio'])->name('site.pagina.inicio');
 
 // PAGINA DE TREINAMENTOS
-Route::get('/treinamentos', [TreinamentoController::class, 'Listatreinamento'])->name('site.treinamentos');
+Route::get('/treinamentos', [TreinamentoController::class, 'Listatreinamento'])->name('site.pagina.treinamentos');
 
 // PAGINA DE DETALHES DOS CURSOS
-Route::get('/treinamentos/{id}', [TreinamentoController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
+Route::get('/treinamentos/{slug}', [TreinamentoController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
 
 
 

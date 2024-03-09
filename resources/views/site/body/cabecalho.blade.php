@@ -42,7 +42,7 @@
                   </li>
                   <li><a href="#">Sobre nós</a>
                   </li>
-                  <li><a href="#">Capacitação</a>
+                  <li><a href=" {{ route('site.pagina.treinamentos') }}">Capacitação</a>
                   </li>
                   <li><a href="#">Mentoria</a>
                   </li>

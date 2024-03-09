@@ -81,9 +81,10 @@ class TreinamentoController extends Controller
         return view('site.treinamentos', compact('treinamentos'));
     }
     // Pagina que lista os detalhes de cada treinamento
-    public function Detalhestreinamento($id)
+    public function Detalhestreinamento($slug)
     {
-        $treinamento = Treinamento::findOrFail($id);
+        // Buscar o treinamento pelo slug
+        $treinamento = Treinamento::where('slug', $slug)->firstOrFail();
 
         // Limitar o tamanho do nome para cada treinamento       
         $treinamento->data_inicio = Carbon::parse($treinamento->data_inicio)->format('d/m/Y');

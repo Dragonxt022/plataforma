@@ -18,7 +18,7 @@
                 <!-- Adicione mais informações do treinamento conforme necessário -->
             </div>
             <div class="card-footer">
-                <a href="{{ route('site.treinamentos_detalhes', $treinamento->id) }}" class="btn btn-primary">Mais detalhes</a>
+                <a href="{{ route('site.treinamentos_detalhes', $treinamento->slug) }}" class="btn btn-primary">Mais detalhes</a>
             </div>
         </div>
     </div>
