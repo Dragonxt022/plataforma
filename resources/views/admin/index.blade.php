@@ -61,18 +61,6 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
                     <h6 class="card-title mb-0">NOVOS PEDIDOS</h6>
-                    <div class="dropdown mb-2">
-                        <a type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                        </div>
-                    </div>
                     </div>
                     <div class="row">
                     <div class="col-6 col-md-12 col-xl-5">
@@ -96,18 +84,6 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
                     <h6 class="card-title mb-0">CRECIMENTO</h6>
-                    <div class="dropdown mb-2">
-                        <a type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                        </div>
-                    </div>
                     </div>
                     <div class="row">
                     <div class="col-6 col-md-12 col-xl-5">
@@ -135,21 +111,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline mb-2">
-                    <h6 class="card-title mb-0">VENDAS MENSAIS</h6>
+                    <h6 class="card-title mb-0">Relátorio Anual</h6>
                     <div class="dropdown mb-2">
                         <a type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
                         <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Visualizar</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Editar</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
                         <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Imprimir</span></a>
                         <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Baixar</span></a>
                         </div>
                     </div>
                     </div>
-                    <p class="text-muted">Vendas são atividades relacionadas à venda ou à quantidade de bens ou serviços vendidos em um determinado período de tempo.</p>
+                    <p class="text-muted">Realatório detalhado referente ao desempenho, informações obitidas do banco de dados de acordo com suas inscrições. Sómente informações com status de canselado não será contabilizada.</p>
                     <div id="monthlySalesChart"></div>
                 </div> 
             </div>
@@ -244,91 +218,46 @@
     <div class="col-lg-7 col-xl-8 stretch-card">
         <div class="card">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                    <h6 class="card-title mb-0">Projetos</h6>
-                    <div class="dropdown mb-2">
-                        <a type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                        <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex justify-content-between align-items-baseline mb-2">
+                            <h6 class="card-title mb-0">Informações de desempenho</h6>
+                            
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div class="row">
+                    <div class="col">
+                        <div>
+                            <p class="text-muted"> Visualize o status do seu curso a quantidade de inscrito e o valor previsto.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-responsive  py-4">
                     <table class="table table-hover mb-0">
                         <thead>
                         <tr>
-                            <th class="pt-0">#</th>
-                            <th class="pt-0">Project Name</th>
-                            <th class="pt-0">Start Date</th>
-                            <th class="pt-0">Due Date</th>
+                            <th class="pt-0">ID</th>
+                            <th class="pt-0"> </th>
+                            <th class="pt-0">Nome do curso</th>
+                            <th class="pt-0">Data de inicio</th>
                             <th class="pt-0">Status</th>
-                            <th class="pt-0">Assign</th>
+                            <th class="pt-0">Qt</th>
+                            <th class="pt-0">Valor total</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td>NobleUI jQuery</td>
-                            <td>01/01/2022</td>
-                            <td>26/04/2022</td>
-                            <td><span class="badge bg-danger">Released</span></td>
-                            <td>Leonardo Payne</td>
+                            <td>img</td>
+                            <td>Treinamento de Saneamento basico e suas</td>
+                            <td>09/11/2024</td>
+                            <td><span class="badge bg-warning">Andamento</span></td>
+                            <td>62</td>
+                            <td>R$ 50.00,00</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>NobleUI Angular</td>
-                            <td>01/01/2022</td>
-                            <td>26/04/2022</td>
-                            <td><span class="badge bg-success">Review</span></td>
-                            <td>Carl Henson</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>NobleUI ReactJs</td>
-                            <td>01/05/2022</td>
-                            <td>10/09/2022</td>
-                            <td><span class="badge bg-info">Pending</span></td>
-                            <td>Jensen Combs</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>NobleUI VueJs</td>
-                            <td>01/01/2022</td>
-                            <td>31/11/2022</td>
-                            <td><span class="badge bg-warning">Work in Progress</span>
-                            </td>
-                            <td>Amiah Burton</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>NobleUI Laravel</td>
-                            <td>01/01/2022</td>
-                            <td>31/12/2022</td>
-                            <td><span class="badge bg-danger">Coming soon</span></td>
-                            <td>Yaretzi Mayo</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>NobleUI NodeJs</td>
-                            <td>01/01/2022</td>
-                            <td>31/12/2022</td>
-                            <td><span class="badge bg-primary">Coming soon</span></td>
-                            <td>Carl Henson</td>
-                        </tr>
-                        <tr>
-                            <td class="border-bottom">3</td>
-                            <td class="border-bottom">NobleUI EmberJs</td>
-                            <td class="border-bottom">01/05/2022</td>
-                            <td class="border-bottom">10/11/2022</td>
-                            <td class="border-bottom"><span class="badge bg-info">Pending</span></td>
-                            <td class="border-bottom">Jensen Combs</td>
-                        </tr>
+                        
                         </tbody>
                     </table>
                 </div>

@@ -192,11 +192,14 @@
 	<script>
 		// Espera até que o DOM esteja completamente carregado
 		document.addEventListener("DOMContentLoaded", function() {
-			// Remove a classe 'loaded' do elemento '.loader-wrapper'
-			document.querySelector('.loader-wrapper').classList.remove('loader-wrapper');
+			// Seleciona o elemento .loader-wrapper e oculta
+			var loaderWrapper = document.querySelector('.loader-wrapper');
+			if (loaderWrapper) {
+				loaderWrapper.style.display = 'none';
+			}
 		});
-
 	</script>
+	
 	
 	
 
