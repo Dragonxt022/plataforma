@@ -135,8 +135,9 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <a href="#" class="btn btn-xs btn-primary">Baixar Ficha PDF</a>
-                            <a href="#" class="btn  btn-xs btn-warning">Editar Inscrição</a>
+                            <a href="{{ $inscricao->pdf_caminho }}" class="btn btn-xs btn-primary" target="_blank">Baixar Ficha PDF</a>
+                            
+                            <a href="{{ route('admin.inscricoes.edit', ['inscricao' => $inscricao->id]) }}" class="btn  btn-xs btn-warning">Editar Inscrição</a>
                             
                         </div>
                     </div>
