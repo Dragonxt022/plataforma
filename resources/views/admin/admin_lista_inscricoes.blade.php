@@ -38,7 +38,7 @@
                               @foreach ($inscricoes as $inscricao)
                               <tr>
                                   <td class="text-center align-middle">{{ $inscricao->id }}</td>
-                                  <td class="align-middle">{{ $inscricao->nome_empresa }}</td>
+                                  <td class="align-middle">{{ $inscricao->nome_juridico }}</td>
                                   {{-- <td class="align-middle">{{ $inscricao->nome_treinamento }}</td> --}}
                                   <td class="align-middle">{{ $inscricao->cidade }}</td>
 

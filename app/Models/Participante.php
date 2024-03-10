@@ -13,7 +13,11 @@ class Participante extends Model
         'inscricao_id', 
         'nome', 
         'celular', 
-        'email', 
-        'id_treinamento'
+        'email'
     ];
+
+    public function inscricao()
+    {
+        return $this->belongsTo(Inscricoes::class, 'inscricao_id');
+    }
 }

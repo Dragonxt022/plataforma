@@ -35,6 +35,7 @@ class Inscricoes extends Model
         'status',
         'data_termino',
     ];
+    
 
     public function treinamento()
     {
