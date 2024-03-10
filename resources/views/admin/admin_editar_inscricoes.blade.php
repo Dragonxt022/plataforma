@@ -123,29 +123,26 @@
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tbody>
-                                              <tr>
-                                                <td>Quantidade participantes</td>
-                                                <td class="text-end">{{ $inscricao->quantidade_inscritos }}</td>
-                                              </tr>
-                                              <tr>
-                                                <td>Subtotal</td>
-                                                <td class="text-end">R$ {{ $inscricao->subtotal }}</td>
-                                              </tr>
-    
-                                              <tr>
-                                                <td class="text-bold-800 ">Valor da Inscrição</td>
-                                                <td class="text-bold-800 text-end"> R$ {{ $inscricao->valor_curso }} </td>
-                                              </tr>
-                                              
-                                              <tr>
-                                                <td class="text-bold-800">Desconto</td>
-                                                <td class="text-bold-800 text-end text-danger"> R$ - {{ $inscricao->desconto }}</td>
-                                              </tr>
-                    
-                                              <tr class="bg-dark">
-                                                <td class="text-bold-800">Total</td>
-                                                <td class="text-bold-800 text-end text-success">R$ {{ $inscricao->total }}</td>
-                                              </tr>
+                                                <tr>
+                                                    <td>Quantidade participantes</td>
+                                                    <td class="text-end">{{ $inscricao->quantidade_inscritos }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Subtotal</td>
+                                                    <td class="text-end" id="subtotal">R$ {{ $inscricao->subtotal }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-bold-800 ">Valor da Inscrição</td>
+                                                    <td class="text-bold-800 text-end" id="valorInscricao"> R$ {{ $inscricao->valor_curso }} </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-bold-800">Desconto</td>
+                                                    <td class="text-bold-800 text-end text-danger" id="desconto"> R$ - {{ $inscricao->desconto }}</td>
+                                                </tr>
+                                                <tr class="bg-dark">
+                                                    <td class="text-bold-800">Total</td>
+                                                    <td class="text-bold-800 text-end text-success" id="total">R$ {{ $inscricao->total }}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -203,22 +200,26 @@
                                                         <input type="email" class="form-control" id="email_participante_{{ $index }}" name="participantes[{{ $index }}][email]" value="{{ $participante->email }}">
                                                     </div>
                                                 </div>
-
-                                                <div class="col-1" style="margin-top: 2.7%;">
-                                                    <button type="button" class="remove-participante-btn btn btn-danger btn-xs btn-icon">
-                                                        <i data-feather="trash-2"></i>
-                                                    </button>
+                                                <div class="col-1" style="margin-top: 2.8%;">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="excluir_participante_{{ $index }}" name="participantes[{{ $index }}][excluir]">
+                                                        <label class="form-check-label" for="excluir_participante_{{ $index }}">Excluir</label>
+                                                    </div>
                                                 </div>
+                                                <input type="hidden" name="participantes[{{ $index }}][participante_id]" value="{{ $participante->id }}">
+                                                <input type="hidden" name="participantes[{{ $index }}][id_treinamento]" value="{{ $inscricao->id_treinamento }}">
+                                                <input type="hidden" name="id_treinamento" value="{{ $inscricao->id_treinamento }}">
+
                                             </div>
                                         @endforeach
-                                
                                     @else
                                         <p>Não há participantes cadastrados para esta inscrição.</p>
                                     @endisset
                                 </div>
+                                
                                 <div class="row">
-                                    <div class="col-5">
-                                        <button type="button" id="add-participante-btn" class="btn btn-primary btn-xs"><i class="fas fa-plus"></i> Adicionar Participante</button>
+                                    <div class="col text-end">
+                                        <button type="button" id="add-participante-btn" class="btn btn-primary btn-xs"> Adicionar Participante</button>
                                     </div>
                                 </div>
                             </div>
@@ -241,36 +242,7 @@
                                 </div>
                             </div>
 
-                        </form>
-                        <!-- Modelo de participante oculto -->
-                        <div id="participante-template" class="d-none">
-                            <div class="participante row">
-                                <input type="hidden" name="participantes[{{ $index }}][id_treinamento]" value="{{ $inscricao->id_treinamento }}">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="nome_participante" class="form-label">Nome:</label>
-                                        <input type="text" class="form-control" name="participantes[][nome]">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="celular_participante" class="form-label">Celular:</label>
-                                        <input type="text" class="form-control" name="participantes[][celular]">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="email_participante" class="form-label">E-mail:</label>
-                                        <input type="email" class="form-control" name="participantes[][email]">
-                                    </div>
-                                </div>
-                                <div class="col-1" style="margin-top: 2.7%;">
-                                    <button type="button" class="remove-participante-btn btn btn-danger btn-xs btn-icon">
-                                        <i data-feather="trash-2"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>                       
+                        </form>                      
                     </div>
                 </div>
             </div>
@@ -285,6 +257,7 @@
 {{-- customização --}}
 <script src="{{ asset('backend/assets/js/tinymce.js') }}"></script>
 
+{{-- botão responsavel por editar os desconto --}}
 <script class="text/javascript">
     document.getElementById('editarValores').addEventListener('click', function() {
         var camposEditar = document.getElementById('camposEditar');
@@ -295,39 +268,83 @@
         }
     });
 
-    // sistema adicionar novos participantes ou removelos
-    document.addEventListener('DOMContentLoaded', function () {
-        const participantesContainer = document.getElementById('participantes-container');
-        const addParticipanteBtn = document.getElementById('add-participante-btn');
-        const participanteTemplate = document.getElementById('participante-template');
 
-        addParticipanteBtn.addEventListener('click', function () {
-            // Clonar o modelo de participante
-            const newParticipante = participanteTemplate.cloneNode(true);
-            newParticipante.classList.remove('d-none'); // Remover a classe "d-none" para torná-lo visível
+    // Função para calcular o desconto com base no novo total
+    function calcularDesconto(novoTotal, subtotal) {
+        // Calcular o desconto subtraindo o subtotal do novo total
+        var desconto = subtotal - novoTotal;
+        return desconto;
+    }
 
-            // Obter os campos de entrada dentro do novo participante clonado
-            const nomeInput = newParticipante.querySelector('input[name="nome"]');
-            const celularInput = newParticipante.querySelector('input[name="celular"]');
-            const emailInput = newParticipante.querySelector('input[name="email"]');
-
-    
-            // Adicionar o novo participante ao contêiner de participantes
-            participantesContainer.appendChild(newParticipante);
-        });
-
-        participantesContainer.addEventListener('click', function (event) {
-            if (event.target.classList.contains('remove-participante-btn')) {
-                event.target.closest('.participante').remove();
-            }
+    // Ouvinte de eventos para detectar alterações no valor total
+    document.addEventListener('DOMContentLoaded', function() {
+        var valorCursoInput = document.getElementById('valor_curso');
+        var subtotal = parseFloat('{{ $inscricao->subtotal.replace(',', '.') }}'); // Subtotal obtido do Laravel com vírgula substituída por ponto
+        
+        valorCursoInput.addEventListener('input', function(event) {
+            var novoTotal = parseFloat(event.target.value.replace(',', '.')); // Tratar vírgula como ponto
+            var novoDesconto = calcularDesconto(novoTotal, subtotal);
+            var descontoElement = document.getElementById('desconto');
+            descontoElement.textContent = 'R$ - ' + novoDesconto.toFixed(2).replace('.', ','); // Formatando o desconto de volta para a moeda brasileira
         });
     });
-
-
-
-
+    
 
 </script>
+
+
+<script>
+    $(document).ready(function() {
+        // Contador para controlar o índice dos novos participantes
+        var index = {{ isset($participantes) ? count($participantes) : 0 }};
+        
+        // Manipulador de evento para adicionar um novo participante
+        $('#add-participante-btn').click(function() {
+            // Incrementar o contador de índice
+            index++;
+            
+            // Construir HTML para um novo participante
+            var newParticipant = `
+                <div class="participante row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="nome_participante_${index}" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nome_participante_${index}" name="participantes[${index}][nome]">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="celular_participante_${index}" class="form-label">Celular:</label>
+                            <input type="text" class="form-control" id="celular_participante_${index}" name="participantes[${index}][celular]">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="email_participante_${index}" class="form-label">E-mail:</label>
+                            <input type="email" class="form-control" id="email_participante_${index}" name="participantes[${index}][email]">
+                        </div>
+                    </div>
+                    <!-- Adicionar um campo oculto para o ID do participante -->
+                    <input type="hidden" name="participantes[${index}][participante_id]" value="">
+                    <!-- Adicionar um campo oculto para o ID do treinamento -->
+                    <input type="hidden" name="participantes[${index}][id_treinamento]" value="{{ $inscricao->id_treinamento }}">
+                    
+                    <div class="col-1" style="margin-top: 2.7%;">
+                        <button type="button" class="remove-participante-btn btn btn-primary btn-xs btn-icon">
+                            <i data-feather="trash-2"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            
+            // Adicionar o novo participante ao contêiner de participantes
+            $('#participantes-container').append(newParticipant);
+        });
+    });
+</script>
+
+
 
 
 

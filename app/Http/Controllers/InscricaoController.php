@@ -134,20 +134,41 @@ class InscricaoController extends Controller
         return number_format($value, 2, ',', '.');
     }
 
-    // Método para formatar valor para moeda
-    private function formatRevert($value)
-    {
-        return number_format($value, 2, '', '.');
-        
-    }
 
     /**
      * Update the specified resource in storage.
      */
+
+    // Função para atualizar participantes existentes
+    private function atualizarParticipante($participanteId, $inscricaoId, $idTreinamento, $nome, $celular, $email) {
+        Participante::updateOrCreate(
+            ['id' => $participanteId], // Condição para encontrar o participante existente pelo ID
+            [
+                'inscricao_id' => $inscricaoId, // Usar o id da inscrição
+                'id_treinamento' => $idTreinamento, // Usar o id_treinamento do participante
+                'nome' => $nome,
+                'celular' => $celular,
+                'email' => $email // Se desejar, pode incluir o email aqui também
+            ]
+        );
+    }
+
+    // Função para criar novos participantes
+    private function criarParticipante($inscricaoId, $idTreinamento, $nome, $celular, $email) {
+        // dd($idTreinamento);
+        Participante::create([
+            'inscricao_id' => $inscricaoId, // Usar o id da inscrição
+            'id_treinamento' => $idTreinamento, // Usar o id_treinamento do participante
+            'nome' => $nome,
+            'celular' => $celular,
+            'email' => $email // Se desejar, pode incluir o email aqui também
+        ]);
+    }
+
     public function update(Request $request, Inscricoes $inscricao)
     {   
-        // dd($request->all());
-
+        
+        
         $validator = Validator::make($request->all(), [
             'nome_juridico' => 'required|string|max:255',
             'cnpj' => 'required|string|max:30',
@@ -201,36 +222,32 @@ class InscricaoController extends Controller
 
         $inscricao->save();
 
-
-        $idTreinamento = $inscricao->id_treinamento;
-
-        // Percorrer os participantes enviados no request
+        // Obter o id_treinamento da inscrição
         foreach ($request['participantes'] as $participantData) {
-            if (isset($participantData['participante_id'])) {
-                // Participante existente
-                $participante = Participante::find($participantData['participante_id']);
+            // Tratar os dados do participante
+            $nome = trim($participantData['nome']); // Remover espaços em branco no início e no final
+            $celular = preg_replace('/[^0-9]/', '', $participantData['celular']); // Remover caracteres não numéricos
+            $email = strtolower($participantData['email']); // Converter para minúsculas
+            $participanteId = $participantData['participante_id']; // Obter o ID do participante
+
+            // Obter o ID do treinamento do participante
+            $idTreinamento = $participantData['id_treinamento'];
+
+            // Verificar se o participante deve ser excluído
+            if (isset($participantData['excluir']) && $participantData['excluir'] == true) {
+                // Excluir o participante
+                Participante::destroy($participanteId);
             } else {
-                // Novo participante, crie um novo registro
-                $participante = new Participante();
-                // Definir o valor de inscricao_id para associar o participante à inscrição existente
-                $participante->inscricao_id = $inscricao->id;
+                // Verificar se o participante já existe
+                if ($participanteId) {
+                    // Atualizar o participante existente
+                    $this->atualizarParticipante($participanteId, $inscricao->id, $idTreinamento, $nome, $celular, $email);
+                } else {
+                    // Criar um novo participante
+                    $this->criarParticipante($inscricao->id, $idTreinamento, $nome, $celular, $email);
+                }
             }
-
-            // Preencher os dados do participante
-            $participante->nome = $participantData['nome'];
-            $participante->celular = $participantData['celular'];
-            $participante->email = $participantData['email'];
-            
-            // Atribuir o id_treinamento ao participante
-            $participante->id_treinamento = $idTreinamento;
-
-            // Salvar o participante
-            $participante->save();
         }
-
-        
-        // 
-
         
         // Retornar mensagem de sucesso
         $notification = [

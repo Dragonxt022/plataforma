@@ -9,12 +9,8 @@ class Participante extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'inscricao_id', 
-        'nome', 
-        'celular', 
-        'email'
-    ];
+    protected $fillable = ['inscricao_id', 'id_treinamento', 'nome', 'celular', 'email'];
+
 
     public function inscricao()
     {
