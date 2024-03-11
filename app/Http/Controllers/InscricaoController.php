@@ -182,9 +182,12 @@ class InscricaoController extends Controller
             'telefone' => 'required|string|max:30',
             'quantidade_inscritos' => 'required|numeric',
             'valor_curso' => 'required|numeric',
-            'desconto' => 'required|numeric',
+            'desconto' => 'required',
+            // Adicione regras de validação para os dados dos participantes
             'participantes' => 'required|array',
-            // Regras de validação para os dados dos participantes
+            'participantes.*.nome' => 'required|string|max:255',
+            'participantes.*.celular' => 'required|string|max:20',
+            'participantes.*.email' => 'required|email|max:255',
         ], [
             'nome_juridico.required' => 'O nome do curso é obrigatório.',
             'cnpj.required' => 'O CNPJ é obrigatório.',
@@ -197,8 +200,9 @@ class InscricaoController extends Controller
             'telefone.required' => 'O telefone é obrigatório.',
             'quantidade_inscritos.required' => 'A quantidade de inscritos é obrigatória.',
             'valor_curso.required' => 'O valor do curso é obrigatório.',
-            // Adicione mais mensagens conforme necessário para os outros campos
+            // Adicione mais mensagens conforme necessário para os outros campos e participantes
         ]);
+        
         
 
          // Remover formatação brasileira e converter para americano
@@ -206,11 +210,18 @@ class InscricaoController extends Controller
         $valor_numerico = floatval($valor_sem_formatacao);
         $valor_formatado_americano = number_format($valor_numerico, 2, '.', '');
 
-        // Remover formatação brasileira e converter para americano
-        $valor_sem_formatacaoDesconto = str_replace(['.', ','], ['', '.'], $request->desconto);
-        $valor_numericoDesconto = floatval($valor_sem_formatacaoDesconto);
-        $valor_formatado_americanoDesconto = number_format($valor_numericoDesconto, 2, '.', '');
+        // Obter o valor do desconto do request
+        $desconto = $request->desconto;
 
+        // Remover formatação brasileira e converter para americano
+        $valor_sem_formatacaoDesconto = preg_replace('/[^0-9.,]/', '', $desconto); // Remover todos os caracteres que não são dígitos, pontos ou vírgulas
+        $valor_formatado_americanoDesconto = str_replace(',', '.', $valor_sem_formatacaoDesconto); // Substituir a vírgula por ponto (se houver)
+        $valor_numericoDesconto = floatval($valor_formatado_americanoDesconto); // Converter para float
+
+        // Exibir para verificar se o valor está correto
+        // dd($valor_numericoDesconto);
+
+        // Agora $valor_numericoDesconto contém o valor do desconto em formato numérico americano
 
 
         // Atualizar os dados do inscricao

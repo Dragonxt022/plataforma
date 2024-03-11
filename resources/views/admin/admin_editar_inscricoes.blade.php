@@ -90,7 +90,7 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="numero" class="form-label">Número:</label>
-                                        <input type="number" class="form-control @error('numero') is-invalid @enderror"  name="numero" id="numero" value="{{ $inscricao->numero }}">
+                                        <input type="text" class="form-control @error('numero') is-invalid @enderror"  name="numero" id="numero" value="{{ $inscricao->numero }}">
                                         @error('numero')
                                             <span class="text-danger pt-2">{{ $message }}</span>
                                         @enderror
@@ -198,19 +198,19 @@
                                                 <div class="col">
                                                     <div class="mb-3">
                                                         <label for="nome_participante_{{ $index }}" class="form-label">Nome:</label>
-                                                        <input type="text" class="form-control" id="nome_participante_{{ $index }}" name="participantes[{{ $index }}][nome]" value="{{ $participante->nome }}">
+                                                        <input type="text" class="form-control" id="nome_participante_{{ $index }}" name="participantes[{{ $index }}][nome]" value="{{ $participante->nome }}" required>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="mb-3">
                                                         <label for="celular_participante_{{ $index }}" class="form-label">Celular:</label>
-                                                        <input type="text" class="form-control" id="celular_participante_{{ $index }}" name="participantes[{{ $index }}][celular]" value="{{ $participante->celular }}">
+                                                        <input type="text" class="form-control" id="celular_participante_{{ $index }}" name="participantes[{{ $index }}][celular]" value="{{ $participante->celular }}" required>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="mb-3">
                                                         <label for="email_participante_{{ $index }}" class="form-label">E-mail:</label>
-                                                        <input type="email" class="form-control" id="email_participante_{{ $index }}" name="participantes[{{ $index }}][email]" value="{{ $participante->email }}">
+                                                        <input type="text" class="form-control" id="email_participante_{{ $index }}" name="participantes[{{ $index }}][email]" value="{{ $participante->email }}" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-1" style="margin-top: 2.8%;">
@@ -293,6 +293,7 @@
         var desconto = Math.round((subtotal - novoTotal) * 100) / 100;
         return desconto;
     }
+    
 
     // Ouvinte de eventos para detectar alterações no valor total
     document.addEventListener('DOMContentLoaded', function() {
@@ -318,64 +319,97 @@
 
 </script>
 
-
+{{-- Adiciona mais participantes se nessesário --}}
 <script>
     $(document).ready(function() {
-        // Contador para controlar o índice dos novos participantes
-        var index = {{ isset($participantes) ? count($participantes) : 0 }};
+    // Contador para controlar o índice dos novos participantes
+    var index = {{ isset($participantes) ? count($participantes) : 0 }};
+    
+    // Manipulador de evento para adicionar um novo participante
+    $('#add-participante-btn').click(function() {
+        // Incrementar o contador de índice
+        index++;
         
-        // Manipulador de evento para adicionar um novo participante
-        $('#add-participante-btn').click(function() {
-            // Incrementar o contador de índice
-            index++;
-            
-            // Construir HTML para um novo participante
-            var newParticipant = `
-                <div class="participante row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="nome_participante_${index}" class="form-label">Nome:</label>
-                            <input type="text" class="form-control" id="nome_participante_${index}" name="participantes[${index}][nome]">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="celular_participante_${index}" class="form-label">Celular:</label>
-                            <input type="text" class="form-control" id="celular_participante_${index}" name="participantes[${index}][celular]">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="email_participante_${index}" class="form-label">E-mail:</label>
-                            <input type="email" class="form-control" id="email_participante_${index}" name="participantes[${index}][email]">
-                        </div>
-                    </div>
-                    <!-- Adicionar um campo oculto para o ID do participante -->
-                    <input type="hidden" name="participantes[${index}][participante_id]" value="">
-                    <!-- Adicionar um campo oculto para o ID do treinamento -->
-                    <input type="hidden" name="participantes[${index}][id_treinamento]" value="{{ $inscricao->id_treinamento }}">
-                    
-                    <div class="col-1" style="margin-top: 2.7%;">
-                        <button type="button" class="remove-participante-btn btn btn-primary btn-xs btn-icon">
-                            X
-                        </button>
+        // Construir HTML para um novo participante
+        var newParticipant = `
+            <div class="participante row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="nome_participante_${index}" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nome_participante_${index}" name="participantes[${index}][nome]" required>
                     </div>
                 </div>
-            `;
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="celular_participante_${index}" class="form-label">Celular:</label>
+                        <input type="text" class="form-control celular" id="celular_participante_${index}" name="participantes[${index}][celular]" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="email_participante_${index}" class="form-label">E-mail:</label>
+                        <input type="text" class="form-control email" id="email_participante_${index}" name="participantes[${index}][email]" required>
+                    </div>
+                </div>
+                <!-- Adicionar um campo oculto para o ID do participante -->
+                <input type="hidden" name="participantes[${index}][participante_id]" value="">
+                <!-- Adicionar um campo oculto para o ID do treinamento -->
+                <input type="hidden" name="participantes[${index}][id_treinamento]" value="{{ $inscricao->id_treinamento }}">
+                
+                <div class="col-1" style="margin-top: 2.7%;">
+                    <button type="button" class="remove-participante-btn btn btn-primary btn-xs btn-icon">
+                        X
+                    </button>
+                </div>
+            </div>
+        `;
 
-            
-            // Adicionar o novo participante ao contêiner de participantes
-            $('#participantes-container').append(newParticipant);
-        });
+        // Adicionar o novo participante ao contêiner de participantes
+        $('#participantes-container').append(newParticipant);
 
-        // Manipulador de evento para remover um participante
-        $(document).on('click', '.remove-participante-btn', function() {
-            // Remover o elemento pai do botão de remoção, que é o contêiner do participante
-            $(this).closest('.participante').remove();
-        });
+        // Aplicar máscaras aos campos de celular e e-mail do novo participante
+        Inputmask("(99) 99999-9999").mask($('#celular_participante_' + index));
+        Inputmask({ alias: 'email' }).mask($('#email_participante_' + index));
     });
+
+    // Manipulador de evento para remover um participante
+    $(document).on('click', '.remove-participante-btn', function() {
+        // Remover o elemento pai do botão de remoção, que é o contêiner do participante
+        $(this).closest('.participante').remove();
+    });
+});
+
 </script>
 
+{{-- Mascaras  --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Máscara para CNPJ
+        Inputmask("99.999.999/9999-99").mask(document.getElementById('cnpj'));
+
+        // Máscara para CEP
+        Inputmask("99999-999").mask(document.getElementById('cep'));
+
+        // Máscara para número
+        Inputmask("999999").mask(document.getElementById('numero'));
+
+        // Máscara para telefone
+        Inputmask("(99) 9999-9999").mask(document.getElementById('telefone'));
+
+        // Máscara para email (não é recomendado, mas mostrarei como)
+        Inputmask({ alias: "email" }).mask(document.getElementById('email'));
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Aplicar máscaras para os campos dos participantes
+        @isset($participantes)
+            @foreach ($participantes as $index => $participante)
+                Inputmask("(99) 99999-9999").mask(document.getElementById('celular_participante_{{ $index }}'));
+                Inputmask({ alias: 'email' }).mask(document.getElementById('email_participante_{{ $index }}'));
+            @endforeach
+        @endisset
+    });
+</script>
 
 
 

@@ -35,6 +35,15 @@ class Inscricoes extends Model
         'status',
         'data_termino',
     ];
+
+    // Definir os tipos de dados dos atributos do modelo
+    // protected $casts = [
+    //     'quantidade_inscritos' => 'integer',
+    //     'valor_curso' => 'float',
+    //     'subtotal' => 'float',
+    //     'desconto' => 'float',
+    //     'total' => 'float',
+    // ];
     
 
     public function treinamento()
