@@ -138,6 +138,10 @@
                                                 <tr>
                                                     <td class="text-bold-800">Desconto</td>
                                                     <td class="text-bold-800 text-end text-danger" id="desconto"> R$ - {{ $inscricao->desconto }}</td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    
                                                 </tr>
                                                 <tr class="bg-dark">
                                                     <td class="text-bold-800">Total</td>
@@ -147,35 +151,44 @@
                                         </table>
                                     </div>
                                 </div>   
-                            
                             </div>
-                            <div class="row py-3">
-                                
-                                <div class="col text-end ">
-
-                                <a id="editarValores" class="btn btn-primary btn-xs">Alterar Volor total ou Qunatidade</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div id="camposEditar" style="display: none;">
+                            <div id="camposEditar" style="display: none;">
+                                <div class="row justify-content-end text-end">
+                                    <div class="col">
                                         <div class="mb-3">
                                             <label for="quantidade_inscritos" class="form-label">Inscritos</label>
-                                            <input type="text" class="form-control @error('quantidade_inscritos') is-invalid @enderror" name="quantidade_inscritos" id="quantidade_inscritos" value="{{ $inscricao->quantidade_inscritos }}">
+                                            <input type="text" class="form-control text-end @error('quantidade_inscritos') is-invalid @enderror" name="quantidade_inscritos" id="quantidade_inscritos" value="{{ $inscricao->quantidade_inscritos }}">
                                             @error('quantidade_inscritos')
                                             <span class="text-danger pt-2">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                        <div class="mb-3">
+    
+                                        <div class="col">
                                             <label for="valor_curso" class="form-label">Valor total</label>
-                                            <input type="text" class="form-control @error('valor_curso') is-invalid @enderror" name="valor_curso" id="valor_curso" value="{{ $inscricao->total }}">
+                                            <input type="text" class="form-control text-end @error('valor_curso') is-invalid @enderror" name="valor_curso" id="valor_curso" value="{{ $inscricao->total }}">
                                             @error('valor_curso')
                                             <span class="text-danger pt-2">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
+                                    <input type="hidden" class="form-control" name="desconto" id="total-com-desconto" value="{{ $inscricao->desconto }}">
+                                
                                 </div>
+                                
                             </div>
+                            <div class="row py-3 ">
+                                <div class="">
+                                    
+                                </div>
+
+                                <div class="col text-end ">
+
+                                    <a id="editarValores" class="btn btn-primary btn-xs">DESCONTO</a>
+                                
+                                </div>
+
+                            </div>
+                            
                             <div class="row py-5">
                                 <h5 class="card-title py-4"><i data-feather="user"></i> Participantes </h5>
                                 <div id="participantes-container">
@@ -269,24 +282,37 @@
     });
 
 
+    // Função para formatar um número para o formato de moeda brasileira
+    function formatarMoeda(valor) {
+        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
     // Função para calcular o desconto com base no novo total
     function calcularDesconto(novoTotal, subtotal) {
-        // Calcular o desconto subtraindo o subtotal do novo total
-        var desconto = subtotal - novoTotal;
+        // Arredondar para duas casas decimais antes de subtrair para evitar erros de precisão
+        var desconto = Math.round((subtotal - novoTotal) * 100) / 100;
         return desconto;
     }
 
     // Ouvinte de eventos para detectar alterações no valor total
     document.addEventListener('DOMContentLoaded', function() {
         var valorCursoInput = document.getElementById('valor_curso');
-        var subtotal = parseFloat('{{ $inscricao->subtotal.replace(',', '.') }}'); // Subtotal obtido do Laravel com vírgula substituída por ponto
-        
+        var subtotalElement = document.getElementById('subtotal'); // Elemento que exibe o subtotal na tabela
+        var descontoElement = document.getElementById('desconto'); // Elemento que exibe o desconto na tabela
+        var totalDescontoElement = document.getElementById('total-com-desconto'); // Elemento que exibe o total com desconto na tabela
+
+        // Obter o subtotal da tabela
+        var subtotal = parseFloat(subtotalElement.textContent.replace('R$ ', '').replace('.', '').replace(',', '.')); // Remover "R$" e substituir vírgula por ponto
+
         valorCursoInput.addEventListener('input', function(event) {
-            var novoTotal = parseFloat(event.target.value.replace(',', '.')); // Tratar vírgula como ponto
+            var novoTotal = parseFloat(event.target.value.replace('.', '').replace(',', '.')); // Tratar vírgula como ponto
             var novoDesconto = calcularDesconto(novoTotal, subtotal);
-            var descontoElement = document.getElementById('desconto');
-            descontoElement.textContent = 'R$ - ' + novoDesconto.toFixed(2).replace('.', ','); // Formatando o desconto de volta para a moeda brasileira
+            var totalComDesconto = novoTotal - novoDesconto; 
+
+            descontoElement.textContent = ' ' + formatarMoeda(novoDesconto);
+            totalDescontoElement.value = formatarMoeda(novoDesconto);
         });
+
     });
     
 
@@ -331,7 +357,7 @@
                     
                     <div class="col-1" style="margin-top: 2.7%;">
                         <button type="button" class="remove-participante-btn btn btn-primary btn-xs btn-icon">
-                            <i data-feather="trash-2"></i>
+                            X
                         </button>
                     </div>
                 </div>
@@ -340,6 +366,12 @@
             
             // Adicionar o novo participante ao contêiner de participantes
             $('#participantes-container').append(newParticipant);
+        });
+
+        // Manipulador de evento para remover um participante
+        $(document).on('click', '.remove-participante-btn', function() {
+            // Remover o elemento pai do botão de remoção, que é o contêiner do participante
+            $(this).closest('.participante').remove();
         });
     });
 </script>

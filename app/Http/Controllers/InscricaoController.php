@@ -168,7 +168,8 @@ class InscricaoController extends Controller
     public function update(Request $request, Inscricoes $inscricao)
     {   
         
-        
+        // dd($request);
+
         $validator = Validator::make($request->all(), [
             'nome_juridico' => 'required|string|max:255',
             'cnpj' => 'required|string|max:30',
@@ -181,6 +182,7 @@ class InscricaoController extends Controller
             'telefone' => 'required|string|max:30',
             'quantidade_inscritos' => 'required|numeric',
             'valor_curso' => 'required|numeric',
+            'desconto' => 'required|numeric',
             'participantes' => 'required|array',
             // Regras de validação para os dados dos participantes
         ], [
@@ -204,6 +206,13 @@ class InscricaoController extends Controller
         $valor_numerico = floatval($valor_sem_formatacao);
         $valor_formatado_americano = number_format($valor_numerico, 2, '.', '');
 
+        // Remover formatação brasileira e converter para americano
+        $valor_sem_formatacaoDesconto = str_replace(['.', ','], ['', '.'], $request->desconto);
+        $valor_numericoDesconto = floatval($valor_sem_formatacaoDesconto);
+        $valor_formatado_americanoDesconto = number_format($valor_numericoDesconto, 2, '.', '');
+
+
+
         // Atualizar os dados do inscricao
         $inscricao->update([
             'nome_juridico' => $request->nome_juridico,
@@ -217,6 +226,8 @@ class InscricaoController extends Controller
             'telefone' => $request->telefone,
             'quantidade_inscritos' => $request->quantidade_inscritos,
             'total' => $valor_formatado_americano,
+            'desconto' => $valor_formatado_americanoDesconto,
+           
         ]);
 
 
