@@ -107,18 +107,12 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/inscricoes/lista', [InscricaoController::class, 'index'])->name('admin.inscricoes.index');
     // Altera o status da ficha de inscrição
     Route::put('/admin/inscricoes/{id}/alterar-status', [InscricaoController::class, 'alterarStatus'])->name('admin.alterar.status');
-
     Route::get('/admin/inscricoes/criar', [InscricaoController::class, 'create'])->name('admin.inscricoes.create');
-
     Route::post('/admin/inscricoes/store', [InscricaoController::class, 'store'])->name('admin.inscricoes.store');
-
     Route::get('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'show'])->name('admin.inscricoes.show');
-
     // método para editar a inscrição
     Route::get('/admin/inscricoes/{inscricao}/edit', [InscricaoController::class, 'edit'])->name('admin.inscricoes.edit');
-
     Route::put('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'update'])->name('admin.inscricoes.update');
-
     Route::delete('/admin/inscricoes/{inscricao}', [InscricaoController::class, 'destroy'])->name('admin.inscricoes.destroy');
 
 

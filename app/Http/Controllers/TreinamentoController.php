@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 // Armazenar um novo treinamento no banco de dados
 use App\Models\Treinamento;
 use App\Models\Inscricoes;
+use App\Models\Banner;
 
 
 
@@ -23,8 +24,8 @@ class TreinamentoController extends Controller
 
         // Limitar o tamanho do nome para cada treinamento
         foreach ($treinamentos as $treinamento) {
-            $treinamento->nome = substr($treinamento->nome, 0, 40,);
-            $treinamento->empresa->nome = substr($treinamento->empresa->nome, 0, 20);
+            $treinamento->nome = substr($treinamento->nome, 0, 45,);
+            $treinamento->empresa->nome = substr($treinamento->empresa->nome, 0, 25);
 
             // Verificar se a data de início está no passado ou no futuro e definir o status
             if (Carbon::parse($treinamento->data_inicio)->isPast()) {
@@ -96,10 +97,14 @@ class TreinamentoController extends Controller
         return view('site.Treinamentos_detalhes', compact('treinamento'));
     }
 
-    // Paina de inicio do site
+    // Página de início do site
     public function PaginaInicio()
     {
-        return view('site.inicio');
+        // Recuperar todos os banners
+        $banners = Banner::all();
+
+        // Passar os banners para a view
+        return view('site.inicio', compact('banners'));
     }
 
     // Exibir formulário para criar um novo treinamento

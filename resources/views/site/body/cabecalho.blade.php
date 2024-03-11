@@ -10,13 +10,13 @@
                   <li>
                     <div class="unit unit-horizontal unit-spacing-xs align-items-center">
                       <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary material-icons-phone"></span></div>
-                      <div class="unit-body"><a class="link-dusty-gray" href="tel:#">+55 (69) 3349–8447</a></div>
+                      <div class="unit-body"><a class="link-dusty-gray" href="tel:#">+55 (69) 9 98479-1753</a></div>
                     </div>
                   </li>
                   <li>
                     <div class="unit unit-horizontal unit-spacing-xs align-items-center">
                       <div class="unit-left"><span class="novi-icon icon icon-xxs icon-primary fa-envelope-o"></span></div>
-                      <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">contato@plataformaPL.com.br</a></div>
+                      <div class="unit-body"><a class="link-dusty-gray" href="mailto:#">pissitesites@gmail.com</a></div>
                     </div>
                   </li>
                 </ul>
@@ -32,11 +32,11 @@
           </div>
           <div class="rd-navbar-group">
             <div class="rd-navbar-panel">
-              <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button><a class="rd-navbar-brand brand" href=" {{ route('site.pagina.inicio') }} "><img src=" {{ asset('site/assets/images/logo-default-143x27.png') }}"  alt="" width="143" height="27"/></a>
+              <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button><a class="rd-navbar-brand brand" href=" {{ route('site.pagina.inicio') }} "><img src=" {{ asset('site/assets/images/Logo-Pissinet.png') }}"  alt="" width="143" height="27"/></a>
             </div>
             <div class="rd-navbar-nav-wrap">
               <div class="rd-navbar-nav-inner">
-                <div class="rd-navbar-btn-wrap"><a class="button button-smaller button-primary-outline" href="{{ route('admin.login') }}">Area do Aluno</a></div>
+                <div class="rd-navbar-btn-wrap"><a class="button button-smaller button-primary-outline" href="#">Solicitar Orçamento</a></div>
                 <ul class="rd-navbar-nav">
                   <li class="active"><a href=" {{ route('site.pagina.inicio') }} ">Inicio</a>
                   </li>

@@ -4,57 +4,67 @@
         <div class="row justify-content-sm-center">
           <div class="col-sm-9 col-md-11 col-xl-12">
             <div class="row row-50">
-              <div class="col-md-6 col-lg-10 col-xl-3">
-                <div class="inset-xl-right-20" style="max-width: 510px;"><a class="brand" href="index.html"><img src="{{ asset('site/assets/images/logo-inverse-143x28.png')}}" alt="" width="143" height="28"/></a>
-                  <p>
-                    If you or your business is facing a legal
-                    challenge that calls for sound advice and skilled representation, contact us today to arrange a free  consultation with an attorney.
-                  </p><a class="link link-group link-group-animated link-bold link-white" href="#"><span>Free Consultation</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
-                </div>
+              <div class="col-md-6 col-lg-10 col-xl-3 text-center">
+                <div class="inset-xl-right-20" style="max-width: 510px;">
+                      <a class="brand" href="index.html">
+                          <img src="{{ asset('site/assets/images/LogoPissinet.png')}}" alt="" width="143" height="28"/>
+                      </a>
+                      <p>
+                          Líder em automação para eventos, oferecemos soluções completas e intuitivas para gerenciar inscrições, listas de chamada, relatórios e certificados. Agende uma consulta gratuita para saber mais.
+                      </p>
+                      <a class="link link-group link-group-animated link-bold link-white" href="#"><span>Consulta Gratuita</span><span class="novi-icon icon icon-xxs icon-primary fa fa-angle-right"></span></a>
+                  </div>
               </div>
+
+              {{-- Últimas noticias --}}
               <div class="col-md-6 col-lg-4 col-xl-3">
                 <p class="h7">Últimas postagens</p>
-                      <article class="post post-preview post-preview-inverse"><a href="#">
-                          <div class="unit unit-horizontal unit-spacing-lg">
-                            <div class="unit-left">
-                              <figure class="post-image"><img src="{{ asset('site/assets/images/post-preview-4-70x70.jpg')}}" alt="" width="70" height="70"/>
-                              </figure>
-                            </div>
-                            <div class="unit-body">
-                              <div class="post-header">
-                                <p>Help Us Make the Law Accessible for Everyone</p>
-                              </div>
-                              <div class="post-meta">
-                                <ul class="list-meta">
-                                  <li>
-                                    <time datetime="2019-06-23">June 23, 2019 </time>
-                                  </li>
-                                  <li>3 Comments</li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div></a></article>
-                      <article class="post post-preview post-preview-inverse"><a href="#">
-                          <div class="unit unit-horizontal unit-spacing-lg">
-                            <div class="unit-left">
-                              <figure class="post-image"><img src="{{ asset('site/assets/images/post-preview-5-70x70.jpg')}}" alt="" width="70" height="70"/>
-                              </figure>
-                            </div>
-                            <div class="unit-body">
-                              <div class="post-header">
-                                <p>Legal Documents Every Landlord Needs </p>
-                              </div>
-                              <div class="post-meta">
-                                <ul class="list-meta">
-                                  <li>
-                                    <time datetime="2019-06-23">June 20, 2019</time>
-                                  </li>
-                                  <li>3 Comentários</li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div></a></article>
+                <article class="post post-preview post-preview-inverse"><a href="#">
+                    <div class="unit unit-horizontal unit-spacing-lg">
+                      <div class="unit-left">
+                        <figure class="post-image"><img src="{{ asset('site/assets/images/post-preview-4-70x70.jpg')}}" alt="" width="70" height="70"/>
+                        </figure>
+                      </div>
+                      <div class="unit-body">
+                        <div class="post-header">
+                          <p>Help Us Make the Law Accessible for Everyone</p>
+                        </div>
+                        <div class="post-meta">
+                          <ul class="list-meta">
+                            <li>
+                              <time datetime="2019-06-23">June 23, 2019 </time>
+                            </li>
+                            <li>3 Comments</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </article>
+                <article class="post post-preview post-preview-inverse"><a href="#">
+                    <div class="unit unit-horizontal unit-spacing-lg">
+                      <div class="unit-left">
+                        <figure class="post-image"><img src="{{ asset('site/assets/images/post-preview-5-70x70.jpg')}}" alt="" width="70" height="70"/>
+                        </figure>
+                      </div>
+                      <div class="unit-body">
+                        <div class="post-header">
+                          <p>Legal Documents Every Landlord Needs </p>
+                        </div>
+                        <div class="post-meta">
+                          <ul class="list-meta">
+                            <li>
+                              <time datetime="2019-06-23">June 20, 2019</time>
+                            </li>
+                            <li>3 Comentários</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div></a>
+                  </article>
               </div>
+
+              {{-- Lins Ultes --}}
               <div class="col-md-6 col-lg-4 col-xl-3">
                 <p class="h7">Links Útes</p>
                 <div class="row" style="max-width: 270px;">
@@ -71,10 +81,13 @@
                       <li><a href="about-us.html">Sobre nós</a></li>
                       <li><a href="contact-us.html">Contato</a></li>
                       <li><a href="#">Curosos</a></li>
+                      <li><a href="{{ route('admin.login') }}">Login</a></li>
                     </ul>
                   </div>
                 </div>
               </div>
+
+              {{-- Meios de Contatos --}}
               <div class="col-md-6 col-lg-4 col-xl-3">
                 <p class="h7">Contate - nós</p>
                 <address class="contact-info text-left">
@@ -92,6 +105,7 @@
                   </div>
                 </address>
               </div>
+              
             </div>
           </div>
         </div>

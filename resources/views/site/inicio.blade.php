@@ -3,58 +3,32 @@
 
 <div class="page">
 
+    {{-- BANNER PRINCIPAL --}}
     <section>
-      <div class="swiper-container swiper-slider swiper-variant-1 bg-black" data-loop="false" data-autoplay="5500" data-simulate-touch="true">
+      <div class="swiper-container swiper-slider swiper-variant-1 bg-black" data-loop="false" data-autoplay="4000" data-simulate-touch="true">
+
+        {{-- Banners da pagina de inicio --}}
         <div class="swiper-wrapper text-center">
-          <div class="swiper-slide" data-slide-bg="{{ asset('site/assets/images/home-slider-slide-1.jpg')}}">
-            <div class="swiper-slide-caption text-center">
-              <div class="container">
-                <div class="row justify-content-md-center">
-                  <div class="col-md-11 col-lg-10 col-xl-9">
-                    <div class="header-decorated" data-caption-animate="fadeInUp" data-caption-delay="0s">
-                      <h3 class="medium text-primary">With Us</h3>
+            @foreach($banners as $banner)
+            <div class="swiper-slide" data-slide-bg="{{ asset('upload/admin_banner/' . $banner->img_banner) }}">
+                {{-- <div class="swiper-slide-caption text-center">
+                    <div class="container">
+                        <div class="row justify-content-md-center">
+                            <div class="col-md-11 col-lg-10 col-xl-9">
+                                <div class="header-decorated" data-caption-animate="fadeInUp" data-caption-delay="0s">
+                                    <h3 class="medium text-primary">{{ $banner->titulo }}</h3>
+                                </div>
+                                <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">{{ $banner->subtitulo }}</h2>
+                                <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">{{ $banner->paragrafo }}</p>
+                                <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="{{ $banner->link_botao }}">Request a Free Consultation</a></div>
+                            </div>
+                        </div>
                     </div>
-                    <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">You Are Always One Step Ahead</h2>
-                    <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Strategies of our attorneys will help you solve very complex legal issues.</p>
-                    <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Request a Free Consultation</a></div>
-                  </div>
-                </div>
-              </div>
+                </div> --}}
             </div>
-          </div>
-          <div class="swiper-slide" data-slide-bg="{{ asset('site/assets/images/home-slider-slide-2.jpg')}}">
-            <div class="swiper-slide-caption text-center">
-              <div class="container">
-                <div class="row justify-content-md-center">
-                  <div class="col-md-11 col-lg-10 col-xl-9">
-                    <div class="header-decorated" data-caption-animate="fadeInUp" data-caption-delay="0s">
-                      <h3 class="medium text-primary">We Offer</h3>
-                    </div>
-                    <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">Affordable and Effective Legal Help</h2>
-                    <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">Our expert team of attorneys and consultants will be glad to provide necessary legal assistance.</p>
-                    <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Request a Free Consultation</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide" data-slide-bg="{{ asset('site/assets/images/home-slider-slide-3.jpg')}}">
-            <div class="swiper-slide-caption text-center">
-              <div class="container">
-                <div class="row justify-content-md-center">
-                  <div class="col-md-11 col-lg-10 col-xl-9">
-                    <div class="header-decorated" data-caption-animate="fadeInUp" data-caption-delay="0s">
-                      <h3 class="medium text-primary">With Our Services</h3>
-                    </div>
-                    <h2 class="slider-header" data-caption-animate="fadeInUp" data-caption-delay="150">You Will Get Extensive Legal Support</h2>
-                    <p class="text-bigger slider-text" data-caption-animate="fadeInUp" data-caption-delay="250">We have years of experience in providing legal help in various spheres of law.</p>
-                    <div class="button-block" data-caption-animate="fadeInUp" data-caption-delay="400"><a class="button button-lg button-primary-outline-v2" href="#">Request a Free Consultation</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            @endforeach
         </div>
+      
         <div class="swiper-scrollbar d-lg-none"></div>
         <div class="swiper-nav-wrap">
           <div class="swiper-button-prev"></div>
@@ -63,54 +37,56 @@
       </div>
     </section>
 
+    {{-- 3 BLOCOS DE INTRODUÇÃO --}}
     <section class="section-50 section-md-75 section-lg-100">
       <div class="container">
-        <div class="row row-40">
-          <div class="col-md-6 col-lg-4 height-fill">
-            <article class="icon-box">
-              <div class="box-top">
-                <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-briefcase"></span></div>
-                <div class="box-header">
-                  <h5><a href="#">Business Law</a></h5>
-                </div>
+          <div class="row row-40">
+              <div class="col-md-6 col-lg-4 height-fill">
+                  <article class="icon-box">
+                      <div class="box-top">
+                          <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-briefcase"></span></div>
+                          <div class="box-header">
+                              <h5><a href="#">Automação de Vendas de Eventos</a></h5>
+                          </div>
+                      </div>
+                      <div class="divider bg-accent"></div>
+                      <div class="box-body">
+                          <p>Oferecemos soluções de automação para a venda de eventos presenciais. Nosso sistema permite gerenciar inscrições, criar listas de chamada, imprimir relatórios e gerar certificados para todos os participantes dos cursos cadastrados.</p>
+                      </div>
+                  </article>
               </div>
-              <div class="divider bg-accent"></div>
-              <div class="box-body">
-                <p>Business law deals with the creation of new businesses and the issues that arise as existing.</p>
+              <div class="col-md-6 col-lg-4 height-fill">
+                  <article class="icon-box">
+                      <div class="box-top">
+                          <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-users"></span></div>
+                          <div class="box-header">
+                              <h5><a href="#">Gerenciamento de Inscrições</a></h5>
+                          </div>
+                      </div>
+                      <div class="divider bg-accent"></div>
+                      <div class="box-body">
+                          <p>Nosso sistema permite gerenciar todas as inscrições dos participantes, facilitando o controle e organização dos eventos.</p>
+                      </div>
+                  </article>
               </div>
-            </article>
+              <div class="col-md-6 col-lg-4 height-fill">
+                  <article class="icon-box">
+                      <div class="box-top">
+                          <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-lib"></span></div>
+                          <div class="box-header">
+                              <h5><a href="#">Emissão de Certificados</a></h5>
+                          </div>
+                      </div>
+                      <div class="divider bg-accent"></div>
+                      <div class="box-body">
+                          <p>Com nosso sistema, é possível gerar certificados para todos os participantes dos cursos cadastrados, além de validar e emitir uma segunda via na página de validação de certificados.</p>
+                      </div>
+                  </article>
+              </div>
           </div>
-          <div class="col-md-6 col-lg-4 height-fill">
-            <article class="icon-box">
-              <div class="box-top">
-                <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-users"></span></div>
-                <div class="box-header">
-                  <h5><a href="#">Family Law</a></h5>
-                </div>
-              </div>
-              <div class="divider bg-accent"></div>
-              <div class="box-body">
-                <p>Family law attorneys help their clients file for separation or divorce, alimony or child custody.</p>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-lg-4 height-fill">
-            <article class="icon-box">
-              <div class="box-top">
-                <div class="box-icon"><span class="novi-icon icon icon-primary icon-lg mercury-icon-lib"></span></div>
-                <div class="box-header">
-                  <h5><a href="#">Civil Litigation</a></h5>
-                </div>
-              </div>
-              <div class="divider bg-accent"></div>
-              <div class="box-body">
-                <p>Civil litigation is the process in which civil matters are resolved in a court of law.</p>
-              </div>
-            </article>
-          </div>
-        </div>
       </div>
     </section>
+  
 
     <section class="bg-displaced-wrap">
       <div class="bg-displaced-body">
@@ -204,7 +180,8 @@
       </div>
     </section>
 
-    <section class="section parallax-container bg-black" data-parallax-img="{{ asset('site/assets/images/progress-bars-parallax-1.jpg')}}">
+    {{-- QUEIPE DA EMPRESA OU CLIENTES --}}
+    <section class="section parallax-container bg-black" data-parallax-img="{{ asset('site/assets/images/progress-bars-parallax-2.jpg')}}">
       <div class="parallax-content">
         <div class="section-50 section-md-90">
           <div class="container">
@@ -239,10 +216,10 @@
       </div>
     </section>
 
-
+    {{-- RELATÓRIO DE USUABILIDADE DO SISTEMA --}}
     <section class="section-66 section-md-90 section-xl-bottom-100">
       <div class="container">
-        <h3 class="text-center">Testimonials</h3>
+        <h3 class="text-center">Depoimentos</h3>
         <div class="owl-carousel owl-spacing-1 owl-nav-classic owl-style-minimal" data-autoplay="true" data-items="1" data-md-items="2" data-stage-padding="0" data-loop="true" data-margin="30" data-mouse-drag="true" data-nav="true" data-dots="true" data-dots-each="1">
           <div class="item">
             <blockquote class="quote-bordered">
@@ -253,9 +230,9 @@
                   </svg>
                 </div>
                 <div class="quote-body-inner">
-                  <h6>One of The Most Ethical Lawyers I’ve Ever Known...</h6>
+                  <h6>Maior eficiência nas inscrições dos nossos eventos!</h6>
                   <p>
-                    <q>I’ve never known another lawyer more prepared or focused.  John has the ability to dissect a case much like a skilled surgeon, with absolute calm.  Nothing seems to distract him from his goal on a case, which of course, makes him extremely tough to beat.</q>
+                    <q>A plataforma de automação de vendas da Pissinet transformou a maneira como gerenciamos nossos eventos. Agora, podemos gerenciar as inscrições de forma mais eficiente e rápida, economizando tempo e recursos.</q>
                   </p>
                 </div>
               </div>
@@ -264,8 +241,8 @@
                   <div class="unit-left"><img class="img-circle" src="{{ asset('site/assets/images/clients-testimonials-1-68x68.jpg')}}" alt="" width="68" height="68"/>
                   </div>
                   <div class="unit-body">
-                    <cite>Mark Wilson</cite>
-                    <p class="text-primary">CFO, Wilson Ltd.</p>
+                    <cite>Ana Silva</cite>
+                    <p class="text-primary">Diretora de Eventos, Eventos Inc.</p>
                   </div>
                 </div>
               </div>
@@ -280,9 +257,9 @@
                   </svg>
                 </div>
                 <div class="quote-body-inner">
-                  <h6>LawExpert is One of The Best...</h6>
+                  <h6>Relatórios detalhados e certificados personalizados!</h6>
                   <p>
-                    <q>John Doe is one of those attorneys who has it all-talent and skill, compassion for his clients, and the ability to communicate well with anyone he meets. This is one of the best combinations for a trial attorney and he is one of the best.</q>
+                    <q>A Pissinet nos ajudou a obter relatórios detalhados sobre nossos participantes e a gerar certificados personalizados de forma fácil e rápida. Agora, podemos fornecer aos nossos clientes uma experiência ainda melhor em nossos eventos.</q>
                   </p>
                 </div>
               </div>
@@ -291,8 +268,8 @@
                   <div class="unit-left"><img class="img-circle" src="{{ asset('site/assets/images/clients-testimonials-2-68x68.jpg')}}" alt="" width="68" height="68"/>
                   </div>
                   <div class="unit-body">
-                    <cite>Amanda Eberson</cite>
-                    <p class="text-primary">CEO, Eberson Co.</p>
+                    <cite>Carlos Oliveira</cite>
+                    <p class="text-primary">Gerente de Marketing, Eventos Master</p>
                   </div>
                 </div>
               </div>
@@ -301,6 +278,7 @@
         </div>
       </div>
     </section>
+
 
     <section class="bg-whisper">
       <div class="container">
@@ -365,22 +343,23 @@
       </div>
     </section>
 
+    {{-- SESSÃO DE ÚTIMAS NOTICIAS NOTICIAS --}}
     <section class="section-50 section-md-75 section-xl-100">
       <div class="container">
-        <h3 class="text-center">Latest News</h3>
+        <h3 class="text-center">Vantagens de Automatizar a Venda de Eventos Presenciais</h3>
         <div class="row row-40 row-offset-1 justify-content-sm-center justify-content-md-start">
           <div class="col-sm-9 col-md-6 col-lg-4 col-xl-3">
             <article class="post-boxed">
               <div class="post-boxed-image"><img src="{{ asset('site/assets/images/home-5-268x182.jpg')}}" alt="" width="268" height="182"/>
               </div>
               <div class="post-boxed-body">
-                <div class="post-boxed-title"><a href="#">The Lawyers Collective Women's Rights Initiative</a></div>
+                <div class="post-boxed-title"><a href="#">Gerencie Inscrições de Forma Eficiente</a></div>
                 <div class="post-boxed-footer">
                   <ul class="post-boxed-meta">
                     <li>
-                      <time datetime="2019-06-14">JUNE 14, 2019</time>
+                      <time datetime="2019-06-14">14 de Junho de 2019</time>
                     </li>
-                    <li><span>by</span><a href="#">Admin</a></li>
+                    <li><span>por</span><a href="#">Admin</a></li>
                   </ul>
                 </div>
               </div>
@@ -391,13 +370,13 @@
               <div class="post-boxed-image"><img src="{{ asset('site/assets/images/home-6-268x182.jpg')}}" alt="" width="268" height="182"/>
               </div>
               <div class="post-boxed-body">
-                <div class="post-boxed-title"><a href="#">Legal Documents Every Landlord Needs</a></div>
+                <div class="post-boxed-title"><a href="#">Crie Listas de Chamada de Forma Automática</a></div>
                 <div class="post-boxed-footer">
                   <ul class="post-boxed-meta">
                     <li>
-                      <time datetime="2019-06-20">JUNE 20, 2019</time>
+                      <time datetime="2019-06-20">20 de Junho de 2019</time>
                     </li>
-                    <li><span>by</span><a href="#">Admin</a></li>
+                    <li><span>por</span><a href="#">Admin</a></li>
                   </ul>
                 </div>
               </div>
@@ -408,13 +387,13 @@
               <div class="post-boxed-image"><img src="{{ asset('site/assets/images/home-7-268x182.jpg')}}" alt="" width="268" height="182"/>
               </div>
               <div class="post-boxed-body">
-                <div class="post-boxed-title"><a href="#">Help Us Make the Law Accessible for Everyone</a></div>
+                <div class="post-boxed-title"><a href="#">Gere Relatórios Detalhados com Poucos Cliques</a></div>
                 <div class="post-boxed-footer">
                   <ul class="post-boxed-meta">
                     <li>
-                      <time datetime="2019-06-23">JUNE 23, 2019</time>
+                      <time datetime="2019-06-23">23 de Junho de 2019</time>
                     </li>
-                    <li><span>by</span><a href="#">Admin</a></li>
+                    <li><span>por</span><a href="#">Admin</a></li>
                   </ul>
                 </div>
               </div>
@@ -425,13 +404,13 @@
               <div class="post-boxed-image"><img src="{{ asset('site/assets/images/home-8-268x182.jpg')}}" alt="" width="268" height="182"/>
               </div>
               <div class="post-boxed-body">
-                <div class="post-boxed-title"><a href="#">5 Legal Documents for Military Service People</a></div>
+                <div class="post-boxed-title"><a href="#">Emita Certificados de Participação Instantaneamente</a></div>
                 <div class="post-boxed-footer">
                   <ul class="post-boxed-meta">
                     <li>
-                      <time datetime="2019-06-12">JUNE 12, 2019</time>
+                      <time datetime="2019-06-12">12 de Junho de 2019</time>
                     </li>
-                    <li><span>by</span><a href="#">Admin</a></li>
+                    <li><span>por</span><a href="#">Admin</a></li>
                   </ul>
                 </div>
               </div>
@@ -440,5 +419,6 @@
         </div>
       </div>
     </section>
+
 
 @endsection
