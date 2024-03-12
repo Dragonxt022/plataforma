@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('site/assets/css/fonts.css') }}">
     <link rel="stylesheet" href="{{ asset('site/assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('site/assets/css/style.css') }}">
+    {{-- CDNs toastr --}}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
   </head>
   <body>
@@ -47,5 +49,88 @@
     {{-- Script --}}
     <script src="{{ asset('site/assets/js/core.min.js')}}"></script>
     <script src="{{ asset('site/assets/js/script.js')}}"></script>
+
+    {{-- cdn js toastr  --}}
+	  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+      @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        switch(type) {
+          case 'info':
+            toastr.info("{{ Session::get('message') }}", "Informação", { 
+              positionClass: 'toast-bottom-right', 
+              progressBar: true, 
+              progressBarClass: 'white-progress',
+              closeButton: true, // Adiciona um botão de fechar à mensagem
+              tapToDismiss: false, // Impede que a mensagem seja fechada ao clicar nela
+              newestOnTop: true, // Exibe a mensagem mais recente no topo
+              showDuration: 300, // Define a duração de exibição da mensagem em milissegundos
+              hideDuration: 1000, // Define a duração de ocultação da mensagem em milissegundos
+              timeOut: 5000, // Define o tempo em milissegundos antes da mensagem ser fechada automaticamente
+              extendedTimeOut: 1000, // Define o tempo em milissegundos antes da mensagem ser fechada automaticamente (se o mouse estiver sobre ela)
+              showEasing: 'swing', // Define a animação de exibição da mensagem
+              hideEasing: 'linear', // Define a animação de ocultação da mensagem
+              showMethod: 'fadeIn', // Define o método de exibição da mensagem
+              hideMethod: 'fadeOut' // Define o método de ocultação da mensagem
+            });
+            break;
+          case 'success':
+            toastr.success("{{ Session::get('message') }}", "Sucesso", { 
+              positionClass: 'toast-bottom-right', 
+              progressBar: true, 
+              progressBarClass: 'white-progress',
+              closeButton: true, 
+              tapToDismiss: false, 
+              newestOnTop: true, 
+              showDuration: 300, 
+              hideDuration: 1000, 
+              timeOut: 5000, 
+              extendedTimeOut: 1000, 
+              showEasing: 'swing', 
+              hideEasing: 'linear', 
+              showMethod: 'fadeIn', 
+              hideMethod: 'fadeOut' 
+            });
+            break;
+          case 'warning':
+            toastr.warning("{{ Session::get('message') }}", "Aviso", { 
+              positionClass: 'toast-bottom-right', 
+              progressBar: true, 
+              progressBarClass: 'white-progress',
+              closeButton: true, 
+              tapToDismiss: false, 
+              newestOnTop: true, 
+              showDuration: 300, 
+              hideDuration: 1000, 
+              timeOut: 5000, 
+              extendedTimeOut: 1000, 
+              showEasing: 'swing', 
+              hideEasing: 'linear', 
+              showMethod: 'fadeIn', 
+              hideMethod: 'fadeOut' 
+            });
+            break;
+          case 'error':
+            toastr.error("{{ Session::get('message') }}", "Erro", { 
+              positionClass: 'toast-bottom-right', 
+              progressBar: true, 
+              progressBarClass: 'white-progress',
+              closeButton: true, 
+              tapToDismiss: false, 
+              newestOnTop: true, 
+              showDuration: 300, 
+              hideDuration: 1000, 
+              timeOut: 5000, 
+              extendedTimeOut: 1000, 
+              showEasing: 'swing', 
+              hideEasing: 'linear', 
+              showMethod: 'fadeIn', 
+              hideMethod: 'fadeOut' 
+            });
+            break;
+        }
+      @endif
+    </script>
   </body>
 </html>

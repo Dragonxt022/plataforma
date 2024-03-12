@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriaNotaController;
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\InscricaoController; 
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\EmailController;
 
 
 
@@ -26,6 +27,8 @@ Route::get('/treinamentos', [TreinamentoController::class, 'Listatreinamento'])-
 // PAGINA DE DETALHES DOS CURSOS
 Route::get('/treinamentos/{slug}', [TreinamentoController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
 
+// controle de e-mail
+Route::post('/enviar-email', [EmailController::class, 'enviarEmail'])->name('site.enviar.email');
 
 
 
