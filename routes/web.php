@@ -28,7 +28,10 @@ Route::get('/treinamentos', [TreinamentoController::class, 'Listatreinamento'])-
 Route::get('/treinamentos/{slug}', [TreinamentoController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
 
 // controle de e-mail
+// Route::POST('/enviar-email', [EmailController::class, 'store'])->name('site.enviar.email');
 Route::post('/enviar-email', [EmailController::class, 'enviarEmail'])->name('site.enviar.email');
+
+
 
 
 

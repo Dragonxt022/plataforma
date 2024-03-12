@@ -99,20 +99,20 @@ try {
         $mail->Debugoutput = 'html';
 
         // Set the hostname of the mail server
-        $mail->Host = $formConfig['host'];
+        $mail->Host = $formConfig['sandbox.smtp.mailtrap.io'];
 
         // Set the SMTP port number - likely to be 25, 465 or 587
-        $mail->Port = $formConfig['port'];
+        $mail->Port = $formConfig['2525'];
 
         // Whether to use SMTP authentication
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = "ssl";
 
         // Username to use for SMTP authentication
-        $mail->Username = $formConfig['username'];
+        $mail->Username = $formConfig['3c5ad470cfb660'];
 
         // Password to use for SMTP authentication
-        $mail->Password = $formConfig['password'];
+        $mail->Password = $formConfig['05cd4295610658'];
     }
 
     $mail->From = $_POST['email'];

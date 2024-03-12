@@ -286,58 +286,71 @@
               <div class="col-md-10 col-lg-9 col-xl-7">
                 <div class="section-50 section-md-75 section-xl-100">
                   <h3>Consulta Gratuita</h3>
-                  <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="{{ route('site.enviar.email') }}">
-                      @csrf
-                      <div class="row row-30">
-                          <div class="col-md-6">
-                              <div class="form-wrap">
-                                  <input class="form-input" id="request-form-name" type="text" name="name" required>
-                                  <label class="form-label" for="request-form-name">Nome</label>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="form-wrap">
-                                  <input class="form-input" id="request-form-phone" type="text" name="phone" pattern="[0-9]+" required>
-                                  <label class="form-label" for="request-form-phone">Telefone</label>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="form-wrap">
-                                  <input class="form-input" id="request-form-email" type="email" name="email" required>
-                                  <label class="form-label" for="request-form-email">E-mail</label>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="form-wrap form-wrap-outside">
-                                  <!--Select 2-->
-                                  <select class="form-input select-filter" id="request-form-select" data-minimum-results-for-search="Infinity" name="law_type" required>
-                                      <option value="Direito de Família">Direito de Família</option>
-                                      <option value="Direito Empresarial">Direito Empresarial</option>
-                                      <option value="Litígio Civil">Litígio Civil</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div class="col-12">
-                              <div class="form-wrap">
-                                  <textarea class="form-input" id="feedback-2-message" name="message" required></textarea>
-                                  <label class="form-label" for="feedback-2-message">Mensagem</label>
-                              </div>
-                          </div>
-                          <div class="col-12">
-                              <div class="row">
-                                  <div class="col-md-6">
-                                      <button class="button button-block button-primary" type="submit">Solicitar Consulta Gratuita</button>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </form>
+                  <form data-form-output="form-output-global" method="post" action="{{ route('site.enviar.email') }}">
+                    @csrf
+                    
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    
+                    <div class="row row-30">
+                        <div class="col-md-6">
+                            <div class="form-wrap">
+                                <input class="form-input @error('name') is-invalid @enderror" id="request-form-name" type="text" name="name" value="{{ old('name') }}" required>
+                                <label class="form-label" for="request-form-name">Nome</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-wrap">
+                                <input class="form-input" id="request-form-phone" type="text" name="phone" value="{{ old('phone') }}" pattern="[0-9]+" required>
+                                <label class="form-label" for="request-form-phone">Telefone</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-wrap">
+                                <input class="form-input" id="request-form-email" type="email" name="email" value="{{ old('email') }}" required>
+                                <label class="form-label" for="request-form-email">E-mail</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-wrap form-wrap-outside">
+                                <!--Select 2-->
+                                <select class="form-input select-filter" id="request-form-select" data-minimum-results-for-search="Infinity" name="law_type" required>
+                                    <option value="Direito de Família" @if(old('law_type') == 'Direito de Família') selected @endif>Direito de Família</option>
+                                    <option value="Direito Empresarial" @if(old('law_type') == 'Direito Empresarial') selected @endif>Direito Empresarial</option>
+                                    <option value="Litígio Civil" @if(old('law_type') == 'Litígio Civil') selected @endif>Litígio Civil</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="form-wrap">
+                                <textarea class="form-input" id="feedback-2-message" name="message" required>{{ old('message') }}</textarea>
+                                <label class="form-label" for="feedback-2-message">Mensagem</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class="button button-block button-primary" type="submit">Solicitar Consulta Gratuita</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
               </div>
               
               </div>
               <div class="col-xl-5 d-none d-xl-block">
                   <div style="margin-top: -40px;">
-                      <img src="{{ asset('site/assets/images/home-4-472x753.png')}}" alt="" width="472" height="753"/>
+                      <img src="{{ asset('site/assets/images/imagem-contato-4-472x753.webp')}}" alt="" width="472" height="753"/>
                   </div>
               </div>
           </div>

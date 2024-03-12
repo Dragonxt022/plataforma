@@ -999,14 +999,16 @@
 		if (plugins.rdMailForm.length) {
 			var i, j, k,
 				msg = {
-					'MF000': 'Successfully sent!',
-					'MF001': 'Recipients are not set!',
-					'MF002': 'Form will not work locally!',
-					'MF003': 'Please, define email field in your form!',
-					'MF004': 'Please, define type of your form!',
-					'MF254': 'Something went wrong with PHPMailer!',
-					'MF255': 'Aw, snap! Something went wrong.'
-				};
+					// 'MF000': 'Enviado com sucesso!',
+					'MF255': 'Enviado com sucesso!',
+					'MF001': 'Destinatários não estão definidos!',
+					'MF002': 'O formulário não funcionará localmente!',
+					'MF003': 'Por favor, defina o campo de e-mail no seu formulário!',
+					'MF004': 'Por favor, defina o tipo do seu formulário!',
+					'MF254': 'Algo deu errado com o PHPMailer!',
+					// 'MF255': 'Ops! Algo deu errado.'
+					
+				}
 
 			for (i = 0; i < plugins.rdMailForm.length; i++) {
 				var $form = $(plugins.rdMailForm[i]),
@@ -1035,8 +1037,8 @@
 							if (captcha.length) {
 								var captchaToken = captcha.find('.g-recaptcha-response').val(),
 									captchaMsg = {
-										'CPT001': 'Please, setup you "site key" and "secret key" of reCaptcha',
-										'CPT002': 'Something wrong with google reCaptcha'
+										'CPT001': 'Por favor, configure sua "site key" e "secret key" do reCaptcha',
+										'CPT002': 'Algo deu errado com o reCaptcha do Google'
 									};
 
 								formHasCaptcha = true;
@@ -1073,7 +1075,7 @@
 							form.addClass('form-in-process');
 
 							if (output.hasClass("snackbars")) {
-								output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>');
+								output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Envinado...</span></p>');
 								output.addClass("active");
 							}
 						} else {

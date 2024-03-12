@@ -4,29 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class EmailController extends Controller
 {
     public function enviarEmail(Request $request)
     {
+        // Prepare os dados para o e-mail
+        $dadosEmail = [
+            'nome' => $request->input('name'),
+            'telefone' => $request->input('phone'),
+            'email' => $request->input('email'),
+            'tipo_direito' => $request->input('law_type'),
+            'mensagem' => $request->input('message'),
+        ];
 
-
-        $to = 'pissinatti2019@gmail.com'; // Substitua pelo seu endereço de e-mail
-        $subject = 'PlataformaPL'; // Assunto do e-mail
-        $message = 'Mensagem enviada do site Plataforma'; // Conteúdo do e-mail
+        // Log dos dados do e-mail
+        Log::info('Dados do e-mail a serem enviados: ' . json_encode($dadosEmail));
 
         // Envie o e-mail
-        Mail::raw($message, function ($mail) use ($to, $subject) {
-            $mail->to($to)->subject($subject);
+        Mail::send('emails.contato', $dadosEmail, function ($message) {
+            $message->to('pissinatti2019@gmail.com', 'PlataformaPL')
+                    ->subject('CONTATO - Novo e-mail');
         });
-        
 
-        $notification = [
-            'message' => 'Treinamento cadastrado com sucesso!',
-            'alert-type' => 'success',
-        ];
-        
-        // Retornar a notificação ou redirecionar para a página desejada
-        return redirect()->back()->with($notification);
+        // Retorne uma resposta de sucesso ou redirecione com uma mensagem de sucesso
+        return redirect()->back()->with('success', 'E-mail enviado com sucesso!');
+
     }
 }
