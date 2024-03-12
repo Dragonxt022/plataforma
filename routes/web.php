@@ -10,7 +10,7 @@ use App\Http\Controllers\NotasController;
 use App\Http\Controllers\InscricaoController; 
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\EmailController;
-
+use App\Http\Controllers\FrontendController;
 
 
 // Route::get('/', function () {
@@ -18,24 +18,23 @@ use App\Http\Controllers\EmailController;
 // });
 
 
-// Pagina do site
-Route::get('/', [TreinamentoController::class, 'PaginaInicio'])->name('site.pagina.inicio');
+// CONTROLE DE PAGINA DO SITE FRONTEND
+// Pagína de Início
+Route::get('/', [FrontendController::class, 'PaginaInicio'])->name('site.pagina.inicio');
 
-// PAGINA DE TREINAMENTOS
-Route::get('/treinamentos', [TreinamentoController::class, 'Listatreinamento'])->name('site.pagina.treinamentos');
+// pagina de Treinamentos e cursos 
+Route::get('/treinamentos', [FrontendController::class, 'Listatreinamento'])->name('site.pagina.treinamentos');
 
-// PAGINA DE DETALHES DOS CURSOS
-Route::get('/treinamentos/{slug}', [TreinamentoController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
+// Pagína que contem os detalhes do treinamento
+Route::get('/treinamentos/{slug}', [FrontendController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
+
+
+
+
+
 
 // controle de e-mail
-// Route::POST('/enviar-email', [EmailController::class, 'store'])->name('site.enviar.email');
 Route::post('/enviar-email', [EmailController::class, 'enviarEmail'])->name('site.enviar.email');
-
-
-
-
-
-
 
 
 Route::get('/dashboard', function () {

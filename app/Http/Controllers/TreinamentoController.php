@@ -81,31 +81,6 @@ class TreinamentoController extends Controller
 
         return view('site.treinamentos', compact('treinamentos'));
     }
-    // Pagina que lista os detalhes de cada treinamento
-    public function Detalhestreinamento($slug)
-    {
-        // Buscar o treinamento pelo slug
-        $treinamento = Treinamento::where('slug', $slug)->firstOrFail();
-
-        // Limitar o tamanho do nome para cada treinamento       
-        $treinamento->data_inicio = Carbon::parse($treinamento->data_inicio)->format('d/m/Y');
-        $treinamento->data_termino = Carbon::parse($treinamento->data_termino)->format('d/m/Y');
-
-            
-        
-
-        return view('site.Treinamentos_detalhes', compact('treinamento'));
-    }
-
-    // Página de início do site
-    public function PaginaInicio()
-    {
-        // Recuperar todos os banners
-        $banners = Banner::all();
-
-        // Passar os banners para a view
-        return view('site.inicio', compact('banners'));
-    }
 
     // Exibir formulário para criar um novo treinamento
     public function create()
