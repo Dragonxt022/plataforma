@@ -20,7 +20,7 @@
             </li>
             
             <li class="nav-item nav-category">Administrativo</li>
-            {{-- Gerenciar de treinamentos --}}
+            {{-- Gerenciar de TREINAMENTOS --}}
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#treinamentos" role="button" aria-expanded="false" aria-controls="treinamentos">
                     <i class="link-icon" data-feather="book-open"></i>
@@ -31,7 +31,7 @@
                     <ul class="nav sub-menu">
 
                         <li class="nav-item">
-                            <a href="{{ route('admin.treinamentos.index') }}" class="nav-link">Lista todos</a>
+                            <a href="{{ route('admin.treinamentos.index') }}" class="nav-link">Lista todas</a>
                         </li>
 
                         <li class="nav-item">
@@ -42,7 +42,7 @@
                 </div>
             </li>
 
-            {{-- Gerenciar de inscrições --}}
+            {{-- Gerenciar de INSCRIÇÕES --}}
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#inscricao" role="button" aria-expanded="false" aria-controls="inscricao">
                                 <i class="link-icon" data-feather="airplay"></i>
@@ -59,8 +59,10 @@
                                 </ul>
                             </div>
                         </li>
-            {{-- Gerenciar Categoria --}}
-            <li class="nav-item">
+            
+                        {{-- Gerenciar Categoria --}}
+            
+                        <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#gerenciarNotas" role="button" aria-expanded="false" aria-controls="gerenciarNotas">
                     
                     <i class="link-icon"data-feather="file"></i>
@@ -82,8 +84,28 @@
                 </div> 
             </li>
 
+            {{-- Getenciar POSTAGENS --}}
+            <li class="nav-item nav-category">POSTAGENS</li>
+            {{-- Gerenciar de treinamentos --}}
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#treinamentos" role="button" aria-expanded="false" aria-controls="treinamentos">
+                    <i class="link-icon" data-feather="pen-tool"></i>
+                    <span class="link-title">Categorias</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="treinamentos">
+                    <ul class="nav sub-menu">
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.categoria.index') }}" class="nav-link">Lista todas</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </li>
+
             <li class="nav-item nav-category">Configurações</li>
-            {{-- Gerenciar Empresas --}}
+            {{-- Gerenciar EMPRESAS --}}
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#Empresas" role="button" aria-expanded="false" aria-controls="Empresas">
                     <i class="link-icon" data-feather="trello"></i>
@@ -104,7 +126,7 @@
                 </div>
             </li>
 
-            {{-- Gerenciar Banners --}}
+            {{-- Gerenciar BANNERS --}}
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#Banners" role="button" aria-expanded="false" aria-controls="Banners">
                     <i class="link-icon" data-feather="image"></i>
@@ -121,7 +143,7 @@
                 </div>
             </li>
 
-            {{-- Gerenciar de usuários --}}
+            {{-- Gerenciar de USÚARIOS --}}
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#submenuUsuarios" role="button" aria-expanded="false" aria-controls="submenuUsuarios">
                     <i class="link-icon" data-feather="user"></i>

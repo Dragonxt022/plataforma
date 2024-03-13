@@ -38,14 +38,27 @@
               <div class="rd-navbar-nav-inner">
                 <div class="rd-navbar-btn-wrap"><a class="button button-smaller button-primary-outline" href="#">Solicitar Orçamento</a></div>
                 <ul class="rd-navbar-nav">
-                  <li class="active"><a href=" {{ route('site.pagina.inicio') }} ">Inicio</a>
+
+                  <li class="active">
+                    <a href=" {{ route('site.pagina.inicio') }} ">Inicio</a>
                   </li>
-                  <li><a href="#">Sobre nós</a>
+                  
+                  <li class="">
+                    <a href=" {{ route('site.pagina.noticias') }} ">Noticías</a>
                   </li>
-                  <li><a href=" {{ route('site.pagina.treinamentos') }}">Capacitação</a>
+
+                  <li>
+                    <a href="#">Sobre nós</a>
                   </li>
-                  <li><a href="#">Mentoria</a>
+
+                  <li>
+                    <a href=" {{ route('site.pagina.treinamentos') }}">Capacitação</a>
                   </li>
+
+                  <li>
+                    <a href="#">Mentoria</a>
+                  </li>
+
                 </ul>
               </div>
             </div>

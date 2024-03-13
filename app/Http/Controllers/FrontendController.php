@@ -39,4 +39,13 @@ class FrontendController extends Controller
         // Passar o treinamento para a view
         return view('site.Treinamentos_detalhes', compact('treinamento'));
     }
+
+    // Pagina referente sobre nós
+    public function Noticias()
+    {
+       
+
+        // Passar o treinamento para a view
+        return view('site.noticias');
+    }
 }

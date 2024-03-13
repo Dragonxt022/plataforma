@@ -3,10 +3,18 @@
 
 <div class="page">
 
+    {{-- Cabeçalho --}}
+    <section class="section-30 section-md-40 section-lg-66 section-xl-bottom-90 bg-gray-dark page-title-wrap" style="background-image: url({{ asset('site/assets/images/noticias.png')}}">
+      <div class="container">
+        <div class="page-title">
+          <h2>Noticías</h2>
+        </div>
+      </div>
+    </section>
     {{-- SESSÃO DE ÚTIMAS NOTICIAS NOTICIAS --}}
     <section class="section-50 section-md-75 section-xl-100">
       <div class="container">
-        <h3 class="text-center">Vantagens de Automatizar a Venda de Eventos Presenciais</h3>
+        <h3 class="text-center">Principais noticías</h3>
         <div class="row row-40 row-offset-1 justify-content-sm-center justify-content-md-start">
           <div class="col-sm-9 col-md-6 col-lg-4 col-xl-3">
             <article class="post-boxed">

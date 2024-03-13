@@ -11,11 +11,9 @@ use App\Http\Controllers\InscricaoController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\CategoriaPostController;
 
 
-// Route::get('/', function () {
-//     return view('site.inicio');
-// });
 
 
 // CONTROLE DE PAGINA DO SITE FRONTEND
@@ -25,11 +23,13 @@ Route::get('/', [FrontendController::class, 'PaginaInicio'])->name('site.pagina.
 // pagina de Treinamentos e cursos 
 Route::get('/treinamentos', [FrontendController::class, 'Listatreinamento'])->name('site.pagina.treinamentos');
 
+Route::get('/noticias', [FrontendController::class, 'Noticias'])->name('site.pagina.noticias');
+
 // Pagína que contem os detalhes do treinamento
 Route::get('/treinamentos/{slug}', [FrontendController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
 
 
-
+///////////////////////////////////////////////////////////
 
 
 
@@ -130,6 +130,13 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/banners/{banner}/edit', [BannerController::class, 'edit'])->name('admin.banners.edit');
     Route::put('/admin/banners/{banner}', [BannerController::class, 'update'])->name('admin.banners.update');
     Route::delete('/admin/banners/{banner}', [BannerController::class, 'destroy'])->name('admin.banners.destroy');
+
+    // Gerenciamento de categoria das postagens!
+    Route::get('/admin/poste/categoria', [CategoriaPostController::class, 'index'])->name('admin.categoria.index');
+    // Cadastra a categoria do Poste
+    Route::post('/admin/poste/categoria', [CategoriaPostController::class, 'store'])->name('admin.categorias.post.store');
+
+    
 
 
 }); // Fim do Grupo Adim pelo Middleware
