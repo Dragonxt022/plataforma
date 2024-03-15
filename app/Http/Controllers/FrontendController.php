@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\Treinamento;
 use App\Models\Banner;
 use Carbon\Carbon;
@@ -22,23 +24,107 @@ class FrontendController extends Controller
     // Página que lista os treinamentos
     public function Listatreinamento()
     {
-        // Aqui você pode adicionar a lógica para listar os treinamentos
-        return view('site.treinamentos');
+        // Buscar todos os treinamentos
+        $treinamentos = Treinamento::all();
+
+        // Converter e formatar as datas de início e término
+        foreach ($treinamentos as $treinamento) {
+            // Formatando a data de início
+            $dataInicio = Carbon::parse($treinamento->data_inicio)->isoFormat('D');
+            // Formatando a data de término
+            $dataTermino = Carbon::parse($treinamento->data_termino)->isoFormat('[ao dia] D [de] MMMM [de] YYYY');
+    
+            // Concatenando as datas no formato desejado
+            $treinamento->periodo = $dataInicio . ' ' . $dataTermino;
+        }
+
+        // Passar os treinamentos formatados para a view
+        return view('site.treinamentos', compact('treinamentos'));
     }
+
 
     // Página que exibe os detalhes de um treinamento específico
     public function Detalhestreinamento($slug)
     {
         // Buscar o treinamento pelo slug
-        $treinamento = Treinamento::where('slug', $slug)->firstOrFail();
+        $treinamentos = Treinamento::where('slug', $slug)->firstOrFail();
 
         // Limitar o tamanho do nome para cada treinamento       
-        $treinamento->data_inicio = Carbon::parse($treinamento->data_inicio)->format('d/m/Y');
-        $treinamento->data_termino = Carbon::parse($treinamento->data_termino)->format('d/m/Y');
+        $treinamentos ->data_inicio = Carbon::parse($treinamentos->data_inicio)->format('d/m/Y');
+        $treinamentos ->data_termino = Carbon::parse($treinamentos->data_termino)->format('d/m/Y');
 
         // Passar o treinamento para a view
-        return view('site.Treinamentos_detalhes', compact('treinamento'));
+        return view('site.Treinamentos_detalhes', compact('treinamentos'));
     }
+
+    // Página que exibe o formulario para realizar a inscrição
+    public function paginaFormulario(Request $request)
+    {   
+        // Supondo que $dados seja o array recebido da request com os dados do formulário
+        $dados['data_inicio'] = Carbon::parse($dados['data_inicio'], 'UTC')->format('Y-m-d');
+        $dados['data_termino'] = Carbon::parse($dados['data_termino'], 'UTC')->format('Y-m-d');
+
+        // Validar os dados recebidos
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+            'nome' => 'required|string',
+            'slug' => 'required|string',
+            'folder' => 'required|string',
+            'descricao' => 'required|string',
+            'data_inicio' => 'required|date',
+            'data_termino' => 'required|date',
+            'valor' => 'required|numeric',
+            'vagas' => 'required|integer',
+            'local' => 'required|string',
+            'id_empresa' => 'required|integer',
+            'banner' => 'required|string',
+            'docente' => 'required|string',
+            'quantidade_participantes' => 'required|integer|min:1',
+        ], [
+            'id.required' => '* ID é obrigatório.',
+            'id.integer' => '* ID deve ser um número inteiro.',
+            'nome.required' => '* Nome é obrigatório.',
+            'nome.string' => '* Nome deve ser uma string.',
+            'slug.required' => '* Slug é obrigatório.',
+            'slug.string' => '* Slug deve ser uma string.',
+            'folder.required' => '* Folder é obrigatório.',
+            'folder.string' => '* Folder deve ser uma string.',
+            'descricao.required' => '* Descrição é obrigatório.',
+            'descricao.string' => '* Descrição deve ser uma string.',
+            'data_inicio.required' => '* Data de Início é obrigatório.',
+            'data_inicio.date' => '* Data de Início deve ser uma data válida.',
+            'data_termino.required' => '* Data de Término é obrigatório.',
+            'data_termino.date' => '* Data de Término deve ser uma data válida.',
+            'valor.required' => '* Valor é obrigatório.',
+            'valor.numeric' => '* Valor deve ser um número.',
+            'vagas.required' => '* Vagas é obrigatório.',
+            'vagas.integer' => '* Vagas deve ser um número inteiro.',
+            'local.required' => '* Local é obrigatório.',
+            'local.string' => '* Local deve ser uma string.',
+            'id_empresa.required' => '* ID da Empresa é obrigatório.',
+            'id_empresa.integer' => '* ID da Empresa deve ser um número inteiro.',
+            'banner.required' => '* Banner é obrigatório.',
+            'banner.string' => '* Banner deve ser uma string.',
+            'docente.required' => '* Docente é obrigatório.',
+            'docente.string' => '* Docente deve ser uma string.',
+            'quantidade_participantes.required' => '* Quantidade de Participantes é obrigatório.',
+            'quantidade_participantes.integer' => '* Quantidade de Participantes deve ser um número inteiro.',
+            'quantidade_participantes.min' => '* Quantidade de Participantes deve ser no mínimo :min.',
+        ]);
+
+    
+        // Se a validação falhar, redirecione de volta com os erros
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        dd($request);
+
+        // Se a validação for bem-sucedida, prosseguir para a próxima página
+        return redirect()->route('site.proxima_pagina', ['dados' => $request->all()]);
+    }
+
+    
 
     // Pagina referente sobre nós
     public function Noticias()

@@ -14,6 +14,8 @@
 
     {{-- Fontes --}}
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic%7CLato:300,300italic,400,400italic,700,900%7CMerriweather:700italic">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="{{ asset('site/assets/css/fonts.css') }}">

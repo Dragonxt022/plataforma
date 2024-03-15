@@ -1,6 +1,8 @@
 @extends('site.templete')  
 @section('content')
 
+@section('title', 'Inicio - Grupo Incap')
+
 <div class="page">
 
     {{-- BANNER PRINCIPAL --}}

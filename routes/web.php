@@ -26,7 +26,9 @@ Route::get('/treinamentos', [FrontendController::class, 'Listatreinamento'])->na
 Route::get('/noticias', [FrontendController::class, 'Noticias'])->name('site.pagina.noticias');
 
 // Pagína que contem os detalhes do treinamento
-Route::get('/treinamentos/{slug}', [FrontendController::class, 'Detalhestreinamento'])->name('site.treinamentos_detalhes');
+Route::get('/treinamentos/{slug}', [FrontendController::class, 'Detalhestreinamento'])->name('site.treinamento.detalhes');
+
+Route::post('/formulario', [FrontendController::class, 'paginaFormulario'])->name('site.pagina.formulario');
 
 
 ///////////////////////////////////////////////////////////

@@ -9,18 +9,6 @@ class Treinamento extends Model
 {
     use HasFactory;
 
-    // protected $fillable = [
-    //     'nome',
-    //     'descricao',
-    //     'data_inicio',
-    //     'data_termino',
-    //     'valor',
-    //     'vagas',
-    //     'local',
-    //     'id_empresa',
-    //     'docente',
-    //     'banner',
-    // ];
     
 
     protected $guarded = [];
