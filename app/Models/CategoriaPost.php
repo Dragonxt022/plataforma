@@ -9,6 +9,6 @@ class CategoriaPost extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'sloga'];
+    protected $fillable = ['nome', 'slug'];
     
 }

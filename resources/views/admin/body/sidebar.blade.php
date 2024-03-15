@@ -97,7 +97,7 @@
                     <ul class="nav sub-menu">
 
                         <li class="nav-item">
-                            <a href="{{ route('admin.categoria.index') }}" class="nav-link">Lista todas</a>
+                            <a href="{{ route('admin.categoria.index') }}" class="nav-link">Listar de categorias</a>
                         </li>
                         
                     </ul>
@@ -115,11 +115,11 @@
                 <div class="collapse" id="Empresas">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{ route('admin.empresas.create') }}" class="nav-link">Cadastrar</a>
+                            <a href="{{ route('admin.empresas.create') }}" class="nav-link">Adicionar</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('admin.lista.empressas') }}" class="nav-link">Lista</a>
+                            <a href="{{ route('admin.lista.empressas') }}" class="nav-link">Lista Empresas</a>
                         </li>
                     </ul>
                     
@@ -154,10 +154,10 @@
                     <ul class="nav sub-menu">
 
                         <li class="nav-item">
-                            <a href="{{ route('admin.usuarios.cadastrar') }}" class="nav-link">Cadastar</a>
+                            <a href="{{ route('admin.usuarios.cadastrar') }}" class="nav-link">Adicionar</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.lista.profile') }}" class="nav-link">Lista</a>
+                            <a href="{{ route('admin.lista.profile') }}" class="nav-link">Lista de usuários</a>
                         </li>
                     </ul>
                 </div>

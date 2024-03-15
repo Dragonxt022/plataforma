@@ -135,6 +135,12 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/poste/categoria', [CategoriaPostController::class, 'index'])->name('admin.categoria.index');
     // Cadastra a categoria do Poste
     Route::post('/admin/poste/categoria', [CategoriaPostController::class, 'store'])->name('admin.categorias.post.store');
+    // Método que exclui a categoria do poste
+    Route::delete('/admin/poste/{categoria}', [CategoriaPostController::class, 'destroy'])->name('admin.categorias.post.destroy');
+    // Rota de edição
+    Route::get('/admin/poste/{categoria}/edit', [CategoriaPostController::class, 'edit'])->name('admin.categorias.post.edit');
+    // Rora  que atualiza as categorias
+    Route::put('/admin/poste/{categoria}', [CategoriaPostController::class, 'update'])->name('admin.categorias.post.update');
 
     
 

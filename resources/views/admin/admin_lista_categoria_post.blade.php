@@ -14,7 +14,7 @@
                     </div>
                 @endif
             <h4 class="card-title">Categorias</h4>
-            <p class="text-muted mb-3">Lista contendo as categorias usadas para separação de documentos.</p>
+            <p class="text-muted mb-3">Lista contendo as categorias usadas para suas postagens.</p>
 
             <div class="row">
                 <div class="col-4">
@@ -53,7 +53,7 @@
                         </div>
                         <div class="row">
                             <div class="col py-3">
-                                <p>Adicione ou edite suas categorias, para que você possa organizar seus arquivos e documentos.</p>
+                                <p>Adicione ou edite suas categorias, para que você possa organizar suas postagens e notícias.</p>
                             </div>
                         </div>
                         
@@ -79,7 +79,7 @@
                                   <td class="align-middle">{{ $categoria->nome }}</td>
                                   <td class="text-center align-middle">
                                       <button type="button" class="btn btn-primary btn-xs btn-icon mx-2">
-                                          <a href="{{ route('admin.categorias.edit', ['categoria' => $categoria->id]) }}">
+                                          <a href="{{ route('admin.categorias.post.edit', ['categoria' => $categoria->id]) }}">
                                               <i data-feather="edit" style="color: #ffffff;"></i>
                                           </a>
                                       </button>
@@ -118,11 +118,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Tem certeza que deseja excluir esta categoria? {{ $categoria->nome }} <br><br> ATENÇÃO! Se a categoria estiver vinculada com algum arquivo, esse arquivo assumira a categoria padrão do sistema.
+                Tem certeza que deseja excluir esta categoria? {{ $categoria->nome }} <br><br> ATENÇÃO! Se a categoria estiver vinculada com algum postagem, assumira a categoria padrão do sistema.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <form method="POST" action="{{ route('admin.categorias.destroy', $categoria) }}">
+                <form method="POST" action="{{ route('admin.categorias.post.destroy', $categoria) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Excluir</button>
