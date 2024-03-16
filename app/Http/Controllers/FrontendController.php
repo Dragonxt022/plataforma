@@ -60,21 +60,14 @@ class FrontendController extends Controller
     // Página que exibe o formulario para realizar a inscrição
     public function paginaFormulario(Request $request)
     {   
-        // Supondo que $dados seja o array recebido da request com os dados do formulário
-        $dados['data_inicio'] = Carbon::parse($dados['data_inicio'], 'UTC')->format('Y-m-d');
-        $dados['data_termino'] = Carbon::parse($dados['data_termino'], 'UTC')->format('Y-m-d');
 
         // Validar os dados recebidos
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
             'nome' => 'required|string',
-            'slug' => 'required|string',
-            'folder' => 'required|string',
-            'descricao' => 'required|string',
-            'data_inicio' => 'required|date',
-            'data_termino' => 'required|date',
+            'data_inicio' => 'required',
+            'data_termino' => 'required',
             'valor' => 'required|numeric',
-            'vagas' => 'required|integer',
             'local' => 'required|string',
             'id_empresa' => 'required|integer',
             'banner' => 'required|string',
@@ -118,13 +111,31 @@ class FrontendController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        dd($request);
 
-        // Se a validação for bem-sucedida, prosseguir para a próxima página
-        return redirect()->route('site.proxima_pagina', ['dados' => $request->all()]);
+        // Se a validação for bem-sucedida, armazene os dados na sessão
+        $request->session()->put('dados', $request->all());
+
+        // Em seguida, chame a função diretamente
+        return $this->formulario($request);
     }
 
-    
+
+    public function formulario()
+    {
+        // Obtenha os dados da sessão
+        $dados = session('dados');
+
+        // Faça o que você quiser com os dados
+        
+        // Por exemplo, passe os dados para a visão para exibição
+        return view('site.formulario', compact('dados'));
+    }
+
+    public function insereFormulario(Request $request){
+        
+        dd($request);
+
+    }
 
     // Pagina referente sobre nós
     public function Noticias()

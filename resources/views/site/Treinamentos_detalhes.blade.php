@@ -16,8 +16,14 @@
             box-shadow: 2px 2px 4px rgb(0 0 0 / 6%);
         }
 
+        .imagem{
+            margin-top: -35px;
+
+        }
+
         .botoes{
             margin-top: 8px;
+            cursor: pointer;
 
         }
 
@@ -29,7 +35,7 @@
             min-height: 52px;
             padding: 14px 19px;
             border: 1px solid #060bff;
-            border-radius: 25px;
+            border-radius: 5px;
             -webkit-appearance: none;
             line-height: 24px;
         }
@@ -65,59 +71,61 @@
                             {{-- formulalrio --}}
                             <form action="{{ route('site.pagina.formulario') }}" method="post">
                                 @csrf
+                                <div class="row ">
+                                    {{-- imagem --}}
+                                    
+                                    <div class="col imagem">
+                                        <img src="{{ asset('upload/cursos_images/' . $treinamentos->banner) }}" title="{{ $treinamentos->nome }}" alt="{{ $treinamentos->nome }}">
+                                    </div>
+        
+                                </div>
                                 <div class="row">
                                     <div class="col text-center">
                                         <label for="quantidade_participantes">Quantidade de Participantes:</label>
-                                        <input type="number" class="incputDados" id="quantidade_participantes" name="quantidade_participantes" min="1">
+                                        <input type="number" class="incputDados" id="quantidade_participantes" name="quantidade_participantes" min="1" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    
+                                    <div class="col">
+                                        
+                                        {{-- botão --}}
+                                        <button type="submit" class="botoes button button-block button-primary mb-2">REALIZAR INSCRIÇÃO</button>
+                                        <a class="botoes button button-block button-success mb-2" href="{{ asset('upload/folder/' . $treinamentos->folder) }}" download>BAIXAR FOLDER</a>
+
+                                    </div>
+                                    <div class="py-3">
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             
                                 <!-- Campos adicionais para os dados do treinamento -->
                                 <input type="hidden" name="id" value="{{ $treinamentos->id }}">
                                 <input type="hidden" name="nome" value="{{ $treinamentos->nome }}">
-                                <input type="hidden" name="slug" value="{{ $treinamentos->slug }}">
-                                <input type="hidden" name="folder" value="{{ $treinamentos->folder }}">
-                                <input type="hidden" name="descricao" value="{{ $treinamentos->descricao }}">
                                 <input type="hidden" name="data_inicio" value="{{ $treinamentos->data_inicio }}">
                                 <input type="hidden" name="data_termino" value="{{ $treinamentos->data_termino }}">
                                 <input type="hidden" name="valor" value="{{ $treinamentos->valor }}">
-                                <input type="hidden" name="vagas" value="{{ $treinamentos->vagas }}">
                                 <input type="hidden" name="local" value="{{ $treinamentos->local }}">
                                 <input type="hidden" name="id_empresa" value="{{ $treinamentos->id_empresa }}">
                                 <input type="hidden" name="banner" value="{{ $treinamentos->banner }}">
                                 <input type="hidden" name="docente" value="{{ $treinamentos->docente }}">
                             
-                                <div class="row">
-                                    
-                                    <div class="col">
-                                        <div class="py-3">
-                                            @if ($errors->any())
-                                                <div class="alert alert-danger">
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        {{-- botão --}}
-                                        <button type="submit" class="botoes button button-block button-primary mb-2">REALIZAR INSCRIÇÃO</button>
-                                        <a class="botoes button button-block button-success mb-2" href="{{ asset('upload/folder/' . $treinamentos->folder) }}" download>BAIXAR FOLDER</a>
-
-                                    </div>
-                                </div>
+                                
+                                
+                                
                             </form>                            
                         </div>
                         
-                        <div class="row ">
-                            {{-- imagem --}}
-                            
-                            <div>
-                                <img src="{{ asset('upload/cursos_images/' . $treinamentos->banner) }}" title="{{ $treinamentos->nome }}" alt="{{ $treinamentos->nome }}">
-                            </div>
-
-                        </div>
+                        
                         
 
                     </div>
