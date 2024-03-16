@@ -162,6 +162,32 @@
                     </ul>
                 </div>
             </li>
+
+            {{-- Gerenciar de Geral --}}
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#geral" role="button" aria-expanded="false" aria-controls="geral">
+                    <i class="link-icon" data-feather="settings"></i>
+                    <span class="link-title">Geral</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="geral">
+                    <ul class="nav sub-menu">
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Templete do Site</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.configuracao.desconto') }}" class="nav-link">Descontos automaticos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Configurações de E-mail</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Configurações Gerador PDF</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>

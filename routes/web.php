@@ -12,6 +12,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\CategoriaPostController;
+use App\Http\Controllers\DescontosAutomaticosController;
 
 
 
@@ -146,7 +147,11 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     // Rora  que atualiza as categorias
     Route::put('/admin/poste/{categoria}', [CategoriaPostController::class, 'update'])->name('admin.categorias.post.update');
 
-    
+    // pagina de esistema de descontos
+    Route::get('/admin/configuracao/desconto', [DescontosAutomaticosController::class, 'index'])->name('admin.configuracao.desconto');
+    // metodo que atualiza
+    Route::put('/admin/configuracao/desconto/{descontos}', [DescontosAutomaticosController::class, 'update'])->name('admin.configuracao.desconto.update');
+
 
 
 }); // Fim do Grupo Adim pelo Middleware
