@@ -69,7 +69,7 @@
                     <div class="col-md-6 col-lg-3 coluna2">
                         <div class="row">
                             {{-- formulalrio --}}
-                            <form action="{{ route('site.pagina.formulario') }}" method="post">
+                            <form action="{{ route('site.processa.formulario') }}" method="post">
                                 @csrf
                                 <div class="row ">
                                     {{-- imagem --}}
@@ -81,8 +81,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col text-center">
-                                        <label for="quantidade_participantes">Quantidade de Participantes:</label>
-                                        <input type="number" class="incputDados" id="quantidade_participantes" name="quantidade_participantes" min="1" required>
+                                        <label for="quantidade_inscritos">Quantidade de Participantes:</label>
+                                        <input type="number" class="incputDados" id="quantidade_inscritos" name="quantidade_inscritos" min="1" required>
                                     </div>
                                 </div>
 
@@ -113,7 +113,7 @@
                                 <input type="hidden" name="nome" value="{{ $treinamentos->nome }}">
                                 <input type="hidden" name="data_inicio" value="{{ $treinamentos->data_inicio }}">
                                 <input type="hidden" name="data_termino" value="{{ $treinamentos->data_termino }}">
-                                <input type="hidden" name="valor" value="{{ $treinamentos->valor }}">
+                            
                                 <input type="hidden" name="local" value="{{ $treinamentos->local }}">
                                 <input type="hidden" name="id_empresa" value="{{ $treinamentos->id_empresa }}">
                                 <input type="hidden" name="banner" value="{{ $treinamentos->banner }}">

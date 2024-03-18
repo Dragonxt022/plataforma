@@ -29,9 +29,17 @@ Route::get('/noticias', [FrontendController::class, 'Noticias'])->name('site.pag
 // Pagína que contem os detalhes do treinamento
 Route::get('/treinamentos/{slug}', [FrontendController::class, 'Detalhestreinamento'])->name('site.treinamento.detalhes');
 
-Route::post('/envia/pagina/formulario', [FrontendController::class, 'paginaFormulario'])->name('site.pagina.formulario');
 
-Route::post('/envia/pagina/obrigado', [FrontendController::class, 'insereFormulario'])->name('site.insere.formulario');
+Route::post('/formulario/pagina', [FrontendController::class, 'paginaFormulario'])->name('site.processa.formulario');
+
+Route::get('/formulario', [FrontendController::class, 'paginaFormulario'])->name('site.pagina.formulario');
+
+
+
+Route::post('/enviando', [FrontendController::class, 'insereFormulario'])->name('site.insere.formulario');
+
+Route::get('/obrigado', [FrontendController::class, 'obrigado'])->name('site.formulario.obrigado');
+
 
 
 ///////////////////////////////////////////////////////////

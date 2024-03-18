@@ -25,6 +25,7 @@
         label{
             color: #242452
         }
+
     </style>
 
     <div class="page">
@@ -56,7 +57,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="cnpj">CNPJ:</label>
-                                        <input type="text" class="form-control" name="cnpj" id="cnpj" value="RR Pereira silva" required="">
+                                        <input type="text" class="form-control" name="cnpj" id="cnpj" value="023545687988" required="">
                                         <span id="cnpj-validation-message"></span>
                                     </div>
 
@@ -150,7 +151,7 @@
                                             <div class="col-md-8">
                                               <!-- Div para o texto -->
                                               <div class="form-group">
-                                                <p><span class="font-weight-bold textoColuna">{{ session('dados')['nome'] }} x {{ session('dados')['quantidade_participantes'] }}</span></p>
+                                                <p><span class="font-weight-bold textoColuna">{{ session('dados')['nome'] }} x {{ session('dados')['quantidade_inscritos'] }}</span></p>
                                               </div>
                                             </div>
                                           </div>
@@ -158,10 +159,13 @@
                                           
                                         <hr>
                                         <div class="card p-3 resumo">
-                                            <h6 class="text-success"><i class="bi bi-cash"></i> Subtotal: R$ 1.650,00</h6>
-                                            <h6 class="text-danger"><i class="bi bi-currency-dollar"></i> Desconto: R$ 0,00</h6>
-                                            <h6 class="text-primary"><i class="bi bi-cash-coin"></i> Total: R$ 1.650,00</h6>
+                                            <p>Resumo do Orçamento</p>
+                                            <h6 class="text-dark"><i class="bi bi-cash"></i> Subtotal: R$ {{ number_format(session('dados')['subtotal'], 2, ',', '.') }}</h6>
+                                            <h6 class="text-danger"><i class="bi bi-currency-dollar"></i> Desconto: R$ {{ number_format(session('dados')['desconto'], 2, ',', '.') }}</h6>
+                                            <h6 class="text-success"><i class="bi bi-cash-coin"></i> Total: R$ {{ number_format(session('dados')['total'], 2, ',', '.') }}</h6>
                                         </div>
+                                        
+                                        
                                         
                                         
                                         <div class="m-2 py-3 aviso">
@@ -171,7 +175,6 @@
                                             <button type="submit" class="btn btn-block">Confirmar inscrição</button>
 
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -190,19 +193,20 @@
                     </div>
 
                     {{-- OUTRAS INFORMAÇÕES --}}
-                    <input type="hidden" name="id" value="{{ session('dados')['id'] }}">
+                    <input type="hidden" name="id_treinamento" value="{{ session('dados')['id'] }}">
                     <input type="hidden" name="nome" value="{{ session('dados')['nome'] }}">
                     <input type="hidden" name="data_inicio" value="{{ session('dados')['data_inicio'] }}">
                     <input type="hidden" name="data_termino" value="{{ session('dados')['data_termino'] }}">
-                    <input type="hidden" name="valor" value="{{ session('dados')['valor'] }}">
+
                     <input type="hidden" name="local" value="{{ session('dados')['local'] }}">
                     <input type="hidden" name="id_empresa" value="{{ session('dados')['id_empresa'] }}">
                     <input type="hidden" name="banner" value="{{ session('dados')['banner'] }}">
                     <input type="hidden" name="docente" value="{{ session('dados')['docente'] }}">
-                    <input type="hidden" name="quantidade_participantes" id="quantidade_participantes" value="{{ session('dados')['quantidade_participantes'] }}">  
+                    <input type="hidden" name="quantidade_inscritos" id="quantidade_inscritos" value="{{ session('dados')['quantidade_inscritos'] }}">  
 
                 
             </form>
+            
         </section>
     </div>
 
@@ -211,7 +215,7 @@
 <script class="text/javascript">
     // Função para gerar os campos de nome, telefone e e-mail para cada participante
     function gerarCamposParticipantes() {
-        var quantidadeParticipantes = document.getElementById('quantidade_participantes').value;
+        var quantidadeParticipantes = document.getElementById('quantidade_inscritos').value;
         var participantesDiv = document.getElementById('participantes');
         participantesDiv.innerHTML = ''; // Limpa os campos anteriores
 

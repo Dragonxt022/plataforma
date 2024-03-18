@@ -22,7 +22,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_empresa');
             $table->string('pdf_caminho')->nullable();
             $table->unsignedBigInteger('id_treinamento');
-            $table->string('nome_empresa');
             $table->date('data_inicio');
             $table->string('nome_juridico');
             $table->string('cnpj');
@@ -33,6 +32,7 @@ return new class extends Migration
             $table->string('numero');
             $table->string('responsavel');
             $table->string('telefone');
+            $table->string('acessibilidade');
             $table->string('email');
             $table->date('data_realizacao');
             $table->enum('status', ['Processando', 'Concluido', 'Cancelado'])->default('Processando'); // Corrigindo o typo em "Concluído"
