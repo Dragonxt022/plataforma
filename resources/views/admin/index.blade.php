@@ -36,7 +36,7 @@
                 <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
-                    <h6 class="card-title mb-0">NOVOS CLIENTES</h6>
+                    <h6 class="card-title mb-0">Inscrições diárias</h6>
                     
                     </div>
                     <div class="row">
@@ -107,7 +107,7 @@
     </div> <!-- row -->
 
     <div class="row">
-        <div class="col-lg-12 col-xl-12 grid-margin stretch-card">
+        <div class="col-lg-6 col-xl-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline mb-2">
@@ -126,6 +126,19 @@
                     <p class="text-muted">Realatório detalhado referente ao desempenho, informações obitidas do banco de dados de acordo com suas inscrições. Sómente informações com status de canselado não será contabilizada.</p>
                     <div id="monthlySalesChart"></div>
                 </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-4 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-baseline mb-2">
+                    <h6 class="card-title mb-0">Desenpneho</h6>
+                    </div>
+                    <div id="apexDonut"></div>
+                    
+                    <p class="text-muted text-center"><span class="text-warning">Processando</span> , <span class="text-success">Concluido</span>, <span class="text-danger">Cancelados</span>, <span class="text-primary">Descontos</span>.</p>
+                    <p class="text-muted"><br>Tenha um relátorio completo anual do desempenho de suas inscrições.</p>
+                </div>
             </div>
         </div>
         
@@ -237,34 +250,66 @@
                 <div class="table-responsive  py-4">
                     <table class="table table-hover mb-0">
                         <thead>
-                        <tr>
-                            <th class="pt-0">ID</th>
-                            <th class="pt-0"> </th>
-                            <th class="pt-0">Nome do curso</th>
-                            <th class="pt-0">Data de inicio</th>
-                            <th class="pt-0">Status</th>
-                            <th class="pt-0">Qt</th>
-                            <th class="pt-0">Valor total</th>
-                        </tr>
+                            <tr>
+                                <th class="pt-0">ID</th>
+                                <th class="pt-0"> </th>
+                                <th class="pt-0">Nome</th>
+                                <th class="pt-0">Status</th>
+                                <th class="pt-0">Qt</th>
+                                <th class="pt-0">Total</th>
+                                
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>img</td>
-                            <td>Treinamento de Saneamento basico e suas</td>
-                            <td>09/11/2024</td>
-                            <td><span class="badge bg-warning">Andamento</span></td>
-                            <td>62</td>
-                            <td>R$ 50.00,00</td>
-                        </tr>
-                        
+                            @foreach($estatisticasTreinamentos as $estatistica)
+                            <tr>
+                                <td>{{ $estatistica['id'] }}</td>
+                                
+                                <td><img src="{{ $estatistica['imagem'] }}" alt="Imagem do Curso" style="max-width: 100px;"></td>
+                                
+                                <td title="{{ $estatistica['nome'] }}">{{ Str::limit($estatistica['nome'], 30) }}</td>
+                                <td>
+                                    @if(\Carbon\Carbon::parse($estatistica['data_inicio'])->isPast())
+                                        <span class="badge bg-secondary">Encerrado</span>
+                                    @else
+                                        <span class="badge bg-warning">Andamento</span>
+                                    @endif
+                                </td>
+                                <td>{{ $estatistica['quantidade_inscritos'] }}</td>
+                                <td>R$ {{ number_format($estatistica['valor_total_vendido'], 2, ',', '.') }}</td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div>                
             </div> 
         </div>
     </div>
     </div> <!-- row -->
 </div>
+
+<script>
+    var options = {
+  // Definições do gráfico
+    };
+
+    $.ajax({
+    url: "{{ route('vendas-por-mes') }}",
+    type: "GET",
+    success: function(response) {
+        // Atualizar os dados do gráfico com os dados recebidos da resposta
+        options.series[0].data = response.valores;
+        options.xaxis.categories = response.labels;
+
+        // Renderizar o gráfico com os novos dados
+        var apexBarChart = new ApexCharts(document.querySelector("#monthlySalesChart"), options);
+        apexBarChart.render();
+    },
+    error: function(xhr, status, error) {
+        console.error(error);
+    }
+    });
+
+</script>
 
 @endsection

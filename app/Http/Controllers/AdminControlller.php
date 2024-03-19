@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+use App\Http\Controllers\AnalyticsController;
 
 use App\Models\User;
 
@@ -14,7 +17,12 @@ class AdminControlller extends Controller
 {
    public function AdminDashboard(){
 
-    return view('admin.index');
+    
+    $analyticsController = new AnalyticsController();
+    $estatisticasTreinamentos = $analyticsController->calcularEstatisticasTreinamentos();
+
+    // Retornar a view com os dados
+    return view('admin.index', ['estatisticasTreinamentos' => $estatisticasTreinamentos]);
 
    } // loga no Dashborard
 

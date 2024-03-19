@@ -494,7 +494,7 @@ $(function() {
       dataLabels: {
         enabled: false
       },
-      series: [44, 55, 13, 33]
+      series: [110, 55, 13, 33]
     };
     
     var chart = new ApexCharts(document.querySelector("#apexPie"), options);

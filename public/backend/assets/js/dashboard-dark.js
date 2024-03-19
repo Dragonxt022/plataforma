@@ -15,6 +15,7 @@ $(function() {
     muted          : "#7987a1",
     gridBorder     : "rgba(77, 138, 240, .15)",
     bodyColor      : "#b8c3d9",
+    cortext        : "#ffffff",
     cardBg         : "#0c1427"
   }
 
@@ -196,38 +197,136 @@ $(function() {
   // Date Picker - END
 
 
+  // Apex Donut chart start
+  if ($('#apexDonut').length) {
+      $.ajax({
+          url: '/admin/informacoes-inscricoes',
+          method: 'GET',
+          success: function(data) {
+            var totalProcessando = parseFloat(data.totalProcessando.replace(',', '.'));
+            var totalConcluido = parseFloat(data.totalConcluido.replace(',', '.'));
+            var totalCancelado = parseFloat(data.totalCancelado.replace(',', '.'));
+            var totalDescontos = parseFloat(data.totalDescontos.replace(',', '.'));
+        
+            // Formate os valores para o formato de moeda brasileira
+            totalProcessando = totalProcessando.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            totalConcluido = totalConcluido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            totalCancelado = totalCancelado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            totalDescontos = totalDescontos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        
+            // Crie um array de objetos com os valores e rótulos correspondentes
+            var seriesData = [
+                { value: totalProcessando, label: 'Dados-1' },
+                { value: totalConcluido, label: 'Dados-2' },
+                { value: totalCancelado, label: 'Dados-3' },
+                { value: totalDescontos, label: 'Dados-4' }
+            ];
+        
+            var options = {
+                chart: {
+                    height: 300,
+                    type: "donut",
+                    foreColor: colors.cortext,
+                    background: colors.cardBg,
+                    toolbar: {
+                        show: false
+                    },
+                },
+                theme: {
+                    mode: 'dark'
+                },
+                tooltip: {
+                    theme: 'dark'
+                },
+                stroke: {
+                    colors: ['rgba(0,0,0,0)']
+                },
+                colors: [colors.warning, colors.success, colors.danger, colors.info],
+                legend: {
+                    show: true,
+                    position: "top",
+                    horizontalAlign: 'center',
+                    fontFamily: fontFamily,
+                    itemMargin: {
+                        horizontal: 8,
+                        vertical: 0
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                series: seriesData.map(function(item) {
+                    return parseFloat(item.value.replace(/[^\d.-]/g, ''));
+                }),
+                labels: seriesData.map(function(item) {
+                    return item.label;
+                })
+            };
+        
+            var chart = new ApexCharts(document.querySelector("#apexDonut"), options);
+            chart.render();
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro ao obter os dados:', error);
+        }
+        
+      });
+  }
 
+
+  // Apex Donut chart start
 
 
   // Gráfico de Novos Clientes
-if ($('#customersChart').length) {
-  var opcoes1 = {
-      chart: {
-          type: "line",
-          height: 60,
-          sparkline: {
-              enabled: !0
+  if ($('#customersChart').length) {
+      // Fazer a requisição AJAX para obter os dados da rota
+      $.ajax({
+          url: '/admin/participantes-por-dia-do-mes',
+          method: 'GET',
+          success: function(data) {
+              // Converter os dados recebidos para o formato esperado pelo gráfico
+              var seriesData = [];
+              var categories = [];
+              $.each(data, function(diaMes, quantidade) {
+                  categories.push(diaMes);
+                  seriesData.push(quantidade);
+              });
+
+              // Configurar as opções do gráfico com os dados recebidos
+              var options = {
+                  chart: {
+                      type: "line",
+                      height: 60,
+                      sparkline: {
+                          enabled: !0
+                      }
+                  },
+                  series: [{
+                      name: '',
+                      data: seriesData
+                  }],
+                  xaxis: {
+                      categories: categories
+                  },
+                  stroke: {
+                      width: 2,
+                      curve: "smooth"
+                  },
+                  markers: {
+                      size: 0
+                  },
+                  colors: [colors.primary],
+              };
+
+              // Renderizar o gráfico com as opções configuradas
+              new ApexCharts(document.querySelector("#customersChart"), options).render();
+          },
+          error: function(xhr, status, error) {
+              console.error('Erro ao obter os dados da rota:', error);
           }
-      },
-      series: [{
-          name: '',
-          data: [3844, 3855, 3841, 3867, 3822, 3843, 3821, 3841, 3856, 3827, 3843]
-      }],
-      xaxis: {
-          type: 'datetime',
-          categories: ["Jan 01 2022", "Jan 02 2022", "Jan 03 2022", "Jan 04 2022", "Jan 05 2022", "Jan 06 2022", "Jan 07 2022", "Jan 08 2022", "Jan 09 2022", "Jan 10 2022", "Jan 11 2022"],
-      },
-      stroke: {
-          width: 2,
-          curve: "smooth"
-      },
-      markers: {
-          size: 0
-      },
-      colors: [colors.primary],
-  };
-  new ApexCharts(document.querySelector("#customersChart"), opcoes1).render();
-}
+      });
+  }
+
 
   // New Customers Chart - END
 
@@ -488,7 +587,7 @@ if ($('#customersChart').length) {
 
 
 
-  // Monthly Sales Chart
+  // Monthly Sales Chart - PRONTO
   if($('#monthlySalesChart').length) {
     var options = {
       chart: {
@@ -524,11 +623,11 @@ if ($('#customersChart').length) {
       },
       series: [{
         name: 'Vendas',
-        data: [152,109,93,113,126,161,188,143,102,113,116,124]
+        data: []
       }],
       xaxis: {
-        type: 'datetime',
-        categories: ['01/01/2022','02/01/2022','03/01/2022','04/01/2022','05/01/2022','06/01/2022','07/01/2022', '08/01/2022','09/01/2022','10/01/2022', '11/01/2022', '12/01/2022'],
+        type: 'category',
+        categories: [],
         axisBorder: {
           color: colors.gridBorder,
         },
@@ -538,7 +637,7 @@ if ($('#customersChart').length) {
       },
       yaxis: {
         title: {
-          text: 'Número de vendas',
+          text: 'Inscritos por Mês',
           style:{
             size: 9,
             color: colors.muted
@@ -577,9 +676,31 @@ if ($('#customersChart').length) {
         },
       },
     }
+
+    // Fazer a solicitação AJAX para obter os dados das vendas por mês
+    $.ajax({
+      url: "/admin/participantes-por-mes",
+      type: "GET",
+        success: function (response) {
+          // Verificar se a resposta contém os dados esperados
+          if (response && response.valores && response.valores.length > 0) {
+              // Atualizar os dados do gráfico com os dados recebidos da resposta
+              options.series[0].data = response.valores;
+              options.xaxis.categories = response.labels;
+      
+              // Renderizar o gráfico com os novos dados
+              var apexBarChart = new ApexCharts(document.querySelector("#monthlySalesChart"), options);
+              apexBarChart.render();
+          } else {
+              console.error("Os dados da resposta da solicitação AJAX não estão no formato esperado.");
+          }
+      },
     
-    var apexBarChart = new ApexCharts(document.querySelector("#monthlySalesChart"), options);
-    apexBarChart.render();
+      error: function (xhr, status, error) {
+          console.error(error);
+      }
+    });
+    
   }
   // Monthly Sales Chart - END
 

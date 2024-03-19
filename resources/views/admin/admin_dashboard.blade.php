@@ -86,7 +86,7 @@
 	<script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
 	<script src="https://cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json"></script>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 	<!-- End plugin js for this page -->
 
 	<!-- inject:js -->

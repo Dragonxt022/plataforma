@@ -25,6 +25,12 @@ class InscricaoController extends Controller
         // Recuperar todas as inscrições ordenadas pelo ID em ordem decrescente
         $inscricoes = Inscricoes::orderBy('id', 'desc')->get();
 
+        // Verificar se há inscrições antes de continuar
+        if ($inscricoes->isEmpty()) {
+            // Se não houver inscrições, retorne uma mensagem ou redirecione para uma página de erro
+            return view('admin.index'); // Exemplo de uma view para quando não houver inscrições
+        }
+
         // Inicializar um array para armazenar os treinamentos correspondentes
         $treinamentos = [];
 
@@ -70,6 +76,27 @@ class InscricaoController extends Controller
 
         return view('admin.admin_lista_inscricoes', compact('inscricoes', 'treinamento'));
     }
+
+    public function dataTable(Request $request)
+    {
+        // Recuperar os dados das inscrições
+        $inscricoes = Inscricoes::all();
+
+        // Formatar os dados no formato esperado pelo DataTables
+        $dadosFormatados = [
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $inscricoes->count(),
+            'recordsFiltered' => $inscricoes->count(),
+            'data' => $inscricoes,
+        ];
+
+        // Retornar os dados formatados como uma resposta JSON
+        return response()->json($dadosFormatados);
+    }
+
+
+
+    
     // Método para alterar o status da inscrição
     public function alterarStatus(Request $request, $id)
     {

@@ -13,6 +13,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\CategoriaPostController;
 use App\Http\Controllers\DescontosAutomaticosController;
+use App\Http\Controllers\AnalyticsController;
 
 
 
@@ -123,6 +124,11 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     // Gerenciamento de Inscrições
     Route::get('/admin/inscricoes/lista', [InscricaoController::class, 'index'])->name('admin.inscricoes.index');
+    //  Otimiza pesquisa de inscrições
+    Route::post('/admin/datatable/inscricoes', [InscricaoController::class, 'dataTable'])->name('admin.datatable.inscricoes');
+   
+
+   
     // Altera o status da ficha de inscrição
     Route::put('/admin/inscricoes/{id}/alterar-status', [InscricaoController::class, 'alterarStatus'])->name('admin.alterar.status');
     Route::get('/admin/inscricoes/criar', [InscricaoController::class, 'create'])->name('admin.inscricoes.create');
@@ -159,6 +165,15 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/configuracao/desconto', [DescontosAutomaticosController::class, 'index'])->name('admin.configuracao.desconto');
     // metodo que atualiza
     Route::put('/admin/configuracao/desconto/{descontos}', [DescontosAutomaticosController::class, 'update'])->name('admin.configuracao.desconto.update');
+
+    // AnalyticsController
+    // analiza Todos os mêses do ano
+    Route::get('/admin/participantes-por-mes', [AnalyticsController::class, 'participantesPorMes'])->name('vendas-por-mes');
+    // analiza todos os dias do mês
+    Route::get('/admin/participantes-por-dia-do-mes', [AnalyticsController::class, 'participantesPorDiaMes'])->name('participantes-por-dia-do-mes');
+    // Informações de Ganhos, perdas e descontos dados.
+    Route::get('/admin/informacoes-inscricoes', [AnalyticsController::class, 'informacoesInscricoes'])->name('informacoes-inscricoes');
+
 
 
 

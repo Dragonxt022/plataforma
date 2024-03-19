@@ -97,14 +97,29 @@
 
 <script>
   $(document).ready(function() {
-        $('#dataTabelatreinamento').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json"
-            },
-            "order": [[3, "desc"]]
-        });
-    });
+      $('#dataTabelatreinamento').DataTable({
+          "language": {
+              "url": "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json"
+          },
+          "processing": true,
+          "serverSide": true,
+          "ajax": {
+              "url": "{{ route('admin.datatable.inscricoes') }}",
+              "type": "POST",
+              "success": function(response) {
+                  console.log(response); // Verificar os dados recebidos no console
+              }
+          },
+          "order": [[3, "desc"]],
+          "columns": [
+              { "data": "id" },
+              // Adicione mais colunas conforme necessário
+          ]
+      });
+  });
+
 </script>
+  
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
