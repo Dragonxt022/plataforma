@@ -15,16 +15,29 @@ use App\Models\User;
 
 class AdminControlller extends Controller
 {
-   public function AdminDashboard(){
+  public function AdminDashboard()
+  {
+      // Instanciar o AnalyticsController para acessar as funções
+      $analyticsController = new AnalyticsController();
+      
+      // Chamar a função calcularEstatisticasTreinamentos() para obter os dados
+      $estatisticasTreinamentos = $analyticsController->calcularEstatisticasTreinamentos();
+      
+      // Chamar a função calcularParticipantesMesAtual() para obter os dados
+      $participantesMesAtual = $analyticsController->calcularParticipantesMesAtual();
 
-    
-    $analyticsController = new AnalyticsController();
-    $estatisticasTreinamentos = $analyticsController->calcularEstatisticasTreinamentos();
-
-    // Retornar a view com os dados
-    return view('admin.index', ['estatisticasTreinamentos' => $estatisticasTreinamentos]);
-
-   } // loga no Dashborard
+      // Calcula o valor total das inscrições do Mês de me retorna o valor total e o valor de diferença do mês passado
+      $dadosGanhosMensais = $analyticsController->calcularTotalInscricoesMesAtual();
+      
+      
+      // Retornar a view com os dados
+      return view('admin.index', [
+          'estatisticasTreinamentos' => $estatisticasTreinamentos,
+          'participantesMesAtual' => $participantesMesAtual,
+          'dadosGanhosMensais' => $dadosGanhosMensais,
+      ]);
+  }
+  
 
    public function AdminLogout(Request $request){
         Auth::guard('web')->logout();

@@ -3,7 +3,8 @@
         <i data-feather="menu"></i>
     </a>
     <div class="navbar-content">
-        <form class="search-form">
+        <form class="search-form" action="{{ route('admin.base.pesquisar') }}" method="GET">
+            @csrf
             <div class="input-group">
                 <div class="input-group-text">
                     <i data-feather="search"></i>

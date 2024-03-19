@@ -126,7 +126,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/inscricoes/lista', [InscricaoController::class, 'index'])->name('admin.inscricoes.index');
     //  Otimiza pesquisa de inscrições
     Route::post('/admin/datatable/inscricoes', [InscricaoController::class, 'dataTable'])->name('admin.datatable.inscricoes');
-   
+   // Sistema de pesquisa
+   Route::get('/admin/pesquisas', [AnalyticsController::class, 'pesquisar'])->name('admin.base.pesquisar');
+
 
    
     // Altera o status da ficha de inscrição
@@ -173,6 +175,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/participantes-por-dia-do-mes', [AnalyticsController::class, 'participantesPorDiaMes'])->name('participantes-por-dia-do-mes');
     // Informações de Ganhos, perdas e descontos dados.
     Route::get('/admin/informacoes-inscricoes', [AnalyticsController::class, 'informacoesInscricoes'])->name('informacoes-inscricoes');
+    // Calcula a quantidade de inscrito diariamente do mês vingente
+    Route::get('/admin/informacoes-inscritos-diarios', [AnalyticsController::class, 'prepararDadosGrafico'])->name('informacoes-inscritos-diarios');
 
 
 

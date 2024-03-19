@@ -36,19 +36,19 @@
                 <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
-                    <h6 class="card-title mb-0">Inscrições diárias</h6>
+                    <h6 class="card-title mb-0">Participantes diários (Mês)</h6>
                     
                     </div>
                     <div class="row">
-                    <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">3,897</h3>
-                        <div class="d-flex align-items-baseline">
-                        <p class="text-success">
-                            <span>+3.3%</span>
-                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                        </p>
+                        <div class="col-6 col-md-12 col-xl-5">
+                            <h3 class="mb-2">{{ $participantesMesAtual['quantidadeParticipantesAtual'] }}</h3>
+                            <div class="d-flex align-items-baseline">
+                                <p class="{{ $participantesMesAtual['diferencaParticipantes'] >= 0 ? 'text-success' : 'text-danger' }}">
+                                    <span>{{ $participantesMesAtual['diferencaParticipantes'] >= 0 ? '+' : '' }}{{ $participantesMesAtual['diferencaParticipantes'] }} Mês Anterior</span>
+                                    <i data-feather="{{ $participantesMesAtual['diferencaParticipantes'] >= 0 ? 'arrow-up' : 'arrow-down' }}" class="icon-sm mb-1"></i>
+                                </p>
+                            </div>
                         </div>
-                    </div>
                     <div class="col-6 col-md-12 col-xl-7">
                         <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
                     </div>
@@ -56,47 +56,34 @@
                 </div>
                 </div>
             </div>
-            <div class="col-md-4 grid-margin stretch-card">
+            <div class="col-md-4 col-xl-8 grid-margin stretch-card">
                 <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
-                    <h6 class="card-title mb-0">NOVOS PEDIDOS</h6>
+                    <h6 class="card-title mb-0">Inscrições diárias (Mês)</h6>
                     </div>
                     <div class="row">
-                    <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">35,084</h3>
-                        <div class="d-flex align-items-baseline">
-                        <p class="text-danger">
-                            <span>-2.8%</span>
-                            <i data-feather="arrow-down" class="icon-sm mb-1"></i>
-                        </p>
-                        </div>
+                    <div class="col-6 col-md-12 col-xl-4">
+                        <div class="col-6 col-md-12 col-xl-6">
+                            <h3 class="mb-2">{{ number_format($dadosGanhosMensais['totalMesAtual'], 2, ',', '.') }}</h3>
+                            <div class="d-flex align-items-baseline">
+                                @if (strpos($dadosGanhosMensais['diferencaFormatada'], '-') !== false)
+                                    <p class="text-danger">
+                                        <span>{{ $dadosGanhosMensais['diferencaFormatada'] }}</span>
+                                        <i data-feather="arrow-down" class="icon-sm mb-1"></i>
+                                    </p>
+                                @else
+                                    <p class="text-success">
+                                        <span>{{ $dadosGanhosMensais['diferencaFormatada'] }}</span>
+                                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                                    </p>
+                                @endif
+                            </div>
+                        </div>                        
+                        
                     </div>
-                    <div class="col-6 col-md-12 col-xl-7">
+                    <div class="col-8 col-md-12 col-xl-7">
                         <div id="ordersChart" class="mt-md-3 mt-xl-0"></div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                    <h6 class="card-title mb-0">CRECIMENTO</h6>
-                    </div>
-                    <div class="row">
-                    <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">89.87%</h3>
-                        <div class="d-flex align-items-baseline">
-                        <p class="text-success">
-                            <span>+2.8%</span>
-                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                        </p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-12 col-xl-7">
-                        <div id="growthChart" class="mt-md-3 mt-xl-0"></div>
                     </div>
                     </div>
                 </div>
@@ -107,12 +94,12 @@
     </div> <!-- row -->
 
     <div class="row">
-        <div class="col-lg-6 col-xl-8 grid-margin stretch-card">
+        <div class="col-lg-6 col-xl-7 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline mb-2">
-                    <h6 class="card-title mb-0">Relátorio Anual</h6>
-                    <div class="dropdown mb-2">
+                    <h6 class="card-title mb-0">Relátorio (Ano)</h6>
+                    {{-- <div class="dropdown mb-2">
                         <a type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                         </a>
@@ -121,18 +108,18 @@
                         <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Imprimir</span></a>
                         <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Baixar</span></a>
                         </div>
-                    </div>
+                    </div> --}}
                     </div>
                     <p class="text-muted">Realatório detalhado referente ao desempenho, informações obitidas do banco de dados de acordo com suas inscrições. Sómente informações com status de canselado não será contabilizada.</p>
                     <div id="monthlySalesChart"></div>
                 </div> 
             </div>
         </div>
-        <div class="col-lg-6 col-xl-4 grid-margin stretch-card">
+        <div class="col-lg-6 col-xl-5 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline mb-2">
-                    <h6 class="card-title mb-0">Desenpneho</h6>
+                    <h6 class="card-title mb-0">Desenpenho (Ano)</h6>
                     </div>
                     <div id="apexDonut"></div>
                     
@@ -150,7 +137,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-baseline mb-2">
                 <h6 class="card-title mb-0">Caixa de Mensagens</h6>
-                <div class="dropdown mb-2">
+                {{-- <div class="dropdown mb-2">
                     <a type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                     </a>
@@ -161,7 +148,7 @@
                     <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Imprimir</span></a>
                     <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Baixar</span></a>
                     </div>
-                </div>
+                </div> --}}
                 </div>
                 <div class="d-flex flex-column">
                 <a href="javascript:;" class="d-flex align-items-center border-bottom pb-3">
@@ -234,7 +221,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="d-flex justify-content-between align-items-baseline mb-2">
-                            <h6 class="card-title mb-0">Informações de desempenho</h6>
+                            <h6 class="card-title mb-0">Desenpenho do Curso</h6>
                             
                         </div>
                     </div>
@@ -242,7 +229,7 @@
                 <div class="row">
                     <div class="col">
                         <div>
-                            <p class="text-muted"> Visualize o status do seu curso a quantidade de inscrito e o valor previsto.</p>
+                            <p class="text-muted"> Visualize a quantidade de inscritos por curso até o momento.</p>
                         </div>
                     </div>
                 </div>

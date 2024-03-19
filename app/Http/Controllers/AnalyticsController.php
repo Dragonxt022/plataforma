@@ -78,25 +78,13 @@ class AnalyticsController extends Controller
 
         // Iterar sobre as inscrições e agrupar os dados por mês
         foreach ($inscricoes as $inscricao) {
-            $dataRealizacao = Carbon::parse($inscricao->data_realizacao);
-            $mesAno = $dataRealizacao->format('m/Y'); // Formato: mês/ano
+            $mesAno = Carbon::parse($inscricao->created_at)->format('m/Y'); // Formato: mês/ano
 
             // Adicionar a quantidade de inscritos ao contador de participantes do mês correspondente
             if (!isset($participantesPorMes[$mesAno])) {
                 $participantesPorMes[$mesAno] = 0;
             }
             $participantesPorMes[$mesAno] += $inscricao->quantidade_inscritos;
-        }
-
-        // Preencher os meses ausentes com zero
-        $mesAtual = Carbon::now();
-        $mesAtual->subMonths(11); // Retrocede 11 meses a partir do mês atual
-        for ($i = 0; $i < 12; $i++) {
-            $mes = $mesAtual->format('m/Y');
-            if (!isset($participantesPorMes[$mes])) {
-                $participantesPorMes[$mes] = 0;
-            }
-            $mesAtual->addMonth(); // Avança para o próximo mês
         }
 
         // Ordenar o array pelos meses
@@ -117,6 +105,7 @@ class AnalyticsController extends Controller
             'valores' => $valores,
         ]);
     }
+
 
     // Analiza por dia do mês inteiro a quantidade de participante
     public function participantesPorDiaMes()
@@ -152,6 +141,32 @@ class AnalyticsController extends Controller
         return response()->json($inscritosPorDia);
     }
 
+    // Analiza a diferença de inscrições do mês atual com do mês passado
+    public function calcularParticipantesMesAtual()
+    {
+        // Obter todas as inscrições para o mês atual que não estejam canceladas
+        $inscricoes = Inscricoes::whereMonth('created_at', date('m'))
+            ->where('status', '!=', 'Cancelado')
+            ->get();
+
+        // Calcular a quantidade total de participantes do mês atual
+        $quantidadeParticipantesAtual = $inscricoes->sum('quantidade_inscritos');
+
+        // Calcular a quantidade total de participantes do mês passado (considerando os últimos 30 dias)
+        $quantidadeParticipantesMesPassado = Inscricoes::whereBetween('created_at', [now()->subDays(30), now()])
+            ->where('status', '!=', 'Cancelado')
+            ->sum('quantidade_inscritos');
+
+        // Calcular a diferença de participantes entre o mês atual e o mês passado
+        $diferencaParticipantes = $quantidadeParticipantesAtual - $quantidadeParticipantesMesPassado;
+
+        // Retornar os dados calculados
+        return [
+            'quantidadeParticipantesAtual' => $quantidadeParticipantesAtual,
+            'diferencaParticipantes' => $diferencaParticipantes,
+        ];
+    }
+
     // Informações de Ganhos perdas e descontos dados
     public function informacoesInscricoes()
     {
@@ -167,6 +182,12 @@ class AnalyticsController extends Controller
         // Calcular a soma total dos descontos dados em todas as inscrições, excluindo as com status Cancelado
         $totalDescontos = Inscricoes::where('status', '!=', 'Cancelado')->sum('desconto');
 
+        // Convertendo os valores para string '0' se eles forem zero
+        $totalProcessando = $totalProcessando != 0 ? (string)$totalProcessando : '0';
+        $totalConcluido = $totalConcluido != 0 ? (string)$totalConcluido : '0';
+        $totalCancelado = $totalCancelado != 0 ? (string)$totalCancelado : '0';
+        $totalDescontos = $totalDescontos != 0 ? (string)$totalDescontos : '0';
+
         // Montar os dados para retornar
         $dados = [
             'totalProcessando' => $totalProcessando,
@@ -178,6 +199,104 @@ class AnalyticsController extends Controller
         // Retornar os dados no formato JSON
         return response()->json($dados);
     }
+
+    // Calcula o valor total das inscrições do Mês de me retorna o valor total e o valor de diferença do mês passado
+    public function calcularTotalInscricoesMesAtual()
+    {
+        // Calcular a soma total das inscrições do mês atual excluindo as inscrições canceladas
+        $totalMesAtual = Inscricoes::whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
+            ->where('status', '!=', 'Cancelado')
+            ->sum('total');
+
+        // Calcular a soma total das inscrições do mês anterior
+        $totalMesAnterior = Inscricoes::whereMonth('created_at', now()->subMonth()->format('m'))
+            ->whereYear('created_at', now()->subMonth()->format('Y'))
+            ->sum('total');
+
+        // Calcular a diferença percentual entre os meses
+        $diferencaPercentual = 0;
+        if ($totalMesAnterior != 0) {
+            $diferencaPercentual = (($totalMesAtual - $totalMesAnterior) / $totalMesAnterior) * 100;
+        }
+
+        // Convertendo os valores para string '0' se eles forem zero
+        $totalMesAtual = $totalMesAtual != 0 ? (string) $totalMesAtual : '0';
+
+        // Formatar a diferença percentual para exibir no formato "-2.8%" ou "0%" se for igual a zero
+        $diferencaFormatada = sprintf("%.1f%%", $diferencaPercentual);
+
+        // Montar os dados para retornar
+        $dadosGanhos = [
+            'totalMesAtual' => $totalMesAtual,
+            'diferencaFormatada' => $diferencaFormatada,
+        ];
+
+        return $dadosGanhos;
+    }
+
+    // Caucula as inscrições por dia durante o mês vingente
+    public function prepararDadosGrafico()
+    {
+        // Obter todas as inscrições para o mês atual que não estejam canceladas
+        $inscricoes = Inscricoes::whereDate('created_at', '>=', now()->startOfMonth())
+            ->whereDate('created_at', '<=', now()->endOfMonth())
+            ->where('status', '!=', 'Cancelado')
+            ->get();
+
+        // Inicializar arrays para armazenar as categorias e os dados
+        $categorias = [];
+        $dados = [];
+
+        // Iterar sobre as inscrições para construir as categorias e os dados
+        foreach ($inscricoes as $inscricao) {
+            // Extrair a data da inscrição
+            $dataInscricao = $inscricao->created_at;
+
+            // Formatar a data no formato esperado pelo gráfico
+            $categoria = $dataInscricao->format('M d Y'); // Exemplo: Jan 01 2023
+            $quantidadeInscritos = $inscricao->total;
+
+            // Adicionar a categoria ao array de categorias (se ainda não estiver presente)
+            if (!in_array($categoria, $categorias)) {
+                $categorias[] = $categoria;
+            }
+
+            // Adicionar a quantidade de inscritos aos dados
+            $dados[] = $quantidadeInscritos;
+        }
+
+        // Retornar os dados formatados
+        return [
+            'categories' => $categorias,
+            'data' => $dados,
+        ];
+    }
+
+
+    // Pesquisa inscrições
+    public function pesquisar(Request $request)
+    {
+        $termo = $request->input('termo');
+
+        // Realize a busca nos modelos desejados
+        $inscricoes = Inscricoes::where('id', 'LIKE', "%$termo%")
+            ->orWhere('nome_juridico', 'LIKE', "%$termo%")
+            ->orWhere('cidade', 'LIKE', "%$termo%")
+            ->get();
+
+        $participantes = Participante::where('id', 'LIKE', "%$termo%")
+            ->orWhere('nome', 'LIKE', "%$termo%")
+            ->orWhere('email', 'LIKE', "%$termo%")
+            ->get();
+
+        // Retorne os resultados para a view
+        return view('admin.admin_resultado_pesquisa', compact('inscricoes', 'participantes'));
+    }
+
+
+
+
 
 
 

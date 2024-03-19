@@ -203,16 +203,36 @@ $(function() {
           url: '/admin/informacoes-inscricoes',
           method: 'GET',
           success: function(data) {
-            var totalProcessando = parseFloat(data.totalProcessando.replace(',', '.'));
-            var totalConcluido = parseFloat(data.totalConcluido.replace(',', '.'));
-            var totalCancelado = parseFloat(data.totalCancelado.replace(',', '.'));
-            var totalDescontos = parseFloat(data.totalDescontos.replace(',', '.'));
-        
+
+             // Verifica se os dados estão presentes e no formato esperado
+            if (data && typeof data.totalProcessando === 'string' && typeof data.totalConcluido === 'string' && typeof data.totalCancelado === 'string' && typeof data.totalDescontos === 'string') {
+                var totalProcessando = parseFloat(data.totalProcessando.replace(',', '.')) || 0;
+                var totalConcluido = parseFloat(data.totalConcluido.replace(',', '.')) || 0;
+                var totalCancelado = parseFloat(data.totalCancelado.replace(',', '.')) || 0;
+                var totalDescontos = parseFloat(data.totalDescontos.replace(',', '.')) || 0;
+            
+                
+            
+            } else {
+                console.error('Os dados recebidos não estão no formato esperado.');
+            }
+
             // Formate os valores para o formato de moeda brasileira
-            totalProcessando = totalProcessando.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            totalConcluido = totalConcluido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            totalCancelado = totalCancelado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            totalDescontos = totalDescontos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            if (typeof totalProcessando === 'number') {
+              totalProcessando = totalProcessando.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            }
+
+            if (typeof totalConcluido === 'number') {
+              totalConcluido = totalConcluido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            }
+
+            if (typeof totalCancelado === 'number') {
+              totalCancelado = totalCancelado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            }
+
+            if (typeof totalDescontos === 'number') {
+              totalDescontos = totalDescontos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            }
         
             // Crie um array de objetos com os valores e rótulos correspondentes
             var seriesData = [
@@ -241,7 +261,7 @@ $(function() {
                 stroke: {
                     colors: ['rgba(0,0,0,0)']
                 },
-                colors: [colors.warning, colors.success, colors.danger, colors.info],
+                colors: [colors.warning, colors.success, colors.danger, colors.primary],
                 legend: {
                     show: true,
                     position: "top",
@@ -253,13 +273,13 @@ $(function() {
                     },
                 },
                 dataLabels: {
-                    enabled: false
+                    enabled: true
                 },
                 series: seriesData.map(function(item) {
                     return parseFloat(item.value.replace(/[^\d.-]/g, ''));
                 }),
                 labels: seriesData.map(function(item) {
-                    return item.label;
+                  return item.value;
                 })
             };
         
@@ -272,12 +292,10 @@ $(function() {
         
       });
   }
-
-
   // Apex Donut chart start
 
 
-  // Gráfico de Novos Clientes
+  // Gráfico de Novos Clientes - PRONTO
   if ($('#customersChart').length) {
       // Fazer a requisição AJAX para obter os dados da rota
       $.ajax({
@@ -326,41 +344,60 @@ $(function() {
           }
       });
   }
-
-
-  // New Customers Chart - END
+  // New Customers Chart - Pronto
 
 
 
 
   // Orders Chart
   if($('#ordersChart').length) {
-    var options2 = {
-      chart: {
-        type: "bar",
-        height: 60,
-        sparkline: {
-          enabled: !0
-        }
+    // Fazer solicitação AJAX para a rota
+    $.ajax({
+      url: '/admin/informacoes-inscritos-diarios',
+      method: 'GET',
+      success: function(response) {
+          // Dados recebidos com sucesso
+          if ($('#ordersChart').length) {
+              var options2 = {
+                  chart: {
+                      type: "bar",
+                      height: 60,
+                      sparkline: {
+                          enabled: !0
+                      }
+                  },
+                  plotOptions: {
+                      bar: {
+                          borderRadius: 2,
+                          columnWidth: "60%"
+                      }
+                  },
+                  colors: [colors.primary],
+                  series: [{
+                      name: '',
+                      data: response.data // Usar os dados recebidos da rota
+                  }],
+                  xaxis: {
+                      type: 'datetime',
+                      categories: response.categories // Usar as categorias recebidas da rota
+                  },
+              };
+
+              // Renderizar o gráfico com os dados atualizados
+              new ApexCharts(document.querySelector("#ordersChart"), options2).render();
+          }
       },
-      plotOptions: {
-        bar: {
-          borderRadius: 2,
-          columnWidth: "60%"
-        }
-      },
-      colors: [colors.primary],
-      series: [{
-        name: '',
-        data: [36, 77, 52, 90, 74, 35, 55, 23, 47, 10, 63]
-      }],
-      xaxis: {
-        type: 'datetime',
-        categories: ["Jan 01 2022", "Jan 02 2022", "Jan 03 2022", "Jan 04 2022", "Jan 05 2022", "Jan 06 2022", "Jan 07 2022", "Jan 08 2022", "Jan 09 2022", "Jan 10 2022", "Jan 11 2022",],
-      },
-    };
-    new ApexCharts(document.querySelector("#ordersChart"),options2).render();
+      error: function(xhr, status, error) {
+          // Tratar erros, se necessário
+          console.error(error);
+      }
+    });
+
   }
+
+  
+
+
   // Orders Chart - END
 
 
@@ -622,7 +659,7 @@ $(function() {
         }
       },
       series: [{
-        name: 'Vendas',
+        name: 'Inscrições',
         data: []
       }],
       xaxis: {
@@ -679,27 +716,32 @@ $(function() {
 
     // Fazer a solicitação AJAX para obter os dados das vendas por mês
     $.ajax({
-      url: "/admin/participantes-por-mes",
-      type: "GET",
-        success: function (response) {
-          // Verificar se a resposta contém os dados esperados
-          if (response && response.valores && response.valores.length > 0) {
-              // Atualizar os dados do gráfico com os dados recebidos da resposta
-              options.series[0].data = response.valores;
-              options.xaxis.categories = response.labels;
-      
-              // Renderizar o gráfico com os novos dados
-              var apexBarChart = new ApexCharts(document.querySelector("#monthlySalesChart"), options);
-              apexBarChart.render();
-          } else {
-              console.error("Os dados da resposta da solicitação AJAX não estão no formato esperado.");
-          }
-      },
+        url: "/admin/participantes-por-mes",
+        type: "GET",
+        success: function(response) {
+            // Verificar se a resposta contém os dados esperados
+            if (response && response.valores && response.valores.length > 0 && response.labels && response.labels.length > 0) {
+                // Atualizar os dados do gráfico com os dados recebidos da resposta
+                if (options.series[0] !== undefined) {
+                    options.series[0].data = response.valores;
+
+
+                }
+                options.xaxis.categories = response.labels;
     
-      error: function (xhr, status, error) {
-          console.error(error);
-      }
+                // Renderizar o gráfico com os novos dados
+                var apexBarChart = new ApexCharts(document.querySelector("#monthlySalesChart"), options);
+                apexBarChart.render();
+            } else {
+                console.error("Os dados da resposta da solicitação AJAX não estão no formato esperado ou estão ausentes.");
+            }
+        },
+    
+        error: function(xhr, status, error) {
+            console.error("Erro ao fazer a solicitação AJAX:", error);
+        }
     });
+  
     
   }
   // Monthly Sales Chart - END
