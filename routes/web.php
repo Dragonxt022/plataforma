@@ -177,6 +177,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/informacoes-inscricoes', [AnalyticsController::class, 'informacoesInscricoes'])->name('informacoes-inscricoes');
     // Calcula a quantidade de inscrito diariamente do mês vingente
     Route::get('/admin/informacoes-inscritos-diarios', [AnalyticsController::class, 'prepararDadosGrafico'])->name('informacoes-inscritos-diarios');
+    // Sistema de notificação
+    Route::get('/admin/notifications', [AnalyticsController::class, 'showNotifications'])->name('notifications');
 
 
 

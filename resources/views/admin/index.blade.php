@@ -136,7 +136,7 @@
             <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-baseline mb-2">
-                <h6 class="card-title mb-0">Caixa de Mensagens</h6>
+                <h6 class="card-title mb-0 py-4">Últimas inscrições</h6>
                 {{-- <div class="dropdown mb-2">
                     <a type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
@@ -151,66 +151,26 @@
                 </div> --}}
                 </div>
                 <div class="d-flex flex-column">
-                <a href="javascript:;" class="d-flex align-items-center border-bottom pb-3">
-                    <div class="me-3">
-                    <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Leonardo Payne</h6>
-                        <p class="text-muted tx-12">12.30 PM</p>
-                    </div>
-                    <p class="text-muted tx-13">Hey! there I'm available...</p>
-                    </div>
-                </a>
-                <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                    <div class="me-3">
-                    <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Carl Henson</h6>
-                        <p class="text-muted tx-12">02.14 AM</p>
-                    </div>
-                    <p class="text-muted tx-13">I've finished it! See you so..</p>
-                    </div>
-                </a>
-                <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                    <div class="me-3">
-                    <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Jensen Combs</h6>
-                        <p class="text-muted tx-12">08.22 PM</p>
-                    </div>
-                    <p class="text-muted tx-13">This template is awesome!</p>
-                    </div>
-                </a>
-                <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                    <div class="me-3">
-                    <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Amiah Burton</h6>
-                        <p class="text-muted tx-12">05.49 AM</p>
-                    </div>
-                    <p class="text-muted tx-13">Nice to meet you</p>
-                    </div>
-                </a>
-                <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                    <div class="me-3">
-                    <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Yaretzi Mayo</h6>
-                        <p class="text-muted tx-12">01.19 AM</p>
-                    </div>
-                    <p class="text-muted tx-13">Hey! there I'm available...</p>
-                    </div>
-                </a>
+                    @foreach($ultimasInscricoes as $inscricao)
+                        <a href="javascript:;" class="d-flex align-items-center border-bottom pb-3">
+                            <div class="w-100">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center"> <!-- Adicione esta div para envolver o ícone e o texto -->
+                                        <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift icon-sm text-white"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+                                        </div>
+                                        <div> <!-- Adicione esta div para envolver o texto -->
+                                            <h6 class="text-body mb-2">{{ $inscricao->nome_juridico }}</h6>
+                                            <p class="text-muted tx-12">{{ $inscricao->created_at->format('h:i A') }}</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted tx-13">{{ $inscricao->quantidade_inscritos }} Inscritos </p>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                
+                
                 </div>
             </div>
         </div>

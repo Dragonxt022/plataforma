@@ -28,15 +28,19 @@ class AdminControlller extends Controller
 
       // Calcula o valor total das inscrições do Mês de me retorna o valor total e o valor de diferença do mês passado
       $dadosGanhosMensais = $analyticsController->calcularTotalInscricoesMesAtual();
-      
+
+      // Chamar o método ultimasInscricoes() para obter as últimas inscrições
+      $ultimasInscricoes = $analyticsController->ultimasInscricoes();
       
       // Retornar a view com os dados
       return view('admin.index', [
           'estatisticasTreinamentos' => $estatisticasTreinamentos,
           'participantesMesAtual' => $participantesMesAtual,
           'dadosGanhosMensais' => $dadosGanhosMensais,
+          'ultimasInscricoes' => $ultimasInscricoes,
       ]);
   }
+  
   
 
    public function AdminLogout(Request $request){

@@ -55,7 +55,10 @@
 		</div>
 
 		<!-- partial:partials/_sidebar.html -->
+
 		@include('admin.body.sidebar')
+
+
 		
         <!-- partial -->
 

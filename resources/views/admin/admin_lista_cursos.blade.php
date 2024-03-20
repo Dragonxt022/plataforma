@@ -101,20 +101,6 @@
           "language": {
               "url": "//cdn.datatables.net/plug-ins/2.0.0/i18n/pt-BR.json"
           },
-          "processing": true,
-          "serverSide": true,
-          "ajax": {
-              "url": "{{ route('admin.datatable.inscricoes') }}",
-              "type": "POST",
-              "success": function(response) {
-                  console.log(response); // Verificar os dados recebidos no console
-              }
-          },
-          "order": [[3, "desc"]],
-          "columns": [
-              { "data": "id" },
-              // Adicione mais colunas conforme necessário
-          ]
       });
   });
 

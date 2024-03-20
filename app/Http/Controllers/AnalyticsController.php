@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
 
 // models
 use App\Models\Inscricoes;
 use App\Models\Participante;
 use App\Models\Treinamento;
+use App\Models\Notification;
 
 class AnalyticsController extends Controller
 {   
@@ -292,6 +294,25 @@ class AnalyticsController extends Controller
 
         // Retorne os resultados para a view
         return view('admin.admin_resultado_pesquisa', compact('inscricoes', 'participantes'));
+    }
+
+    // Sistema de notificação
+    public function showNotifications()
+    {
+        // Recupere as notificações ordenadas pela data de criação, mais recente primeiro
+        $notifications = Notification::orderBy('created_at', 'desc')->take(6)->get();
+    
+        // Retorne a view da sua sidebar (admin.body.sidebar.blade.php) e passe as notificações como um parâmetro
+        return view('admin.body.sidebar', ['notifications' => $notifications]);
+    }
+
+    public function ultimasInscricoes()
+    {
+        // Recupere as últimas 6 inscrições realizadas, ordenadas pela data de criação, mais recente primeiro
+        $ultimasInscricoes = Inscricoes::orderBy('created_at', 'desc')->take(6)->get();
+
+        // Retorne as últimas inscrições
+        return $ultimasInscricoes;
     }
 
 

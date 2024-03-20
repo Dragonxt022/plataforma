@@ -172,7 +172,7 @@
                                         </div>
                                     </div>
                                     <input type="hidden" class="form-control" name="desconto" id="total-com-desconto" value="{{ $inscricao->desconto }}">
-                                
+                                    <input type="hidden" name="nome_treinamento" value="{{ $treinamento->nome }}">
                                 </div>
                                 
                             </div>
@@ -222,6 +222,7 @@
                                                 <input type="hidden" name="participantes[{{ $index }}][participante_id]" value="{{ $participante->id }}">
                                                 <input type="hidden" name="participantes[{{ $index }}][id_treinamento]" value="{{ $inscricao->id_treinamento }}">
                                                 <input type="hidden" name="id_treinamento" value="{{ $inscricao->id_treinamento }}">
+                                                
 
                                             </div>
                                         @endforeach
@@ -242,15 +243,22 @@
                             {{-- sublinha linha --}}
                             <div class="row py-5">
                                 <div class="col-md-12 mb-3">
-                                    <button type="submit" class="btn btn-xs btn-primary">Atualizar</button>
+                                    <button type="submit" class="btn btn-xs btn-success">Atualizar</button>
 
                                     @if(!empty($inscricao->pdf_caminho))
-                                        <a href="{{ $inscricao->pdf_caminho }}" class="btn btn-xs btn-primary" title="Baixe uma cópia da ficha de inscrição em PDF">Baixar Ficha PDF</a>
+                                        <a href="{{ asset($inscricao->pdf_caminho) }}" class="btn btn-xs btn-danger" title="Baixe uma cópia da ficha de inscrição em PDF" download>Baixar Ficha PDF</a>
                                     @else
-                                        <button class="btn btn-xs btn-danger" title="Não Arquivo presente no momento" disabled>Baixar Ficha PDF</button>
+                                        <button class="btn btn-xs btn-danger" title="Arquivo não presente no momento" disabled>Baixar Ficha PDF</button>
                                     @endif
 
-                                    <a href="#" class="btn  btn-xs btn-primary">Imprimir</a>
+
+                                    @if(!empty($inscricao->pdf_caminho))
+                                        <a href="{{ asset($inscricao->pdf_caminho) }}" class="btn btn-xs btn-primary" title="Baixe uma cópia da ficha de inscrição em PDF" target="_blank" onclick="window.open('{{ asset($inscricao->pdf_caminho) }}', '_blank'); setTimeout(function(){ window.print(); }, 1000); return false;">Imprimir Ficha PDF</a>
+                                    @else
+                                        <button class="btn btn-xs btn-danger" title="Arquivo não presente no momento" disabled>Imprimir Ficha PDF</button>
+                                    @endif
+
+
                                     <a href="#" class="btn  btn-xs btn-warning">Enviar por E-mail</a>     
                                 </div>
                             </div>

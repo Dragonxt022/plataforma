@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-
+use TCPDF;
 use Carbon\Carbon;
 
 use App\Models\Inscricoes;
 use App\Models\Treinamento;
 use App\Models\Participante;
+use App\Models\Empresa;
 
 
 
@@ -298,6 +299,8 @@ class InscricaoController extends Controller
             }
         }
         
+        // Chamando a função para gerar o PDF
+        $this->gerarPDF($request, $inscricao);
         // Retornar mensagem de sucesso
         $notification = [
             'message' => 'Ficha Atualizada.',
@@ -309,11 +312,245 @@ class InscricaoController extends Controller
         
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function gerarPDF(Request $request, Inscricoes $inscricao)
     {
-        //
+        
+        // Cria um novo objeto TCPDF
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8');
+
+        // Configurações do PDF
+        $pdf->SetCreator('Grupo Incap www.grupoincap.com.br');
+        $pdf->SetTitle('Ficha de inscrição - Grupo Incap');
+
+        // Define a fonte e o tamanho para todo o documento
+        $pdf->SetFont('helvetica', '', 8);
+
+        // Ativa o corte automático da página
+        $pdf->SetAutoPageBreak(true, 5);
+
+        // Cabeçalho
+        $pdf->AddPage();
+        $pdf->SetFont('helvetica', 'B', 12);
+
+        // Obtenha o id_empresa da inscrição
+        $idEmpresa = $inscricao->id_empresa;
+
+        // Acesse o modelo Empresa para obter o caminho das imagens do cabeçalho e rodapé
+        $empresa = Empresa::find($idEmpresa);
+
+        // Verifique se a empresa foi encontrada no banco de dados
+        if ($empresa) {
+            // Caminho completo para o cabeçalho
+            $imagePath1 = public_path('upload/empresas_images/' . $empresa->cabecalho);
+
+            // Caminho completo para o rodapé
+            $imagePath2 = public_path('upload/empresas_images/' . $empresa->rodape);
+
+            // Verifica se o cabeçalho é um arquivo PNG válido
+            if (file_exists($imagePath1)) {
+                $pdf->Image($imagePath1, 0, 0, 210, 0); // Carrega o cabeçalho
+            } else {
+                echo "Erro: O arquivo do cabeçalho não existe.";
+            }
+
+            // Verifica se o rodapé é um arquivo PNG válido
+            if (file_exists($imagePath2)) {
+                $pdf->Image($imagePath2, 0, 260, 210, 0); // Carrega o rodapé
+            } else {
+                echo "Erro: O arquivo do rodapé não existe.";
+            }
+        } else {
+            echo "Erro: Empresa não encontrada.";
+        }
+
+        $pdf->SetY(35); // Ajuste esta coordenada conforme necessário
+        
+        // Título
+        $pdf->Cell(0, 5, 'FICHA DE INSCRIÇÃO', 0, 1, 'C');
+
+        $pdf->Ln(0.1);
+
+        // Informações da inscrição
+        $pdf->SetFont('helvetica', 'B', 8);
+        
+        // Obtém os dados da inscrição
+        $nome_juridico = $inscricao->nome_juridico;
+        $cnpj = $inscricao->cnpj;
+        $telefone = $inscricao->telefone;
+        $email = $inscricao->email;
+        $cep = $inscricao->cep;
+        $cidade = $inscricao->cidade;
+        $bairro = $inscricao->bairro;
+        $rua = $inscricao->rua;
+        $numero = $inscricao->numero;
+        $inscricao_id = $inscricao->id;
+        $data_formatada_formatada = $inscricao->created_at->format('d/m/Y');
+        $responsavel = $inscricao->responsavel;
+        $quantidade_inscritos = $inscricao->quantidade_inscritos;
+        $data_inicio_formatada = \DateTime::createFromFormat('Y-m-d', $inscricao->data_inicio)->format('d/m/Y');
+        $data_termino_formatada = \DateTime::createFromFormat('Y-m-d', $inscricao->data_termino)->format('d/m/Y');
+
+        // Obtém os valores da inscrição
+        $subtotal = number_format($inscricao->subtotal, 2, ',', '.');
+        $desconto = number_format($inscricao->desconto, 2, ',', '.'); 
+        $total = number_format($inscricao->total, 2, ',', '.'); 
+        $nome_treinamento = $inscricao->nome_treinamento;
+       
+        // Obtém os dados da empresa
+        $nome_empresa = $empresa->nome;
+        $endereco_empresa = $empresa->endereco;
+        $numero_empresa = $empresa->numero;
+        $bairro_empresa = $empresa->bairro;
+        $cep_empresa = $empresa->cep;
+        $cnpj_empresa = $empresa->cnpj;
+
+        $conta_empresa = $empresa->conta;
+        $banco_empresa = $empresa->banco;
+        $beneficiario_empresa = $empresa->beneficiario;
+
+        $nome_treinamento = $request->nome_treinamento;
+        
+        $html = '
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 40%; padding: 0px;">
+                        <p>JURÍDICO/ENTIDADE: ' . $nome_juridico . '<br>CNPJ: ' . $cnpj . '<br>TELEFONE: ' . $telefone . '<br>E-MAIL: ' . $email . '<br>CEP: ' . $cep . '<br>PAIS: Brasil</p>
+                    </td>
+                    <td style="width: 25%; padding: 0px;">
+                       
+                    </td>
+                    <td style="width: 40%; padding: 0px;">
+                        <p>CIDADE: ' . $cidade . '<br>BAIRRO: ' . $bairro . '<br>RUA: ' . $rua . '<br>N°: ' . $numero . '<br>NÚMERO DA FICHA: ' . $inscricao_id . '<br>INSCRITO: ' . $data_formatada_formatada . '</p>
+                    </td>
+                </tr>
+            </table>';
+
+        // Adicione a tabela ao PDF
+        $pdf->writeHTML($html, true, false, false, false, '');
+
+        $pdf->Ln(0);
+
+        // Nome do treinamento
+        $pdf->SetFont('helvetica', 'B', 9);
+
+        $infor = "Responsável pelo empenho: $responsavel, Empresa: $nome_juridico, sua inscrição foi realizada com sucesso!";
+        $pdf->MultiCell(0, 8, $infor, 0, 'L'); // Alterado 'L' para 'C' (centralizado)
+        $pdf->SetFont('helvetica', '', 8); // Restaurar a fonte normal
+
+        $pdf->Ln(0);
+        // Defina a fonte e o tamanho
+        $pdf->SetFont('helvetica', 'B', 9);
+        $pdf->Cell(0, 8, 'Detalhes da inscrição #', 0, 1, 'L');
+
+        // Crie a tabela
+        $html = '
+        <table style="border-collapse: collapse; width: 100%;" cellpadding="5">
+        <tr style="background-color: #E6E6E6;">
+            <th style="width: 5%; padding: 10px; text-align: center;">Qtd</th>
+            <th style="width: 65%; padding: 10px;">Treinamento</th>
+            <th style="width: 15%; padding: 10px; text-align: center;">Data de Início do Treinamento</th>
+            <th style="width: 15%; padding: 10px; text-align: center;">Subtotal</th>
+        </tr>
+        <tr style="background-color: #c4c4c4;">
+            <td style="text-align: center;">' . $quantidade_inscritos . '</td>
+            <td>' . $nome_treinamento . '</td>
+            <td style="text-align: center;">' . $data_inicio_formatada . ' ao dia ' . $data_termino_formatada . '</td>
+            <td style="text-align: center;"> R$ ' . $subtotal . '</td>
+        </tr>
+        <tr style="background-color: #F5F5F5;">
+            <td></td>
+            <td >Método de pagamento:</td>
+            <td></td>
+            <td>Depósito ou<br>transferência</td>
+        </tr>
+        <tr style="background-color: #c4c4c4;">
+            <td></td>
+            <td>Desconto:</td>
+            <td></td>
+            <td style="text-align: center;">' . $desconto . '</td>
+        </tr>
+        <tr style="background-color: #F5F5F5;">
+            <td></td>
+            <td>Total:</td>
+            <td></td>
+            <td style="text-align: center;">' . $total . '</td>
+        </tr>
+        </table>';
+        // Adicione a tabela ao PDF
+        $pdf->writeHTML($html, true, false, false, false, '');
+
+        $pdf->SetFont('helvetica', 'B', 8);
+        $pdf->Cell(0, 8, 'Participantes #', 0, 1, 'L');
+
+        $html = '
+        <table style="border-collapse: collapse; width: 100%;" cellpadding="5">
+        <tr style="background-color: #E6E6E6;">
+            <th style="width: 50%;">Nome</th>
+            <th style="width: 20%;">Celular</th>
+            <th style="width: 40%;">E-mail</th>
+        </tr>';
+
+        $altura_celula = 5; // Altura padrão das células
+
+            foreach ($request->participantes as $participante) {
+                $nome = $participante['nome'];
+                $celular = $participante['celular'];
+                $email = $participante['email'];
+            
+                $html .= '<tr>';
+                $html .= '<td>' . $nome . '</td>';
+                $html .= '<td>' . $celular . '</td>';
+                $html .= '<td>' . $email . '</td>';
+                $html .= '</tr>';
+            }
+
+        $html .= '
+        </table>';
+
+        // Adicione a tabela HTML ao PDF
+        $pdf->writeHTML($html, true, false, false, false, '');
+
+
+        $pdf->Ln(0);
+
+        $pdf->SetFont('helvetica', 'B', 8);
+        $pdf->Cell(0, 8, 'Dados para empenho #', 0, 1, 'L');
+        
+        // dd($empresa);
+        $texto = "DADOS PARA O EMPENHO: $nome_empresa, localizada na $endereco_empresa, $numero_empresa - $bairro_empresa, CEP $cep_empresa, de CNPJ $cnpj_empresa.\n\nFORMA DE PAGAMENTO: Deposito ou transferência $conta_empresa, $banco_empresa em nome de $beneficiario_empresa.";
+
+        $pdf->MultiCell(0, 8, $texto, 0, 'L');
+
+        // Defina o caminho completo para a pasta onde os arquivos serão armazenados
+        $pasta_arquivos = public_path('upload/inscricao_pdf/');
+
+        // Verifique se o diretório tem permissão de escrita
+        if (!is_writable($pasta_arquivos)) {
+            echo "Erro: O diretório não tem permissão para escrita.";
+            // Adicione a lógica adicional aqui, como interromper o processo ou retornar um erro para o usuário
+        } else {
+            // Obter a data e hora atual
+            $data_hora_atual = date('Ymd_His');
+
+            // Nome do arquivo com data e hora
+            $nome_arquivo = 'Ficha_' . $inscricao->id . '_' . Str::slug($inscricao->nome_juridico) . '.pdf';
+
+            // Caminho completo para o arquivo
+            $caminho_arquivo = $pasta_arquivos . $nome_arquivo;
+
+            // Verifique se já existe um PDF associado à inscrição
+            if ($inscricao->pdf_caminho && file_exists(public_path($inscricao->pdf_caminho))) {
+                // Exclua o PDF anterior
+                unlink(public_path($inscricao->pdf_caminho));
+            }
+
+            // Saída do PDF com o nome de arquivo baseado na data e hora atual
+            $pdf->Output($caminho_arquivo, 'F');
+
+            // Atualize o caminho do PDF na tabela de inscrições
+            $inscricao->pdf_caminho = 'upload/inscricao_pdf/' . $nome_arquivo;
+            $inscricao->save();
+        }
     }
+
 }

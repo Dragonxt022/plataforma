@@ -18,7 +18,24 @@
                 $id = Auth::user()->id;
                 $profileData = App\Models\User::find($id);
 
+                // Recupere as notificações ordenadas pela data de criação, mais recente primeiro
+                $notifications = App\Models\Notification::orderBy('created_at', 'desc')->take(6)->get();
+
+                // Suponha que você tenha o ID da notificação que foi clicada
+                $notificationId = 1; // Substitua isso pelo ID real da notificação clicada
+
+                // Encontre a notificação clicada
+                $notification = $notifications->where('id', $notificationId)->first();
+
+                // Marque a notificação como lida, se encontrada
+                if ($notification) {
+                    $notification->lida = true;
+                    $notification->save();
+                }
+
             @endphp
+
+
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,6 +90,8 @@
                     </div>
                 </div>
             </li>
+
+            {{-- Sistema de mensagens --}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="bell"></i>
@@ -82,41 +101,30 @@
                 </a>
                 <div class="dropdown-menu p-0" aria-labelledby="notificationDropdown">
                     <div class="px-3 py-2 d-flex align-items-center justify-content-between border-bottom">
-                        <p>6 Novas notificações</p>
-                        <a href="javascript:;" class="text-muted">Limpar todas</a>
+                        @if(isset($notifications) && $notifications->count() > 0)
+                            <p>{{ $notifications->count() }} Notificações</p>
+                        @else
+                            <p>Nenhuma nova notificação</p>
+                        @endif
+                        
                     </div>
                     <div class="p-1">
-                        <a href="javascript:;" class="dropdown-item d-flex align-items-center py-2">
-                            <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
-                                                    <i class="icon-sm text-white" data-feather="gift"></i>
-                            </div>
-                            <div class="flex-grow-1 me-2">
-                                                    <p>Certidão Municipal - Vencida</p>
-                                                    <p class="tx-12 text-muted">30 min ago</p>
-                            </div>	
-                        </a>
-                        <a href="javascript:;" class="dropdown-item d-flex align-items-center py-2">
-                            <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
-                                                    <i class="icon-sm text-white" data-feather="alert-circle"></i>
-                            </div>
-                            <div class="flex-grow-1 me-2">
-                                <p>Adriano Silva - Fez Login</p>
-                                <p class="tx-12 text-muted">1 hrs ago</p>
-                            </div>	
-                        </a>
-                        <a href="javascript:;" class="dropdown-item d-flex align-items-center py-2">
-                            <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
-                            <img class="wd-30 ht-30 rounded-circle" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="userr">
-                            </div>
-                            <div class="flex-grow-1 me-2">
-                                <p>Sua parcela vence em 3 dias</p>
-                                <p class="tx-12 text-muted">2 sec ago</p>
-                            </div>	
-                        </a>
-                        </div>
-                        <div class="px-3 py-2 d-flex align-items-center justify-content-center border-top">
-                            <a href="javascript:;">Ver todas</a>
-                        </div>
+                        @foreach($notifications as $notification)
+                            <a href="javascript:;" class="dropdown-item d-flex align-items-center py-2">
+                                <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
+                                    <i class="icon-sm text-white" data-feather="gift"></i>
+                                </div>
+                                <div class="flex-grow-1 me-2">
+                                    <p>{{ $notification->message }}</p>
+                                    @if($notification->created_at)
+                                        <p class="tx-12 text-muted">{{ $notification->created_at->diffForHumans() }}</p>
+                                    @else
+                                        <p class="tx-12 text-muted">Data de criação não disponível</p>
+                                    @endif
+                                </div>    
+                            </a>
+                        @endforeach
+                    </div>                    
                 </div>
             </li>
             <li class="nav-item dropdown">

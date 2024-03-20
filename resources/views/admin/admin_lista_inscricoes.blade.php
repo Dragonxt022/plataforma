@@ -136,9 +136,9 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             @if(!empty($inscricao->pdf_caminho))
-                                <a href="{{ $inscricao->pdf_caminho }}" class="btn btn-xs btn-primary" title="Baixe uma cópia da ficha de inscrição em PDF">Baixar Ficha PDF</a>
+                                <a href="{{ asset($inscricao->pdf_caminho) }}" class="btn btn-xs btn-danger" title="Baixe uma cópia da ficha de inscrição em PDF" download>Baixar Ficha PDF</a>
                             @else
-                                <button class="btn btn-xs btn-primary" title="Não Arquivo presente no momento" disabled>Baixar Ficha PDF</button>
+                                <button class="btn btn-xs btn-danger" title="Arquivo não presente no momento" disabled>Baixar Ficha PDF</button>
                             @endif
                             
                             <a href="{{ route('admin.inscricoes.edit', ['inscricao' => $inscricao->id]) }}" class="btn  btn-xs btn-warning">Editar Inscrição</a>
